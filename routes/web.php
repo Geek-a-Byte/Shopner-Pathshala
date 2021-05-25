@@ -12,26 +12,29 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 Route::view('/', 'welcome');
 Auth::routes();
 
-Route::get('/login/admin', 'App\Http\Controllers\Auth\LoginController@showAdminLoginForm')->name('login.admin');
-Route::get('/login/writer', 'App\Http\Controllers\Auth\LoginController@showWriterLoginForm')->name('login.writer');
-Route::get('/register/admin', 'App\Http\Controllers\Auth\RegisterController@showAdminRegisterForm')->name('register.admin');
-Route::get('/register/writer', 'App\Http\Controllers\Auth\RegisterController@showWriterRegisterForm')->name('register.writer');
+Route::get('/login/admin', [LoginController::class, 'showAdminLoginForm']);
+Route::get('/login/writer', [LoginController::class, 'showwriterLoginForm']);
+Route::get('/register/admin', [RegisterController::class, 'showAdminRegisterForm']);
+Route::get('/register/writer', [RegisterController::class, 'showwriterRegisterForm']);
 
-Route::post('/login/admin', 'App\Http\Controllers\Auth\LoginController@adminLogin');
-Route::post('/login/writer', 'App\Http\Controllers\Auth\LoginController@writerLogin');
-Route::post('/register/admin', 'App\Http\Controllers\Auth\RegisterController@createAdmin')->name('register.admin');
-Route::post('/register/writer', 'App\Http\Controllers\Auth\RegisterController@createWriter')->name('register.writer');
-
-Route::view('/home', 'home')->middleware('auth');
-Route::group(['middleware' => 'auth:admin'], function () {
-    Route::view('/admin', 'admin');
-});
+Route::post('/login/admin', [LoginController::class, 'adminLogin']);
+Route::post('/login/writer', [LoginController::class, 'writerLogin']);
+Route::post('/register/admin', [RegisterController::class, 'createAdmin']);
+Route::post('/register/writer', [RegisterController::class, 'createwriter']);
 
 Route::group(['middleware' => 'auth:writer'], function () {
     Route::view('/writer', 'writer');
 });
+
+Route::group(['middleware' => 'auth:admin'], function () {
+
+    Route::view('/admin', 'admin');
+});
+
+Route::get('logout', [LoginController::class, 'logout']);
