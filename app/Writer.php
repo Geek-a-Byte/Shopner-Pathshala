@@ -1,4 +1,3 @@
-// app/Writer.php
 <?php
 
 namespace App;
@@ -19,4 +18,5 @@ class Writer extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    // protected $table = 'writers';
 }

@@ -1,5 +1,4 @@
- // app/Admin.php
- <?php
+<?php
 
     namespace App;
 
@@ -19,4 +18,5 @@
         protected $hidden = [
             'password', 'remember_token',
         ];
+    // protected $table = 'admins';
     }
