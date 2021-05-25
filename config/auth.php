@@ -82,11 +82,11 @@ return [
 
         'admins' => [
             'driver' => 'oracle',
-            'model' => App\Admin::class,
+            'model' => App\Models\Admin::class,
         ],
         'writers' => [
             'driver' => 'oracle',
-            'model' => App\Writer::class,
+            'model' => App\Models\Writer::class,
         ],
 
 
