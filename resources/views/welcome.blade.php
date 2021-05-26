@@ -478,7 +478,23 @@
             @auth
             <a href="{{ url('home') }}" class="text-sm text-gray-700 underline">Home</a>
             @else
-            <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
+            <div class="dropdown">
+                <button class="dropbtn">Login
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    @if (Route::has('login'))
+                    <a href="{{ route('login') }}" class="ml-4 text-sm text-gray-700 underline">User Login</a>
+                    @endif
+                    @if (Route::has('login.admin'))
+                    <a href="{{ route('login.admin') }}" class="ml-4 text-sm text-gray-700 underline">Admin Login</a>
+                    @endif
+
+                    @if (Route::has('login.writer'))
+                    <a href="{{ route('login.writer') }}" class="ml-4 text-sm text-gray-700 underline">Writer Login</a>
+                    @endif
+                </div>
+            </div>
 
             <div class="dropdown">
                 <button class="dropbtn">Register
