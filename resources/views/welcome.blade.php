@@ -129,9 +129,23 @@
             border-radius: 15px;
             border: 2px solid transparent;
             width: 200px;
-            height: 150px;
+            height: 300px;
             text-align: center;
             background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+
+        button {
+            margin: 10px;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            width: 100px;
+            height: 30px;
+            text-align: center;
+            background-image: linear-gradient(120deg, #a18cd1 0%, #fbc2eb 100%);
+        }
+
+        .user-image {
+            text-align: center;
         }
     </style>
 
@@ -187,41 +201,81 @@
     <div class="center">
         <div class="register-options">
             <div class="doctor">
-                <center>
-                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">
-                        <img src="{{URL::asset('/image/doctor.png')}}" alt="logo" height="130" width="130">
-                        <center style="padding:5px;">Doctor Register</center>
-                    </a>
-
-                </center>
+                <center style="padding:5px;">Doctor</center>
+                <div class="user-image">
+                    <center>
+                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">
+                            <img src="{{URL::asset('/image/doctor.png')}}" alt="logo" height="130" width="130">
+                        </a>
+                    </center>
+                </div>
+                <div>
+                    <button class="doctorRegisterBtn">
+                        Register
+                    </button>
+                    <button class="doctorLoginBtn">
+                        Login
+                    </button>
+                </div>
             </div>
             <div class="teacher">
-                <center>
-                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">
-                        <img src="{{URL::asset('/image/teacher.png')}}" alt="logo" height="130" width="130">
-                        <center style="padding:5px;">Teacher Register</center>
-                    </a>
+                <center style="padding:5px;">Teacher</center>
+                <div>
+                    <center>
+                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">
+                            <img src="{{URL::asset('/image/teacher.png')}}" alt="logo" height="130" width="130">
+                            <!-- <center style="padding:5px;">Teacher Register</center> -->
+                        </a>
+                    </center>
+                </div>
 
-
-                </center>
+                <div>
+                    <button class="doctorRegisterBtn">
+                        Register
+                    </button>
+                    <button class="doctorLoginBtn">
+                        Login
+                    </button>
+                </div>
             </div>
             <div class="guardian">
-                <center>
-                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">
-                        <img src="{{URL::asset('/image/mother-and-kid.png')}}" alt="logo" height="130" width="130">
-                        <center style="padding:5px;">Guardian and Child Register</center>
-                    </a>
-
-                </center>
+                <center style="padding:5px;">Guardian</center>
+                <div>
+                    <center>
+                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">
+                            <img src="{{URL::asset('/image/mother-and-kid.png')}}" alt="logo" height="130" width="130">
+                            <!-- <center style="padding:5px;">Guardian and Child Register</center> -->
+                        </a>
+                    </center>
+                </div>
+                <div>
+                    <button class="doctorRegisterBtn">
+                        Register
+                    </button>
+                    <button class="doctorLoginBtn">
+                        Login
+                    </button>
+                </div>
             </div>
             <div class="nurse">
-                <center>
-                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">
-                        <img src="{{URL::asset('/image/nurse.png')}}" alt="logo" height="130" width="130">
-                        <center style="padding:5px;">Nurse Register</center>
-                    </a>
+                <center style="padding:5px;">Nurse</center>
+                <div>
+                    <center>
+                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">
+                            <img src="{{URL::asset('/image/nurse.png')}}" alt="logo" height="130" width="130">
+                            <!-- <center style="padding:5px;">Nurse Register</center> -->
+                        </a>
+                    </center>
+                </div>
 
-                </center>
+                <div>
+                    <button class="doctorRegisterBtn">
+                        Register
+                    </button>
+                    <button class="doctorLoginBtn">
+                        Login
+                    </button>
+                </div>
             </div>
         </div>
     </div>
