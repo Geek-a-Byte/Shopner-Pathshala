@@ -32,15 +32,16 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
 //     }
 // );
 
+
 //* for admins
-Route::get('/login/admin', [LoginController::class, 'showAdminLoginForm']);
+Route::get('/login/admin', [LoginController::class, 'showAdminLoginForm'])->name('adminLogin');
 Route::get('/register/admin', [RegisterController::class, 'showAdminRegisterForm'])->name('adminRegister');
 Route::post('/register/admin', [RegisterController::class, 'createAdmin']);
 Route::post('/login/admin', [LoginController::class, 'adminLogin']);
 
 //* for writers
-Route::get('/login/writer', [LoginController::class, 'showwriterLoginForm']);
-Route::get('/register/writer', [RegisterController::class, 'showwriterRegisterForm']);
+Route::get('/login/writer', [LoginController::class, 'showwriterLoginForm'])->name('writerLogin');
+Route::get('/register/writer', [RegisterController::class, 'showwriterRegisterForm'])->name('writerRegister');
 Route::post('/login/writer', [LoginController::class, 'writerLogin']);
 Route::post('/register/writer', [RegisterController::class, 'createwriter']);
 

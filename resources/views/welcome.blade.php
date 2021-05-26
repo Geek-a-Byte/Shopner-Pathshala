@@ -485,13 +485,8 @@
                 <div class="dropdown-content">
                     @if (Route::has('login'))
                     <a href="{{ route('login') }}" class="ml-4 text-sm text-gray-700 underline">User Login</a>
-                    @endif
-                    @if (Route::has('login.admin'))
-                    <a href="{{ route('login.admin') }}" class="ml-4 text-sm text-gray-700 underline">Admin Login</a>
-                    @endif
-
-                    @if (Route::has('login.writer'))
-                    <a href="{{ route('login.writer') }}" class="ml-4 text-sm text-gray-700 underline">Writer Login</a>
+                    <a href="{{ route('adminLogin') }}" class="ml-4 text-sm text-gray-700 underline">Admin Login</a>
+                    <a href="{{ route('writerLogin') }}" class="ml-4 text-sm text-gray-700 underline">Admin Login</a>
                     @endif
                 </div>
             </div>
@@ -503,14 +498,10 @@
                 <div class="dropdown-content">
                     @if (Route::has('register'))
                     <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">User Registration</a>
-                    @endif
-                    @if (Route::has('register.admin'))
-                    <a href="{{ route('register.admin') }}" class="ml-4 text-sm text-gray-700 underline">Admin Registration</a>
+                    <a href="{{ route('adminRegister') }}" class="ml-4 text-sm text-gray-700 underline">Admin Registration</a>
+                    <a href="{{ route('writerRegister') }}" class="ml-4 text-sm text-gray-700 underline">Admin Registration</a>
                     @endif
 
-                    @if (Route::has('register.writer'))
-                    <a href="{{ route('register.writer') }}" class="ml-4 text-sm text-gray-700 underline">Writer Registration</a>
-                    @endif
                 </div>
 
 
