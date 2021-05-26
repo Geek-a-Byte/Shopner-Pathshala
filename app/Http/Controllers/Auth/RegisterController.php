@@ -59,12 +59,15 @@ class RegisterController extends Controller
         ]);
     }
 
+
+
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showAdminRegisterForm()
     {
-        return view('auth.register', ['url' => 'admin']);
+        return view('auth.admin.register', ['url' => 'admin']);
     }
 
     /**
@@ -72,7 +75,7 @@ class RegisterController extends Controller
      */
     public function showWriterRegisterForm()
     {
-        return view('auth.register', ['url' => 'writer']);
+        return view('auth.writer.register', ['url' => 'writer']);
     }
 
     /**
@@ -87,6 +90,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        return redirect()->intended('login/user');
     }
 
     /**

@@ -14,7 +14,6 @@
                         <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
                             @endisset
                             @csrf
-
                             <div class="form-group row">
                                 <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
