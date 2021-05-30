@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAccountHolderTable extends Migration
+class CreateGuardiansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateAccountHolderTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_holder', function (Blueprint $table) {
+        Schema::create('guardians', function (Blueprint $table) {
             $table->increments('acct_holder_id');
             $table->string('acct_holder_name');
             $table->string('acct_holder_email')->unique();
-            $table->string('acct_holder_password');
+            $table->string('password');
+            $table->string('acct_holder_gender');
             $table->string('acct_holder_address');
             $table->string('relation_with_child');
             $table->rememberToken();
@@ -32,6 +33,6 @@ class CreateAccountHolderTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_holder');
+        Schema::dropIfExists('guardians');
     }
 }

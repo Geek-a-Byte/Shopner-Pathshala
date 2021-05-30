@@ -23,4 +23,5 @@ class Teacher extends Authenticatable
     protected $hidden = [
         'password', 'remember_token'
     ];
+    protected $primaryKey = 'teacher_id';
 }

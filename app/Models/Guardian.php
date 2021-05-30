@@ -6,19 +6,19 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
-class Admin extends Authenticatable
+class Guardian extends Authenticatable
 {
     use Notifiable;
 
-    protected $guard = 'admin';
+    protected $guard = 'guardian';
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'acct_holder_name', 'acct_holder_email', 'password', 'acct_holder_address', 'relation_with_child',
+        'acct_holder_gender',
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
-    // protected $table = 'admins';
+    protected $primaryKey = 'acct_holder_id';
 }

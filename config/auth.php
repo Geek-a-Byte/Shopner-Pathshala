@@ -62,6 +62,11 @@ return [
             'provider' => 'teachers',
             'hash' => false,
         ],
+        'guardian' => [
+            'driver' => 'session',
+            'provider' => 'guardians',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -99,6 +104,11 @@ return [
         'teachers' => [
             'driver' => 'oracle',
             'model' => App\Models\Teacher::class,
+        ],
+
+        'guardians' => [
+            'driver' => 'oracle',
+            'model' => App\Models\Guardian::class,
         ],
 
 
@@ -145,6 +155,11 @@ return [
 
         'teachers' => [
             'provider' => 'teachers',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'guardians' => [
+            'provider' => 'guardians',
             'table' => 'password_resets',
             'expire' => 60,
         ],

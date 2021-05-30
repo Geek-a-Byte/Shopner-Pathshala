@@ -43,6 +43,7 @@ class LoginController extends Controller
         $this->middleware('guest:admin')->except('logout');
         $this->middleware('guest:writer')->except('logout');
         $this->middleware('guest:teacher')->except('logout');
+        $this->middleware('guest:guardian')->except('logout');
     }
     public function showUserLoginForm()
     {
@@ -59,6 +60,10 @@ class LoginController extends Controller
     public function showwriterLoginForm()
     {
         return view('auth.login', ['url' => 'writer']);
+    }
+    public function showGuardianLoginForm()
+    {
+        return view('auth.login', ['url' => 'guardian']);
     }
 
 
@@ -109,6 +114,27 @@ class LoginController extends Controller
         ], $request->get('remember'))) {
 
             return redirect()->intended('/teacher');
+        }
+        return back()->withInput($request->only('email', 'remember'));
+    }
+    public function guardianLogin(Request $request)
+    {
+        // {
+        //     $data = array();
+        //     $data = $request->all();
+        //     var_dump($data);
+
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('guardian')->attempt([
+            'acct_holder_email' => $request->email,
+            'password' => $request->password
+        ], $request->get('remember'))) {
+
+            return redirect()->intended('/guardian');
         }
         return back()->withInput($request->only('email', 'remember'));
     }

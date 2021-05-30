@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Admin;
 use App\Models\Writer;
 use App\Models\Teacher;
+use App\Models\Guardian;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -45,6 +46,7 @@ class RegisterController extends Controller
         $this->middleware('guest:admin');
         $this->middleware('guest:writer');
         $this->middleware('guest:teacher');
+        $this->middleware('guest:guardian');
     }
 
     /**
@@ -79,6 +81,13 @@ class RegisterController extends Controller
     public function showTeacherRegisterForm()
     {
         return view('auth.teacher.register', ['url' => 'teacher']);
+    }
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showGuardianRegisterForm()
+    {
+        return view('auth.guardian.register', ['url' => 'guardian']);
     }
 
     /**
@@ -125,6 +134,29 @@ class RegisterController extends Controller
         ]);
 
         return redirect()->intended('login/teacher');
+    }
+    protected function createGuardian(Request $request)
+    {
+        $data = array();
+        $data = $request->all();
+        var_dump($data);
+
+        // var_dump($request->email);
+        var_dump($request->password);
+        // var_dump($request->gender);
+        // var_dump($request->address);
+
+        $this->validator($request->all())->validate();
+        Guardian::create([
+            'acct_holder_name' => $request->name,
+            'acct_holder_email' => $request->email,
+            'password' => Hash::make($request->password),
+            'acct_holder_address' => $request->address,
+            'acct_holder_gender' => $request->gender,
+            'relation_with_child' => $request->relation,
+        ]);
+
+        return redirect()->intended('login/guardian');
     }
 
     /**
