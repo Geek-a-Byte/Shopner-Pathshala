@@ -57,6 +57,11 @@ return [
             'provider' => 'writers',
             'hash' => false,
         ],
+        'teacher' => [
+            'driver' => 'session',
+            'provider' => 'teachers',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -89,6 +94,11 @@ return [
         'writers' => [
             'driver' => 'oracle',
             'model' => App\Models\Writer::class,
+        ],
+
+        'teachers' => [
+            'driver' => 'oracle',
+            'model' => App\Models\Teacher::class,
         ],
 
 
@@ -129,6 +139,12 @@ return [
 
         'writers' => [
             'provider' => 'writers',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
+        'teachers' => [
+            'provider' => 'teachers',
             'table' => 'password_resets',
             'expire' => 60,
         ],

@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Laravel</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -24,112 +27,49 @@
             background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
         }
 
-        .navbar {
-            overflow: hidden;
-            background-color: #333;
-            font-family: Arial;
-
-        }
-
-        /* Links inside the navbar */
-        .navbar a {
-            float: left;
-            font-size: 16px;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        /* The dropdown container */
-        .dropdown {
-            float: left;
-            overflow: hidden;
-        }
-
-        /* Dropdown button */
-        .dropdown .dropbtn {
-            font-size: 16px;
-            border: none;
-            outline: none;
-            color: white;
-            padding: 14px 16px;
-            background-color: inherit;
-            font-family: inherit;
-            /* Important for vertical align on mobile phones */
-            margin: 0;
-            /* Important for vertical align on mobile phones */
-        }
-
-        /* Add a red background color to navbar links on hover */
-        .navbar a:hover,
-        .dropdown:hover .dropbtn {
-            background-color: red;
-        }
-
-        /* Dropdown content (hidden by default) */
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-
-        /* Links inside the dropdown */
-        .dropdown-content a {
-            float: none;
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-        }
-
-        /* Add a grey background color to dropdown links on hover */
-        .dropdown-content a:hover {
-            background-color: #ddd;
-        }
-
-        /* Show the dropdown menu on hover */
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-
         body {
-            font-family: 'Nunito', sans-serif;
-
+            background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
         }
 
         .image-body {
             background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
             width: 100%;
+            /* border-radius: 15px; */
+            /* border: 2px solid transparent; */
+            justify-content: center;
+            align-items: center;
         }
 
         .register-options {
             display: flex;
-            margin: auto;
+            flex-wrap: wrap;
+            margin: 20px;
+            justify-content: center;
+            align-items: center;
         }
 
-        .center {
-            margin: auto;
-            width: 80%;
-            /* border: 3px solid green; */
-            padding: 10px;
+        .login-registerBTN {
+            display: flex;
+            flex-direction: column;
         }
+
+
+        .login-registerBTN a {
+            color: black;
+            font-family: 'Roboto', sans-serif;
+        }
+
+
 
         .doctor,
         .teacher,
         .nurse,
         .guardian {
-            margin: 40px;
-            padding: 20px;
+            margin: 30px;
+            padding: 30px;
             border-radius: 15px;
             border: 2px solid transparent;
-            width: 200px;
-            height: 300px;
+            height: auto;
             text-align: center;
             background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
         }
@@ -146,6 +86,20 @@
 
         .user-image {
             text-align: center;
+            padding: 10px;
+        }
+
+        .navbar-brand {
+            margin-top: -40px;
+        }
+
+
+
+        /* Responsive layout - makes a one column layout instead of a two-column layout */
+        @media (max-width: 800px) {
+            .register-options {
+                flex-direction: column;
+            }
         }
     </style>
 
@@ -153,46 +107,40 @@
 
 
 <body class="antialiased">
-    <!-- <div>
-        @if (Route::has('login'))
-        <div class="navbar">
-            @auth
-            <a href="{{ url('home') }}" class="text-sm text-gray-700 underline">Home</a>
-            @else
-            <div class="dropdown">
-                <button class="dropbtn">Login
-                    <i class="fa fa-caret-down"></i>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-                <div class="dropdown-content">
-                    @if (Route::has('login'))
-                    <a href="{{ route('login') }}" class="ml-4 text-sm text-gray-700 underline">User Login</a>
-                    <a href="{{ route('adminLogin') }}" class="ml-4 text-sm text-gray-700 underline">Admin Login</a>
-                    <a href="{{ route('writerLogin') }}" class="ml-4 text-sm text-gray-700 underline">Admin Login</a>
-                    @endif
-                </div>
+                <a class="navbar-brand" href="#">
+                    <img src="{{URL::asset('/image/whitelogo.png')}}" width="200" height="100" class="d-inline-block align-top" alt="">
+                </a>
             </div>
-
-            <div class="dropdown">
-                <button class="dropbtn">Register
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">User Registration</a>
-                    <a href="{{ route('adminRegister') }}" class="ml-4 text-sm text-gray-700 underline">Admin Registration</a>
-                    <a href="{{ route('writerRegister') }}" class="ml-4 text-sm text-gray-700 underline">Admin Registration</a>
-                    @endif
-
-                </div>
-
-
-                @endauth
+            <div class="collapse navbar-collapse navbar-right" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Page 1-1</a></li>
+                            <li><a href="#">Page 1-2</a></li>
+                            <li><a href="#">Page 1-3</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Page 2</a></li>
+                    <li><a href="#">Page 3</a></li>
+                </ul>
+                <!-- <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul> -->
             </div>
-            @endif
-
         </div>
-    </div> -->
-
+    </nav>
     <div class="image-body">
         <center>
             <img src="{{URL::asset('/image/logo.png')}}" alt="logo" height="200" width="400">
@@ -202,79 +150,77 @@
         <div class="register-options">
             <div class="doctor">
                 <center style="padding:5px;">Doctor</center>
-                <div class="user-image">
+                <div>
                     <center>
-                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">
+                        <div class="user-image">
                             <img src="{{URL::asset('/image/doctor.png')}}" alt="logo" height="130" width="130">
-                        </a>
+                        </div>
                     </center>
                 </div>
-                <div>
-                    <button class="doctorRegisterBtn">
-                        Register
-                    </button>
-                    <button class="doctorLoginBtn">
-                        Login
-                    </button>
+                <div class="login-registerBTN">
+                    <a href="{{ route('teacherRegister') }}">
+                        <button>Register</button>
+                    </a>
+                    <a href="{{ route('teacherLogin') }}">
+                        <button>Login</button>
+                    </a>
                 </div>
             </div>
             <div class="teacher">
                 <center style="padding:5px;">Teacher</center>
                 <div>
                     <center>
-                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">
+                        <div class="user-image">
                             <img src="{{URL::asset('/image/teacher.png')}}" alt="logo" height="130" width="130">
                             <!-- <center style="padding:5px;">Teacher Register</center> -->
-                        </a>
+                        </div>
                     </center>
                 </div>
-
-                <div>
-                    <button class="doctorRegisterBtn">
-                        Register
-                    </button>
-                    <button class="doctorLoginBtn">
-                        Login
-                    </button>
+                <div class="login-registerBTN">
+                    <a href="{{ route('teacherRegister') }}">
+                        <button>Register</button>
+                    </a>
+                    <a href="{{ route('teacherLogin') }}">
+                        <button>Login</button>
+                    </a>
                 </div>
             </div>
             <div class="guardian">
                 <center style="padding:5px;">Guardian</center>
                 <div>
                     <center>
-                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">
+                        <div class="user-image">
                             <img src="{{URL::asset('/image/mother-and-kid.png')}}" alt="logo" height="130" width="130">
-                            <!-- <center style="padding:5px;">Guardian and Child Register</center> -->
-                        </a>
+                            <!-- <center style="padding:5px;">Teacher Register</center> -->
+                        </div>
                     </center>
                 </div>
-                <div>
-                    <button class="doctorRegisterBtn">
-                        Register
-                    </button>
-                    <button class="doctorLoginBtn">
-                        Login
-                    </button>
+                <div class="login-registerBTN">
+                    <a href="{{ route('teacherRegister') }}">
+                        <button>Register</button>
+                    </a>
+                    <a href="{{ route('teacherLogin') }}">
+                        <button>Login</button>
+                    </a>
                 </div>
             </div>
             <div class="nurse">
                 <center style="padding:5px;">Nurse</center>
                 <div>
                     <center>
-                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">
+                        <div class="user-image">
                             <img src="{{URL::asset('/image/nurse.png')}}" alt="logo" height="130" width="130">
-                            <!-- <center style="padding:5px;">Nurse Register</center> -->
-                        </a>
+                            <!-- <center style="padding:5px;">Teacher Register</center> -->
+                        </div>
                     </center>
                 </div>
-
-                <div>
-                    <button class="doctorRegisterBtn">
-                        Register
-                    </button>
-                    <button class="doctorLoginBtn">
-                        Login
-                    </button>
+                <div class="login-registerBTN">
+                    <a href="{{ route('teacherRegister') }}">
+                        <button>Register</button>
+                    </a>
+                    <a href="{{ route('teacherLogin') }}">
+                        <button>Login</button>
+                    </a>
                 </div>
             </div>
         </div>

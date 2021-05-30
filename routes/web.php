@@ -45,7 +45,11 @@ Route::get('/register/writer', [RegisterController::class, 'showwriterRegisterFo
 Route::post('/login/writer', [LoginController::class, 'writerLogin']);
 Route::post('/register/writer', [RegisterController::class, 'createwriter']);
 
-
+//* for teachers
+Route::get('/login/teacher', [LoginController::class, 'showTeacherLoginForm'])->name('teacherLogin');
+Route::get('/register/teacher', [RegisterController::class, 'showTeacherRegisterForm'])->name('teacherRegister');
+Route::post('/login/teacher', [LoginController::class, 'teacherLogin']);
+Route::post('/register/teacher', [RegisterController::class, 'createTeacher']);
 Route::group(
     ['middleware' => 'auth:writer'],
     function () {
@@ -60,4 +64,10 @@ Route::group(
     }
 );
 
+Route::group(
+    ['middleware' => ['auth:teacher']],
+    function () {
+        Route::view('/teacher', 'teacher');
+    }
+);
 Route::get('logout', [LoginController::class, 'logout']);

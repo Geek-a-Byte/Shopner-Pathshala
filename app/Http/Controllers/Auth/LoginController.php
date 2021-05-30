@@ -42,6 +42,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('guest:admin')->except('logout');
         $this->middleware('guest:writer')->except('logout');
+        $this->middleware('guest:teacher')->except('logout');
     }
     public function showUserLoginForm()
     {
@@ -51,6 +52,15 @@ class LoginController extends Controller
     {
         return view('auth.login', ['url' => 'admin']);
     }
+    public function showTeacherLoginForm()
+    {
+        return view('auth.login', ['url' => 'teacher']);
+    }
+    public function showwriterLoginForm()
+    {
+        return view('auth.login', ['url' => 'writer']);
+    }
+
 
     public function adminLogin(Request $request)
     {
@@ -66,10 +76,6 @@ class LoginController extends Controller
         return back()->withInput($request->only('email', 'remember'));
     }
 
-    public function showwriterLoginForm()
-    {
-        return view('auth.login', ['url' => 'writer']);
-    }
 
     public function writerLogin(Request $request)
     {
@@ -81,6 +87,28 @@ class LoginController extends Controller
         if (Auth::guard('writer')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
             return redirect()->intended('/writer');
+        }
+        return back()->withInput($request->only('email', 'remember'));
+    }
+
+    public function teacherLogin(Request $request)
+    {
+        // {
+        //     $data = array();
+        //     $data = $request->all();
+        //     var_dump($data);
+
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('teacher')->attempt([
+            'teacher_email_id' => $request->email,
+            'password' => $request->password
+        ], $request->get('remember'))) {
+
+            return redirect()->intended('/teacher');
         }
         return back()->withInput($request->only('email', 'remember'));
     }

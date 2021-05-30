@@ -15,6 +15,9 @@ class RedirectIfAuthenticated
         if ($guard === 'writer' && Auth::guard($guard)->check()) {
             return redirect('/writer');
         }
+        if ($guard === 'teacher' && Auth::guard($guard)->check()) {
+            return redirect('/teacher');
+        }
         if (Auth::guard($guard)->check()) {
             return redirect('/home');
         }

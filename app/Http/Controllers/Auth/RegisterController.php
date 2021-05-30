@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Writer;
+use App\Models\Teacher;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -42,6 +44,7 @@ class RegisterController extends Controller
         $this->middleware('guest');
         $this->middleware('guest:admin');
         $this->middleware('guest:writer');
+        $this->middleware('guest:teacher');
     }
 
     /**
@@ -73,6 +76,14 @@ class RegisterController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
+    public function showTeacherRegisterForm()
+    {
+        return view('auth.teacher.register', ['url' => 'teacher']);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showWriterRegisterForm()
     {
         return view('auth.writer.register', ['url' => 'writer']);
@@ -93,6 +104,29 @@ class RegisterController extends Controller
         return redirect()->intended('login/user');
     }
 
+    protected function createTeacher(Request $request)
+    {
+        // $data = array();
+        // $data = $request->all();
+        // var_dump($data);
+
+        // var_dump($request->email);
+        // var_dump($request->password);
+        // var_dump($request->gender);
+        // var_dump($request->address);
+
+        $this->validator($request->all())->validate();
+        Teacher::create([
+            'teacher_name' => $request->name,
+            'teacher_email_id' => $request->email,
+            'password' => Hash::make($request->password),
+            'teacher_gender' => $request->gender,
+            'teacher_address' => $request->address,
+        ]);
+
+        return redirect()->intended('login/teacher');
+    }
+
     /**
      * @param Request $request
      *
@@ -100,6 +134,9 @@ class RegisterController extends Controller
      */
     protected function createAdmin(Request $request)
     {
+        // $data = array();
+        // $data = $request->all();
+        // var_dump($data);
         $this->validator($request->all())->validate();
         Admin::create([
             'name' => $request->name,
