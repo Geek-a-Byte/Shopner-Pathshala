@@ -8,6 +8,7 @@ use App\Models\Writer;
 use App\Models\Teacher;
 use App\Models\Guardian;
 use App\Models\Doctor;
+use App\Models\Child;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -49,6 +50,7 @@ class RegisterController extends Controller
         $this->middleware('guest:teacher');
         $this->middleware('guest:guardian');
         $this->middleware('guest:doctor');
+        $this->middleware('guest:child');
     }
 
     /**
@@ -98,6 +100,14 @@ class RegisterController extends Controller
     public function showDoctorRegisterForm()
     {
         return view('auth.doctor.register', ['url' => 'doctor']);
+    }
+
+      /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showChildRegisterForm()
+    {
+        return view('auth.doctor.register', ['url' => 'child']);
     }
 
 
@@ -166,7 +176,7 @@ class RegisterController extends Controller
             'acct_holder_gender' => $request->gender,
             'relation_with_child' => $request->relation,
         ]);
-
+//////////////////////////////////////////////////////////////////todo*********change the route
         return redirect()->intended('login/guardian');
     }
     protected function createDoctor(Request $request)
@@ -191,6 +201,38 @@ class RegisterController extends Controller
         ]);
 
         return redirect()->intended('login/doctor');
+    }
+
+    protected function createChild(Request $request)
+    {
+        $data = array();
+        $data = $request->all();
+        var_dump($data);
+
+        // var_dump($request->email);
+        var_dump($request->password);
+        // var_dump($request->gender);
+        // var_dump($request->address);
+
+        $this->validator($request->all())->validate();
+        Child::create([
+            'child_name' => $request->name,
+            'child_father_name' => $request->father_name,
+            'child_mother_name' => $request->mother_name,
+        'child_father_phone_number' => $request->father_number,
+        'child_mother_phone_number' => $request->mother_number,
+        'child_father_email_id' => $request->father_email,
+        'child_mother_email_id' => $request->mother_email,
+        'child_age' => $request->age,
+        'child_gender' => $request->gender,
+        'child_address' => $request->address,
+        'child_eating_habit' => $request->habit,
+        'child_special_skill' => $request->skill,
+        'child_hobby' => $request->hobby,
+          
+        ]);
+
+        return back()->with('success','Successfully completed registration.');;
     }
 
     /**
