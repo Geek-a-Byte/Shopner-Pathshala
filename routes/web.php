@@ -66,6 +66,13 @@ Route::get('/register/doctor', [RegisterController::class, 'showDoctorRegisterFo
 Route::post('/login/doctor', [LoginController::class, 'doctorLogin']);
 Route::post('/register/doctor', [RegisterController::class, 'createDoctor']);
 
+//* for nurse
+Route::get('/login/nurse', [LoginController::class, 'showNurseLoginForm'])->name('nurseLogin');
+Route::get('/register/nurse', [RegisterController::class, 'showNurseRegisterForm'])->name('nurseRegister');
+Route::post('/login/nurse', [LoginController::class, 'nurseLogin']);
+Route::post('/register/nurse', [RegisterController::class, 'createNurse']);
+
+
 //*getting all the doctor profiles
 Route::get('/doctorProfiles', [App\Http\Controllers\TotalDoctorProfiles::class, 'index']);
 
@@ -110,6 +117,14 @@ Route::group(
     ['middleware' => ['auth:doctor']],
     function () {
         Route::view('/doctor', 'doctor');
+    }
+);
+
+
+Route::group(
+    ['middleware' => ['auth:nurse']],
+    function () {
+        Route::view('/nurse', 'nurse');
     }
 );
 

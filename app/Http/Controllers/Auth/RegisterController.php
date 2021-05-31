@@ -8,6 +8,8 @@ use App\Models\Writer;
 use App\Models\Teacher;
 use App\Models\Guardian;
 use App\Models\Doctor;
+use App\Models\Nurse;
+
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -49,6 +51,7 @@ class RegisterController extends Controller
         $this->middleware('guest:teacher');
         $this->middleware('guest:guardian');
         $this->middleware('guest:doctor');
+        $this->middleware('guest:nurse');
     }
 
     /**
@@ -98,6 +101,14 @@ class RegisterController extends Controller
         return view('auth.doctor.register', ['url' => 'doctor']);
     }
 
+
+     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showNurseRegisterForm()
+    {
+        return view('auth.nurse.register', ['url' => 'nurse']);
+    }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -189,6 +200,29 @@ class RegisterController extends Controller
         ]);
 
         return redirect()->intended('login/doctor');
+    }
+
+    protected function createNurse(Request $request)
+    {
+        $data = array();
+        $data = $request->all();
+        var_dump($data);
+
+        // var_dump($request->email);
+        var_dump($request->password);
+        // var_dump($request->gender);
+        // var_dump($request->address);
+
+        $this->validator($request->all())->validate();
+        Nurse::create([
+            'nurse_name' => $request->name,
+            'nurse_email_id' => $request->email,
+            'password' => Hash::make($request->password),
+            'nurse_address' => $request->address,
+            'nurse_gender' => $request->gender,
+        ]);
+
+        return redirect()->intended('login/nurse');
     }
 
     /**

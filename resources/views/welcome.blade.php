@@ -215,10 +215,10 @@
                     </center>
                 </div>
                 <div class="login-registerBTN">
-                    <a href="{{ route('teacherRegister') }}">
+                    <a href="{{ route('nurseRegister') }}">
                         <button>Register</button>
                     </a>
-                    <a href="{{ route('teacherLogin') }}">
+                    <a href="{{ route('nurseLogin') }}">
                         <button>Login</button>
                     </a>
                 </div>

@@ -72,6 +72,11 @@ return [
             'provider' => 'doctors',
             'hash' => false,
         ],
+        'nurse' => [
+            'driver' => 'session',
+            'provider' => 'nurses',
+            'hash' => false,
+        ],
 
     ],
 
@@ -120,6 +125,11 @@ return [
             'driver' => 'oracle',
             'model' => App\Models\Doctor::class,
         ],
+        'nurses' => [
+            'driver' => 'oracle',
+            'model' => App\Models\Nurse::class,
+        ],
+
 
 
         // 'users' => [
@@ -175,6 +185,11 @@ return [
         ],
         'doctors' => [
             'provider' => 'doctors',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'nurses' => [
+            'provider' => 'nurses',
             'table' => 'password_resets',
             'expire' => 60,
         ],
