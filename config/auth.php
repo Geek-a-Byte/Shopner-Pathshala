@@ -72,11 +72,6 @@ return [
             'provider' => 'doctors',
             'hash' => false,
         ],
-        'child' => [
-            'driver' => 'session',
-            'provider' => 'child',
-            'hash' => false,
-        ],
 
     ],
 
@@ -124,10 +119,6 @@ return [
         'doctors' => [
             'driver' => 'oracle',
             'model' => App\Models\Doctor::class,
-        ],
-        'childs' => [
-            'driver' => 'oracle',
-            'model' => App\Models\Child::class,
         ],
 
 
