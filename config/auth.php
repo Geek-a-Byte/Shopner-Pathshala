@@ -67,6 +67,12 @@ return [
             'provider' => 'guardians',
             'hash' => false,
         ],
+        'doctor' => [
+            'driver' => 'session',
+            'provider' => 'doctors',
+            'hash' => false,
+        ],
+
     ],
 
     /*
@@ -109,6 +115,10 @@ return [
         'guardians' => [
             'driver' => 'oracle',
             'model' => App\Models\Guardian::class,
+        ],
+        'doctors' => [
+            'driver' => 'oracle',
+            'model' => App\Models\Doctor::class,
         ],
 
 
@@ -160,6 +170,11 @@ return [
         ],
         'guardians' => [
             'provider' => 'guardians',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'doctors' => [
+            'provider' => 'doctors',
             'table' => 'password_resets',
             'expire' => 60,
         ],

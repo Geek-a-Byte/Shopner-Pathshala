@@ -17,6 +17,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Auth;
 
 Route::view('/', 'welcome');
+
 Route::group(['middleware' => 'PreventBackHistory'], function () {
     Auth::routes();
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
@@ -57,6 +58,12 @@ Route::get('/register/guardian', [RegisterController::class, 'showGuardianRegist
 Route::post('/login/guardian', [LoginController::class, 'guardianLogin']);
 Route::post('/register/guardian', [RegisterController::class, 'createGuardian']);
 
+//* for doctors
+Route::get('/login/doctor', [LoginController::class, 'showDoctorLoginForm'])->name('doctorLogin');
+Route::get('/register/doctor', [RegisterController::class, 'showDoctorRegisterForm'])->name('doctorRegister');
+Route::post('/login/doctor', [LoginController::class, 'doctorLogin']);
+Route::post('/register/doctor', [RegisterController::class, 'createDoctor']);
+
 
 Route::group(
     ['middleware' => 'auth:writer'],
@@ -83,6 +90,14 @@ Route::group(
     ['middleware' => ['auth:guardian']],
     function () {
         Route::view('/guardian', 'guardian');
+    }
+);
+
+
+Route::group(
+    ['middleware' => ['auth:doctor']],
+    function () {
+        Route::view('/doctor', 'doctor');
     }
 );
 

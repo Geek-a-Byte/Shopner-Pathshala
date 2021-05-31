@@ -7,6 +7,7 @@ use App\Models\Admin;
 use App\Models\Writer;
 use App\Models\Teacher;
 use App\Models\Guardian;
+use App\Models\Doctor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -47,6 +48,7 @@ class RegisterController extends Controller
         $this->middleware('guest:writer');
         $this->middleware('guest:teacher');
         $this->middleware('guest:guardian');
+        $this->middleware('guest:doctor');
     }
 
     /**
@@ -89,6 +91,15 @@ class RegisterController extends Controller
     {
         return view('auth.guardian.register', ['url' => 'guardian']);
     }
+
+     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showDoctorRegisterForm()
+    {
+        return view('auth.doctor.register', ['url' => 'doctor']);
+    }
+
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -157,6 +168,29 @@ class RegisterController extends Controller
         ]);
 
         return redirect()->intended('login/guardian');
+    }
+    protected function createDoctor(Request $request)
+    {
+        $data = array();
+        $data = $request->all();
+        var_dump($data);
+
+        // var_dump($request->email);
+        var_dump($request->password);
+        // var_dump($request->gender);
+        // var_dump($request->address);
+
+        $this->validator($request->all())->validate();
+        Doctor::create([
+            'doctor_name' => $request->name,
+            'doctor_email_id' => $request->email,
+            'password' => Hash::make($request->password),
+            'doctor_address' => $request->address,
+            'doctor_gender' => $request->gender,
+            'doctor_designation' => $request->designation,
+        ]);
+
+        return redirect()->intended('login/doctor');
     }
 
     /**
