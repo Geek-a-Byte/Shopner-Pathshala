@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\Profile\DoctorProfilePicUpdate;
 use Illuminate\Support\Facades\Auth;
 
 Route::view('/', 'welcome');
@@ -64,6 +66,16 @@ Route::get('/register/doctor', [RegisterController::class, 'showDoctorRegisterFo
 Route::post('/login/doctor', [LoginController::class, 'doctorLogin']);
 Route::post('/register/doctor', [RegisterController::class, 'createDoctor']);
 
+//*getting all the doctor profiles
+Route::get('/doctorProfiles', [App\Http\Controllers\TotalDoctorProfiles::class, 'index']);
+
+
+//*profile photo upload
+
+Route::get('profile', [DoctorProfilePicUpdate::class, 'profile'])->name('doctor.image.show');
+Route::post('profile', [DoctorProfilePicUpdate::class, 'update_avatar'])->name('doctor.image.upload');
+// Route::get('profile', [Controller::class, ''])->name('image.upload');
+Route::post('image-upload', [ImageUploadController::class, 'imageUploadPost'])->name('image.upload.post');
 
 Route::group(
     ['middleware' => 'auth:writer'],

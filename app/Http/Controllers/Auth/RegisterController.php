@@ -67,8 +67,6 @@ class RegisterController extends Controller
     }
 
 
-
-
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -227,4 +225,6 @@ class RegisterController extends Controller
         ]);
         return redirect()->intended('login/writer');
     }
+
+    
 }

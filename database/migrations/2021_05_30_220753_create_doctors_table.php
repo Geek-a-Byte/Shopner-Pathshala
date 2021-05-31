@@ -18,6 +18,7 @@ class CreateDoctorsTable extends Migration
             $table->string('doctor_name');
             $table->string('doctor_email_id')->unique();
             $table->string('password');
+            $table->string('profile_photo')->default('default.jpg');
             $table->string('doctor_gender');
             $table->string('doctor_address');
             $table->string('doctor_designation');
