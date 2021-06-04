@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -109,39 +112,7 @@
 
 <body class="antialiased">
 
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">
-                    <img src="{{URL::asset('/image/whitelogo.png')}}" width="200" height="100" class="d-inline-block align-top" alt="">
-                </a>
-            </div>
-            <div class="collapse navbar-collapse navbar-right" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Page 1-1</a></li>
-                            <li><a href="#">Page 1-2</a></li>
-                            <li><a href="#">Page 1-3</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Page 2</a></li>
-                    <li><a href="#">Page 3</a></li>
-                </ul>
-                <!-- <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                </ul> -->
-            </div>
-        </div>
-    </nav>
+
     <div class="image-body">
         <center>
             <img src="{{URL::asset('/image/logo.png')}}" alt="logo" height="200" width="400">
@@ -150,7 +121,7 @@
     <div class="center">
         <div class="register-options">
             <div class="doctor">
-                <center style="padding:5px;">Doctor</center>
+                <center style="padding:5px;">Meet Our Doctors</center>
                 <div>
                     <center>
                         <div class="user-image">
@@ -158,17 +129,17 @@
                         </div>
                     </center>
                 </div>
-                <div class="login-registerBTN">
+                <!-- <div class="login-registerBTN">
                     <a href="{{ route('doctorRegister') }}">
                         <button>Register</button>
                     </a>
                     <a href="{{ route('doctorLogin') }}">
                         <button>Login</button>
                     </a>
-                </div>
+                </div> -->
             </div>
             <div class="teacher">
-                <center style="padding:5px;">Teacher</center>
+                <center style="padding:5px;">Meet Our Teachers</center>
                 <div>
                     <center>
                         <div class="user-image">
@@ -177,17 +148,17 @@
                         </div>
                     </center>
                 </div>
-                <div class="login-registerBTN">
+                <!-- <div class="login-registerBTN">
                     <a href="{{ route('teacherRegister') }}">
                         <button>Register</button>
                     </a>
                     <a href="{{ route('teacherLogin') }}">
                         <button>Login</button>
                     </a>
-                </div>
+                </div> -->
             </div>
             <div class="guardian">
-                <center style="padding:5px;">Guardian</center>
+                <center style="padding:5px;">Meet Our Guardians</center>
                 <div>
                     <center>
                         <div class="user-image">
@@ -196,17 +167,17 @@
                         </div>
                     </center>
                 </div>
-                <div class="login-registerBTN">
+                <!-- <div class="login-registerBTN">
                     <a href="{{ route('guardianRegister') }}">
                         <button>Register</button>
                     </a>
                     <a href="{{ route('guardianLogin') }}">
                         <button>Login</button>
                     </a>
-                </div>
+                </div> -->
             </div>
             <div class="nurse">
-                <center style="padding:5px;">Nurse</center>
+                <center style="padding:5px;">Meet Our Nurses</center>
                 <div>
                     <center>
                         <div class="user-image">
@@ -215,14 +186,14 @@
                         </div>
                     </center>
                 </div>
-                <div class="login-registerBTN">
+                <!-- <div class="login-registerBTN">
                     <a href="{{ route('nurseRegister') }}">
                         <button>Register</button>
                     </a>
                     <a href="{{ route('nurseLogin') }}">
                         <button>Login</button>
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -230,3 +201,4 @@
 </body>
 
 </html>
+@endsection

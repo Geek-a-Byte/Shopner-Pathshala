@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -36,8 +37,16 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/login';
+    protected $redirectTo = '/login';
 
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+        $request->session()->flash('notification', 'Thank you for subscribing!');
+        return redirect($this->redirectTo)->with('message', 'Registered successfully, please login...!');
+    }
     /**
      * Create a new controller instance.
      *
@@ -69,196 +78,61 @@ class RegisterController extends Controller
         ]);
     }
 
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function showAdminRegisterForm()
-    {
-        return view('auth.admin.register', ['url' => 'admin']);
-    }
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function showTeacherRegisterForm()
-    {
-        return view('auth.teacher.register', ['url' => 'teacher']);
-    }
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function showGuardianRegisterForm()
-    {
-        return view('auth.guardian.register', ['url' => 'guardian']);
-    }
-
-     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function showDoctorRegisterForm()
-    {
-        return view('auth.doctor.register', ['url' => 'doctor']);
-    }
-
-
-     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function showNurseRegisterForm()
-    {
-        return view('auth.nurse.register', ['url' => 'nurse']);
-    }
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function showWriterRegisterForm()
-    {
-        return view('auth.writer.register', ['url' => 'writer']);
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return mixed
-     */
     protected function create(array $data)
     {
-        return User::create([
+        // var_dump($data['role']);
+        $user = User::create([
             'name' => $data['name'],
+            'role' => $data['role'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        return redirect()->intended('login/user');
+        // echo $data['uid'];
+        // return $user;
+        if ($user->role == 'Doctor') {
+            var_dump($data['doctor_gender']);
+            Doctor::create([
+                'doctor_name' => $data['name'],
+                'doctor_email_id' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'doctor_address' => $data['doctor_address'],
+                'doctor_gender' => $data['doctor_gender'],
+                'doctor_designation' => $data['doctor_designation'],
+            ]);
+        } else if ($user->role == 'Teacher') {
+            Teacher::create(
+                [
+                    'teacher_name' => $data['name'],
+                    'teacher_email_id' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                    'teacher_gender' => $data['teacher_gender'],
+                    'teacher_address' => $data['teacher_address'],
+                ]
+            );
+        } else if ($user->role == 'Guardian') {
+            Guardian::create([
+                'acct_holder_name' => $data['name'],
+                'acct_holder_email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'acct_holder_address' => $data['guardian_address'],
+                'acct_holder_gender' => $data['guardian_gender'],
+                'relation_with_child' => $data['relation'],
+
+            ]);
+            // return $user;
+
+        } else if ($user->role == 'Nurse') {
+            Nurse::create([
+                'nurse_name' => $data['name'],
+                'nurse_email_id' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'nurse_address' => $data['address'],
+                'nurse_gender' => $data['gender'],
+            ]);
+        }
+        // echo $user->id;
+        // return redirect()->intended('login');
+
+        return $user;
     }
-
-    protected function createTeacher(Request $request)
-    {
-        // $data = array();
-        // $data = $request->all();
-        // var_dump($data);
-
-        // var_dump($request->email);
-        // var_dump($request->password);
-        // var_dump($request->gender);
-        // var_dump($request->address);
-
-        $this->validator($request->all())->validate();
-        Teacher::create([
-            'teacher_name' => $request->name,
-            'teacher_email_id' => $request->email,
-            'password' => Hash::make($request->password),
-            'teacher_gender' => $request->gender,
-            'teacher_address' => $request->address,
-        ]);
-
-        return redirect()->intended('login/teacher');
-    }
-    protected function createGuardian(Request $request)
-    {
-        $data = array();
-        $data = $request->all();
-        var_dump($data);
-
-        // var_dump($request->email);
-        var_dump($request->password);
-        // var_dump($request->gender);
-        // var_dump($request->address);
-
-        $this->validator($request->all())->validate();
-        Guardian::create([
-            'acct_holder_name' => $request->name,
-            'acct_holder_email' => $request->email,
-            'password' => Hash::make($request->password),
-            'acct_holder_address' => $request->address,
-            'acct_holder_gender' => $request->gender,
-            'relation_with_child' => $request->relation,
-        ]);
-
-        return redirect()->intended('login/guardian');
-    }
-    protected function createDoctor(Request $request)
-    {
-        $data = array();
-        $data = $request->all();
-        var_dump($data);
-
-        // var_dump($request->email);
-        var_dump($request->password);
-        // var_dump($request->gender);
-        // var_dump($request->address);
-
-        $this->validator($request->all())->validate();
-        Doctor::create([
-            'doctor_name' => $request->name,
-            'doctor_email_id' => $request->email,
-            'password' => Hash::make($request->password),
-            'doctor_address' => $request->address,
-            'doctor_gender' => $request->gender,
-            'doctor_designation' => $request->designation,
-        ]);
-
-        return redirect()->intended('login/doctor');
-    }
-
-    protected function createNurse(Request $request)
-    {
-        $data = array();
-        $data = $request->all();
-        var_dump($data);
-
-        // var_dump($request->email);
-        var_dump($request->password);
-        // var_dump($request->gender);
-        // var_dump($request->address);
-
-        $this->validator($request->all())->validate();
-        Nurse::create([
-            'nurse_name' => $request->name,
-            'nurse_email_id' => $request->email,
-            'password' => Hash::make($request->password),
-            'nurse_address' => $request->address,
-            'nurse_gender' => $request->gender,
-        ]);
-
-        return redirect()->intended('login/nurse');
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    protected function createAdmin(Request $request)
-    {
-        // $data = array();
-        // $data = $request->all();
-        // var_dump($data);
-        $this->validator($request->all())->validate();
-        Admin::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        return redirect()->intended('login/admin');
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    protected function createWriter(Request $request)
-    {
-        $this->validator($request->all())->validate();
-        Writer::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        return redirect()->intended('login/writer');
-    }
-
-    
 }

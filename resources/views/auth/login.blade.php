@@ -1,10 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .child {
+
+        margin: 0 auto;
+    }
+
+    .card-header {
+        padding: 50px;
+        text-align: center;
+        background-image: linear-gradient(to top, #5f72bd 0%, #9b23ea 100%);
+        color: white;
+        font-size: 30px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+    }
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                @if(session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session()->get('message') }}
+                </div>
+                @endif
                 <div class="card-header">{{ isset($url) ? ucwords($url) : ""}} {{ __('Login') }}</div>
 
                 <div class="card-body">

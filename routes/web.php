@@ -18,11 +18,11 @@ use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\Profile\DoctorProfilePicUpdate;
 use Illuminate\Support\Facades\Auth;
 
-Route::view('/', 'welcome');
+Route::view('/', 'welcome')->name('welcome');
 
 Route::group(['middleware' => 'PreventBackHistory'], function () {
     Auth::routes();
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+    Route::get('home', 'App\Http\Controllers\HomeController@index');
 });
 
 
@@ -34,8 +34,8 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
 
 //     }
 // );
-
-
+// var_dump($request->)
+Route::get('redirects', 'App\Http\Controllers\HomeController@index');
 //* for admins
 Route::get('/login/admin', [LoginController::class, 'showAdminLoginForm'])->name('adminLogin');
 Route::get('/register/admin', [RegisterController::class, 'showAdminRegisterForm'])->name('adminRegister');
