@@ -10,6 +10,11 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+    public function Doctor()
+    {
+        return $this->hasOne(Doctor::class);
+        // return $this->hasOne(Phone::class, 'foreign_key');
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -17,6 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+      
         'name',
         'role',
         'email',

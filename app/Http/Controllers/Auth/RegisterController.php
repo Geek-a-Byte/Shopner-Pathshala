@@ -9,7 +9,7 @@ use App\Models\Teacher;
 use App\Models\Guardian;
 use App\Models\Doctor;
 use App\Models\Nurse;
-
+// use DB;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -80,18 +80,15 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        // var_dump($data['role']);
         $user = User::create([
             'name' => $data['name'],
             'role' => $data['role'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        // echo $data['uid'];
-        // return $user;
         if ($user->role == 'Doctor') {
-            var_dump($data['doctor_gender']);
             Doctor::create([
+                'user_id' => $user->id,
                 'doctor_name' => $data['name'],
                 'doctor_email_id' => $data['email'],
                 'password' => Hash::make($data['password']),
@@ -119,8 +116,6 @@ class RegisterController extends Controller
                 'relation_with_child' => $data['relation'],
 
             ]);
-            // return $user;
-
         } else if ($user->role == 'Nurse') {
             Nurse::create([
                 'nurse_name' => $data['name'],
@@ -130,9 +125,6 @@ class RegisterController extends Controller
                 'nurse_gender' => $data['gender'],
             ]);
         }
-        // echo $user->id;
-        // return redirect()->intended('login');
-
         return $user;
     }
 }

@@ -19,9 +19,11 @@
     }
   </style>
 
+
 </head>
 
 <body>
+
   <div class="container">
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
@@ -32,7 +34,10 @@
 
         // echo $user->doctor_id;
         // echo $user->doctor_name;
+
         ?>
+
+
         <div class="row">
           <div class="col-md-10 col-md-offset-1">
             <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px;">

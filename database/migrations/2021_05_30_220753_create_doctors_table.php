@@ -15,6 +15,10 @@ class CreateDoctorsTable extends Migration
     {
         Schema::create('doctors', function (Blueprint $table) {
             $table->increments('doctor_id');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')
+                ->references('id')->on('normal_user')
+                ->onDelete('set null');
             $table->string('doctor_name');
             $table->string('doctor_email_id')->unique();
             $table->string('password');
