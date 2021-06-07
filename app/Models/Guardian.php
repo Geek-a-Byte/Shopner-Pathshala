@@ -27,4 +27,15 @@ class Guardian extends Authenticatable
         'password', 'remember_token',
     ];
     protected $primaryKey = 'acct_holder_id';
+
+    
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+
+    public function posts() {
+  
+        return $this->hasMany(Post::class);
+     
+    }
 }
