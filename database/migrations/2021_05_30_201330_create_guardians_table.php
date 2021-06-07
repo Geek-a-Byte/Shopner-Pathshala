@@ -15,6 +15,10 @@ class CreateGuardiansTable extends Migration
     {
         Schema::create('guardians', function (Blueprint $table) {
             $table->increments('acct_holder_id');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')
+                ->references('id')->on('normal_user')
+                ->onDelete('set null');
             $table->string('acct_holder_name');
             $table->string('acct_holder_email')->unique();
             $table->string('password');

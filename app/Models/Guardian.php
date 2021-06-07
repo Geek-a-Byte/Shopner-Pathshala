@@ -12,7 +12,13 @@ class Guardian extends Authenticatable
 
     protected $guard = 'guardian';
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    } 
+
     protected $fillable = [
+        'user_id',
         'acct_holder_name', 'acct_holder_email', 'password', 'acct_holder_address', 'relation_with_child',
         'acct_holder_gender',
     ];
