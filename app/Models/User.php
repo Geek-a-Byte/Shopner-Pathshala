@@ -15,6 +15,22 @@ class User extends Authenticatable
         return $this->hasOne(Doctor::class);
         // return $this->hasOne(Phone::class, 'foreign_key');
     }
+    public function Teacher()
+    {
+        return $this->hasOne(Teacher::class);
+        // return $this->hasOne(Phone::class, 'foreign_key');
+    }
+    public function Nurse()
+    {
+        return $this->hasOne(Nurse::class);
+        // return $this->hasOne(Phone::class, 'foreign_key');
+    }
+    public function Guardian()
+    {
+        return $this->hasOne(Guardian::class);
+        // return $this->hasOne(Phone::class, 'foreign_key');
+    }
+
 
     /**
      * The attributes that are mass assignable.

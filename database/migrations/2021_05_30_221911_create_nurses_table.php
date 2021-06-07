@@ -15,6 +15,10 @@ class CreateNursesTable extends Migration
     {
         Schema::create('nurses', function (Blueprint $table) {
             $table->increments('nurse_id');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')
+                ->references('id')->on('normal_user')
+                ->onDelete('set null');
             $table->string('nurse_name');
             $table->string('nurse_email_id')->unique();
             $table->string('password');

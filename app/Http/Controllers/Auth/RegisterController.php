@@ -101,6 +101,7 @@ class RegisterController extends Controller
         } else if ($user->role == 'Teacher') {
             Teacher::create(
                 [
+                    'user_id' => $user->id,
                     'teacher_name' => $data['name'],
                     'teacher_email_id' => $data['email'],
                     'password' => Hash::make($data['password']),
@@ -110,6 +111,7 @@ class RegisterController extends Controller
             );
         } else if ($user->role == 'Guardian') {
             Guardian::create([
+                'user_id' => $user->id,
                 'acct_holder_name' => $data['name'],
                 'acct_holder_email' => $data['email'],
                 'password' => Hash::make($data['password']),
@@ -120,6 +122,7 @@ class RegisterController extends Controller
             ]);
         } else if ($user->role == 'Nurse') {
             Nurse::create([
+                'user_id' => $user->id,
                 'nurse_name' => $data['name'],
                 'nurse_email_id' => $data['email'],
                 'password' => Hash::make($data['password']),

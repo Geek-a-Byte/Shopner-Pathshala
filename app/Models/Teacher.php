@@ -12,7 +12,13 @@ class Teacher extends Authenticatable
     use HasFactory;
     protected $guard = 'teacher';
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     protected $fillable = [
+        'user_id',
         'teacher_name',
         'teacher_email_id',
         'password',

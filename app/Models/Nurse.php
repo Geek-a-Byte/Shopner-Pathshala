@@ -12,7 +12,13 @@ class Nurse extends Authenticatable
     use HasFactory;
     protected $guard = 'nurse';
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     protected $fillable = [
+        'user_id',
         'nurse_name',
         'nurse_email_id',
         'password',
