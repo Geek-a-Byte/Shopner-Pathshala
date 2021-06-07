@@ -77,7 +77,11 @@
                                 <li> <a class="dropdown-item" href="{{ route('doctor.image.show') }}">
                                         {{ __('Profile') }}
                                     </a></li>
-                              
+                                @if(Auth::user()->role=="Guardian")
+                                <li> <a class="dropdown-item" href="{{ route('childform') }}">
+                                        {{ __('Register Child') }}
+                                    </a></li>
+                                @endif
                                 <li> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

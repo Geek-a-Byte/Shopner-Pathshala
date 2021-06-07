@@ -34,6 +34,6 @@ Route::get('/doctorProfiles', [App\Http\Controllers\TotalDoctorProfiles::class, 
 
 //*profile photo upload
 Route::get('profile', [UserController::class, 'profile'])->name('doctor.image.show');
-Route::view('/', 'guardian/profile')->name('childform');
+Route::view('/registerChild', 'guardian/childform')->name('childform');
 Route::post('profile', [UserController::class, 'update_avatar'])->name('doctor.image.upload');
 Route::get('logout', [LoginController::class, 'logout']);
