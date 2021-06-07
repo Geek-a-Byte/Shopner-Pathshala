@@ -80,6 +80,8 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
+
+        $this->validator($data)->validate();
         $user = User::create([
             'name' => $data['name'],
             'role' => $data['role'],

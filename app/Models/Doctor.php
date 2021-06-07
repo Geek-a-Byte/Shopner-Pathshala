@@ -30,5 +30,6 @@ class Doctor extends Authenticatable
     protected $hidden = [
         'password', 'remember_token'
     ];
+
     protected $primaryKey = 'doctor_id';
 }

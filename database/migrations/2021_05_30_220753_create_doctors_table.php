@@ -26,7 +26,8 @@ class CreateDoctorsTable extends Migration
             $table->string('doctor_gender');
             $table->string('doctor_address');
             $table->string('doctor_designation');
-            $table->string('doctor_working_hour')->nullable();
+            $table->string('working_hour_from')->nullable();
+            $table->string('working_hour_to')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

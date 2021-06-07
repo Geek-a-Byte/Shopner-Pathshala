@@ -129,14 +129,7 @@
                         </div>
                     </center>
                 </div>
-                <!-- <div class="login-registerBTN">
-                    <a href="{{ route('doctorRegister') }}">
-                        <button>Register</button>
-                    </a>
-                    <a href="{{ route('doctorLogin') }}">
-                        <button>Login</button>
-                    </a>
-                </div> -->
+
             </div>
             <div class="teacher">
                 <center style="padding:5px;">Meet Our Teachers</center>
@@ -148,14 +141,7 @@
                         </div>
                     </center>
                 </div>
-                <!-- <div class="login-registerBTN">
-                    <a href="{{ route('teacherRegister') }}">
-                        <button>Register</button>
-                    </a>
-                    <a href="{{ route('teacherLogin') }}">
-                        <button>Login</button>
-                    </a>
-                </div> -->
+
             </div>
             <div class="guardian">
                 <center style="padding:5px;">Meet Our Guardians</center>
@@ -167,14 +153,7 @@
                         </div>
                     </center>
                 </div>
-                <!-- <div class="login-registerBTN">
-                    <a href="{{ route('guardianRegister') }}">
-                        <button>Register</button>
-                    </a>
-                    <a href="{{ route('guardianLogin') }}">
-                        <button>Login</button>
-                    </a>
-                </div> -->
+
             </div>
             <div class="nurse">
                 <center style="padding:5px;">Meet Our Nurses</center>
@@ -186,14 +165,7 @@
                         </div>
                     </center>
                 </div>
-                <!-- <div class="login-registerBTN">
-                    <a href="{{ route('nurseRegister') }}">
-                        <button>Register</button>
-                    </a>
-                    <a href="{{ route('nurseLogin') }}">
-                        <button>Login</button>
-                    </a>
-                </div> -->
+
             </div>
         </div>
     </div>

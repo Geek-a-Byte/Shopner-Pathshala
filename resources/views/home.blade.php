@@ -1,4 +1,4 @@
-  <!-- @extends('layouts.auth')
+  @extends('layouts.auth')
 
   @section('content')
   <div class="container">
@@ -15,4 +15,4 @@
       </div>
   </div>
 
-  @endsection -->
+  @endsection

@@ -28,6 +28,11 @@
         margin-bottom: 15px;
         border-radius: 5px;
     }
+
+    .flextime {
+        display: flex;
+        flex-direction: row;
+    }
 </style>
 <div class="container">
     <div class="row justify-content-center">
@@ -120,6 +125,7 @@
                                 </div>
                             </div>
                             <section class="jqueryOptions Doctor">
+                                
                                 <div class="form-group row">
                                     <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
 
