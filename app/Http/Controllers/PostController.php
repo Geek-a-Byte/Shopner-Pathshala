@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
 use App\Models\Post;
 use App\Models\Guardian;
 use Illuminate\Http\Request;
@@ -11,14 +12,14 @@ class PostController extends Controller
     //
     public function __construct()
     {
-       $this->middleware('auth');
+        $this->middleware('auth');
     }
-    
+
     public function index()
     {
-       $posts = Post::take(5)->get();
+        $posts = Post::take(5)->get();
 
-       return view('post.index', compact('posts'));
+        return view('post.index', compact('posts'));
     }
 
     public function create()
@@ -36,8 +37,8 @@ class PostController extends Controller
         if ($validator->fails()) {
 
             return redirect('post')
-                        ->withErrors($validator)
-                        ->withInput();
+                ->withErrors($validator)
+                ->withInput();
         }
 
         Post::create([
@@ -46,12 +47,11 @@ class PostController extends Controller
         ]);
 
         return redirect()->back();
-
     }
 
-    public function show(Post $post) {
+    public function show(Post $post)
+    {
 
-        return view('post.single',compact('post'));
-
+        return view('post.single', compact('post'));
     }
 }
