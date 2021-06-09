@@ -16,10 +16,11 @@
       
                <div class="card-body">
                 <h5>Display Comments</h5>
-            
+                
                 @include('post.partials.replies', ['comments' => $post->comments, 'post_id' => $post->id])
-
-                <hr />
+                
+                
+                <hr/>
                </div>
 
                <div class="card-body">

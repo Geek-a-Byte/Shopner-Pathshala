@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Post;
+use App\Models\Guardian;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Comment extends Model
 {
@@ -15,6 +17,11 @@ class Comment extends Model
         return $this->belongsTo(Guardian::class);
     }
     
+    protected $fillable = [
+        'user_id',
+        'comment'
+    ];
+
     public function replies()
     {
         return $this->hasMany(Comment::class, 'parent_id');
