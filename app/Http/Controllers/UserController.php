@@ -34,15 +34,26 @@ class UserController extends Controller
             $user->save();
         }
 
-        $updateDetails = [
+        $updateDoctorDetails = [
             'working_hour_from' => $request->work_hour_from,
             'working_hour_to' => $request->work_hour_to,
             'profile_photo' => $filename
         ];
 
+        $updateGuardianDetails = [
+            'profile_photo' => $filename
+        ];
+
+        if(Auth::user()->role == "Doctor"){
         DB::table('doctors')
             ->where('user_id', $user->id)
-            ->update($updateDetails);
+            ->update($updateDoctorDetails);
+        }
+        else if(Auth::user()->role == "Guardian"){
+        DB::table('guardians')
+            ->where('user_id', $user->id)
+            ->update($updateGuardianDetails);
+        }
 
         // if (Auth::user()->role == "Doctor") {
 

@@ -15,8 +15,11 @@ class Guardian extends Authenticatable
     public function user()
     {
         return $this->belongsTo(User::class);
-    } 
-
+    }
+    public function childs()
+    {
+        return $this->hasMany(Child::class);
+    }
     protected $fillable = [
         'user_id',
         'acct_holder_name', 'acct_holder_email', 'password', 'acct_holder_address', 'relation_with_child',
@@ -27,10 +30,9 @@ class Guardian extends Authenticatable
         'password', 'remember_token',
     ];
     protected $primaryKey = 'acct_holder_id';
-    
-    public function posts() {
-  
+
+    public function posts()
+    {
         return $this->hasMany(Post::class);
-     
     }
-}
+
