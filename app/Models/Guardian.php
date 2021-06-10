@@ -31,9 +31,8 @@ class Guardian extends Authenticatable
     ];
     protected $primaryKey = 'acct_holder_id';
 
-
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
-}
+

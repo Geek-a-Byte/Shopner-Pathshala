@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Post;
 use App\Models\Guardian;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+//use Validator;
+use Input;
+
 
 class PostController extends Controller
 {
