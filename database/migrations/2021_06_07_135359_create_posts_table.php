@@ -15,9 +15,15 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->integer('guardian_id')->unsigned()->nullable();
+            $table->foreign('guardian_id')
+                ->references('acct_holder_id')->on('Guardians')
+                ->onDelete('set null');
             $table->string('title');
+            $table->text('body');
             $table->string('slug');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

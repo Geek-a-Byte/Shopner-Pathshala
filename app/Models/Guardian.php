@@ -35,4 +35,4 @@ class Guardian extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
-
+}

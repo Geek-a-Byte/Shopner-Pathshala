@@ -4,12 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
 use App\Models\Post;
-use App\Models\Guardian;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-//use Validator;
-use Input;
-
 
 class PostController extends Controller
 {
@@ -33,9 +28,11 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        var_dump($request->title);
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|min:3',
+            'body' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -47,7 +44,8 @@ class PostController extends Controller
 
         Post::create([
             'title' => $request->title,
-            'slug' => \Str::slug($request->title)
+            'slug' => \Str::slug($request->title),
+            'body' => $request->body,
         ]);
 
         return redirect()->back();
