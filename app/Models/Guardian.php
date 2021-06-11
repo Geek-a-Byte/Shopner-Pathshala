@@ -18,7 +18,7 @@ class Guardian extends Authenticatable
     }
     public function childs()
     {
-        return $this->hasMany(Child::class);
+        return $this->hasMany(Child::class, 'acct_holder_id');
     }
     protected $fillable = [
         'user_id',

@@ -18,6 +18,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\Profile\DoctorProfilePicUpdate;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ChildController;
 use App\Http\Controllers\CommentController;
 
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +46,8 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
 
     //*profile photo upload
     Route::get('profile', [UserController::class, 'profile'])->name('doctor.image.show');
-    Route::view('/registerChild', 'auth/guardian/childform')->name('childform');
+    Route::get('/registerChild', [ChildController::class, 'childcreate'])->name('childform');
+    Route::post('/registerChild', [ChildController::class, 'store'])->name('child.store');
     Route::post('profile', [UserController::class, 'update_avatar'])->name('doctor.image.upload');
     Route::get('logout', [LoginController::class, 'logout']);
 });

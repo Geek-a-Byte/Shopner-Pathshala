@@ -12,6 +12,9 @@
                 </thead>
                 <tbody>
                     <?php
+
+
+
                     $posts = DB::table('posts')->get();
                     // var_dump($posts);
                     ?>
