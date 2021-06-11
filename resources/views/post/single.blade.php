@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 <style>
     .display-comment {
         background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
@@ -37,7 +37,7 @@
                             <input type="text" name="comment" class="form-control" />
                             <input type="hidden" name="post_id" value="{{ $post->id }}" />
                         </div>
-                      
+
                         <div class="form-group">
                             <input type="submit" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;" value="Add Comment" />
                         </div>

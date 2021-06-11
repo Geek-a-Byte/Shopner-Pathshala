@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
 use App\Models\Post;
+use App\Models\Guardian;
+use Auth;
+use DB;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -28,7 +31,6 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        var_dump($request->title);
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|min:3',
@@ -42,11 +44,15 @@ class PostController extends Controller
                 ->withInput();
         }
 
-        Post::create([
-            'title' => $request->title,
-            'slug' => \Str::slug($request->title),
-            'body' => $request->body,
-        ]);
+        $post = new Post;
+        $post->user()->associate($request->user());
+        $post->title = $request->title;
+        $post->slug = \Str::slug($request->title);
+        $post->body = $request->body;
+        $user = DB::table('guardians')->where('user_id', Auth::user()->id)->first();
+        $post_guardian = Guardian::find($user->acct_holder_id);
+        $post_guardian->posts()->save($post);
+        $post->save();
 
         return redirect()->back();
     }

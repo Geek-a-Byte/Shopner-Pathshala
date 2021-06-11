@@ -15,8 +15,8 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->integer('guardian_id')->unsigned()->nullable();
-            $table->foreign('guardian_id')
+            $table->integer('acct_holder_id')->unsigned()->nullable();
+            $table->foreign('acct_holder_id')
                 ->references('acct_holder_id')->on('Guardians')
                 ->onDelete('set null');
             $table->string('title');
