@@ -89,7 +89,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
         if ($user->role == 'Doctor') {
-            Doctor::create([
+            $doctor = Doctor::create([
                 'user_id' => $user->id,
                 'doctor_name' => $data['name'],
                 'doctor_email_id' => $data['email'],
@@ -97,7 +97,11 @@ class RegisterController extends Controller
                 'doctor_address' => $data['doctor_address'],
                 'doctor_gender' => $data['doctor_gender'],
                 'doctor_designation' => $data['doctor_designation'],
+
             ]);
+            // $guardian = Guardian::find([3, 4]);
+            // $doctor->guardians()->attach($guardian);
+            // // return 'Success';
         } else if ($user->role == 'Teacher') {
             Teacher::create(
                 [

@@ -11,12 +11,30 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <script>
         $(document).ready(function() {
+            $('.check').click(function() {
+                $('.check').not(this).prop('checked', false);
+            });
+            $('.release').click(function() {
+                console.log("SQL chatar matha");
+                <?php
+                include public_path('includes/connection.php');
+                $sql = 'BEGIN find_available_doctors(:name); END;';
+                $stmt = oci_parse($conn, $sql);
+                oci_bind_by_name($stmt, ':name', $name, 30);
+                oci_execute($stmt);
+                print "$name\n";
+                ?>
+
+
+            });
+
 
             $(function() {
 
@@ -117,18 +135,16 @@
 
     </div>
     </nav>
-    <div class="container">
 
+    <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-
                 <div class="row">
 
 
-                    <form enctype="multipart/form-data" action="/profile" method="POST">
+                    <form action="/profile" method="POST">
                         <div class="avatarrow">
                             <label>Book An Appointment</label>
-
                             <div class="form-group row">
                                 <div class='col-md-5'>
                                     <div class="form-group">
@@ -137,21 +153,30 @@
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
-
                                         </div>
-                                        <button type="search" class="pull-right btn btn-sm btn-primary">search</button>
+                                        <input type='button' name='Release' class="release" value='Click to Release'>
+
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </div>
-
-
-
-
                     </form>
+
+
+                    <table class="table table-bordered table-condensed table-hover table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">BRAND</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-left">
+                            <td><input type="checkbox" class="check" name="brand">Apple</td>
+                            <td><input type="checkbox" class="check" name="brand">Samsung</td>
+                            <td><input type="checkbox" class="check" name="brand">Google</td>
+                            <td><input type="checkbox" class="check" name="brand">Huawei</td>
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>

@@ -2,9 +2,16 @@
 
 @section('content')
 <style>
-    .child {
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
 
-        margin: 0 auto;
+    .container {
+        border-radius: 5px;
+        margin: 50px;
     }
 
     .card-header {
@@ -18,9 +25,9 @@
     }
 </style>
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="child">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card center">
                 @if(session()->has('message'))
                 <div class="alert alert-success">
                     {{ session()->get('message') }}

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Doctor;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -12,10 +13,15 @@ class Guardian extends Authenticatable
 
     protected $guard = 'guardian';
 
-    public function user()
+    public function doctors()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(Doctor::class, 'doctor_guardian',  'acct_holder_id', 'doctor_id');
     }
+
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
     public function childs()
     {
         return $this->hasMany(Child::class, 'acct_holder_id');
