@@ -29,7 +29,10 @@
 
             $(function() {
 
-                $('#datetimepicker').datetimepicker();
+                $('#datetimepicker').datetimepicker({
+                    useCurrent: false, //Important! See issue #1075
+                    format: 'DD-MMM-YY HH:mm'
+                });
                 $('#datetimepicker7').datetimepicker({
                     useCurrent: false, //Important! See issue #1075
                     format: 'DD-MMM-YY HH:mm'
@@ -118,10 +121,6 @@
                 </div>
                 </li>
                 </ul>
-                <!-- <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                </ul> -->
             </div>
 
     </div>
@@ -135,23 +134,23 @@
 
                     <form action="/makeappointment" method="POST">
                         @csrf
-                        <div class="avatarrow">
-                            <label>Book An Appointment</label>
-                            <div class="form-group row">
-                                <div class='col-md-5'>
-                                    <div class="form-group">
-                                        <div class='input-group date' id='datetimepicker6'>
-                                            <input class="form-control" type="text" name="work_hour_from" />
 
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
-                                        <input type='submit' value='Search'>
+                        <label>Find Available Doctors</label>
+                        <div class="form-group row">
+                            <div class='col-md-5'>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker6'>
+                                        <input class="form-control" type="text" name="work_hour_from" />
+
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
                                     </div>
+                                    <input type='submit' value='Search'>
                                 </div>
                             </div>
                         </div>
+
                     </form>
 
 
@@ -165,11 +164,12 @@
                                 <table class="table table-striped table-bordered">
                                     <tr>
                                         <th>Action</th>
+                                        <th>Avaliable Status</th>
                                         <th>Doctor ID</th>
                                         <th>Doctor Name</th>
                                         <th>Doctor Email ID</th>
                                         <th>Designation</th>
-                                        <th>Selected Appointment Date</th>
+
                                     </tr>
 
                                     <div>
@@ -181,33 +181,75 @@
                                     </div>
 
                                     @isset($data)
-                                    <?php
-                                    
-                                    $user = DB::table('doctor_guardian')->where(['appointment_time','=', $app_time],['acct_holder_id', '<>', 'null'],)->first();
-                                    // echo $time;
-                                    ?>
                                     @foreach ($data as $d)
                                     <tr>
                                         @foreach ($d as $k => $v)
                                         @if($k=="DOCTOR_ID")
                                         <td><input type="checkbox" class="check" name="selectdoctor" value={{$v}}></td>
-                                        @endif
-                                        <td>{{$v}}</td>
+                                        <td>
+                                            <?php
+                                            include public_path('includes/connection.php');
+                                            $stid = oci_parse($conn, 'SELECT * FROM doctor_guardian where appointment_time=:app_time and doctor_id=:v');
+                                            oci_bind_by_name($stid, ":app_time", $app_time);
+                                            oci_bind_by_name($stid, ":v", $v);
+                                            oci_execute($stid);
+                                            $data = array();
+                                            $i = 0;
+                                            while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                                                $data[] = $row;
+                                            }
+                                            // var_dump($data);
+                                            // echo "<table border='1'>\n";
+                                            // while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                                            //     echo "<tr>\n";
+                                            //     foreach ($row as $item) {
+                                            //         echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
+                                            //     }
+                                            //     echo "</tr>\n";
+                                            // }
+                                            // echo "</table>\n";
 
+                                            //                                             // var_dump($data);
+                                            if (count($data) == 0) {
+                                                echo "free\n";
+                                            } else {
+                                                echo "booked\n";
+                                            }
+
+
+                                            ?>
+                                        </td>
+                                        @endif
+
+                                        <td>{{$v}}</td>
                                         @endforeach
-                                        <td><input name="app_time" value={{$app_time}} readonly></td>
+
                                     </tr>
                                     @endforeach
                                     <div>
-                                        <input type="submit" value="Book Appointment" class="btn btn-primary">
-                                        </input>
+                                        <label>Date of the Appointment</label>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='datetimepicker'>
+                                                <input class="form-control" type="text" name="app_time" value={{$app_time}} readonly />
+
+                                                <!-- <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span> -->
+                                            </div>
+                                        </div>
+
                                     </div>
                                     @endisset
                                 </table>
-                            </div>
-                        </div>
 
+
+                            </div>
+
+                        </div>
+                        <input type="submit" value="Book Appointment" class="btn btn-primary">
+                        </input>
                     </form>
+
 
                 </div>
             </div>

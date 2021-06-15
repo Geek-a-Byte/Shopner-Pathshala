@@ -16,6 +16,7 @@ class AppBookController extends Controller
         echo $request->app_time;
         $doctor = new Doctor;
         $user = DB::table('guardians')->where('user_id', Auth::user()->id)->first();
+        
         // var_dump($user);
         $guardian = Guardian::find($user->acct_holder_id);
         var_dump($guardian->acct_holder_id);
