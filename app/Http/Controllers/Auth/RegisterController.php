@@ -97,6 +97,7 @@ class RegisterController extends Controller
                 'doctor_address' => $data['doctor_address'],
                 'doctor_gender' => $data['doctor_gender'],
                 'doctor_designation' => $data['doctor_designation'],
+
             ]);
         } else if ($user->role == 'Teacher') {
             Teacher::create(

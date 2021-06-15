@@ -14,6 +14,18 @@
     });
 </script>
 <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .container {
+        border-radius: 5px;
+        margin: 50px;
+    }
+
     .child {
 
         margin: 0 auto;
@@ -125,7 +137,7 @@
                                 </div>
                             </div>
                             <section class="jqueryOptions Doctor">
-                                
+
                                 <div class="form-group row">
                                     <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
 

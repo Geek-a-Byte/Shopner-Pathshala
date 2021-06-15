@@ -1,5 +1,4 @@
-
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
 <div class="container">
@@ -12,25 +11,28 @@
                     <th>Action</th>
                 </thead>
                 <tbody>
-                <?php
-                $posts = DB::table('posts')->get();
-                // var_dump($posts);
-                ?>
+                    <?php
 
-                @foreach($posts as $post)
-                <tr>
-                    <td>{{ $post->id }}</td>
-                    <td>{{ $post->title }}</td>
-                    <td>
-                        <a href="{{ route('post.show',$post->slug) }}" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">Read Post</a>
-                    </td>
-                </tr>
-                @endforeach
-                
+
+
+                    $posts = DB::table('posts')->get();
+                    // var_dump($posts);
+                    ?>
+
+                    @foreach($posts as $post)
+                    <tr>
+                        <td>{{ $post->id }}</td>
+                        <td>{{ $post->title }}</td>
+                        <td>
+                            <a href="{{ route('post.show',$post->slug) }}" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">Read Post</a>
+                        </td>
+                    </tr>
+                    @endforeach
+
                 </tbody>
 
             </table>
         </div>
     </div>
 </div>
-@endsection 
+@endsection

@@ -1,24 +1,26 @@
 <?php
 
 namespace App\Models;
-use App\Models\Post;
-use App\Models\Guardian;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    
-    public function Guardian()
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+    //
+
+    public function user()
     {
-        return $this->belongsTo(Guardian::class);
+        return $this->belongsTo(User::class);
     }
-    
+
     protected $fillable = [
-        'user_id',
+        'user_id', 'parent_id',
         'comment'
     ];
 
