@@ -18,14 +18,19 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\Profile\DoctorProfilePicUpdate;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AppBookController;
 use App\Http\Controllers\ChildController;
 use App\Http\Controllers\CommentController;
 
 use Illuminate\Support\Facades\Auth;
 
 Route::view('/', 'welcome')->name('welcome');
-Route::view('/makeappointment', 'makeappointment')->name('makeappointment');
+Route::get('/makeappointment', [AppointmentController::class, 'appointmentcreate'])->name('makeappointment');
+Route::post('/makeappointment', [AppointmentController::class, 'search'])->name('search.date');
 
+Route::post('/bookedappointment', [AppBookController::class, 'store'])->name('app.book.store');
+Route::get('/bookedappointment', [AppBookController::class, 'index'])->name('app.book.index');
 Route::group(['middleware' => 'PreventBackHistory'], function () {
     Auth::routes();
     Route::get('home', 'App\Http\Controllers\HomeController@index');
