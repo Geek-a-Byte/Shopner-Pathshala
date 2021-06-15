@@ -42,3 +42,4 @@ class Guardian extends Authenticatable
         return $this->hasMany(Post::class, 'acct_holder_id');
     }
 }
+
