@@ -19,6 +19,10 @@ class Child extends Model
     {
         return $this->belongsTo(Guardian::class);
     }
+    public function result()
+    {
+        return $this->belongsTo(Result::class);
+    }
 
     protected $hidden = [
         'password', 'remember_token',

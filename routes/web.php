@@ -37,3 +37,5 @@ Route::get('profile', [UserController::class, 'profile'])->name('doctor.image.sh
 Route::view('/registerChild', 'guardian/childform')->name('childform');
 Route::post('profile', [UserController::class, 'update_avatar'])->name('doctor.image.upload');
 Route::get('logout', [LoginController::class, 'logout']);
+Route::get('barcharts', [ResultController::class, 'get_all_results']);
+//Route::get('barcharts', 'App\Http\Controllers\ResultController@get_all_results');
