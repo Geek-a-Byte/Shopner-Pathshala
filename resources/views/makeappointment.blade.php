@@ -163,8 +163,8 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered">
                                     <tr>
+                                        <th>Appointment Status</th>
                                         <th>Action</th>
-                                        <th>Avaliable Status</th>
                                         <th>Doctor ID</th>
                                         <th>Doctor Name</th>
                                         <th>Doctor Email ID</th>
@@ -185,7 +185,8 @@
                                     <tr>
                                         @foreach ($d as $k => $v)
                                         @if($k=="DOCTOR_ID")
-                                        <td><input type="checkbox" class="check" name="selectdoctor" value={{$v}}></td>
+
+                                        <!-- <td><input type="checkbox" class="check" name="selectdoctor" value={{$v}}></td> -->
                                         <td>
                                             <?php
                                             include public_path('includes/connection.php');
@@ -198,6 +199,14 @@
                                             while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                                                 $data[] = $row;
                                             }
+                                            if (count($data) == 0) {
+                                                $status = "free";
+                                                echo " free\n";
+                                            } else {
+                                                $status = "booked";
+                                                echo " booked\n";
+                                            }
+
                                             // var_dump($data);
                                             // echo "<table border='1'>\n";
                                             // while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
@@ -210,14 +219,15 @@
                                             // echo "</table>\n";
 
                                             //                                             // var_dump($data);
-                                            if (count($data) == 0) {
-                                                echo "free\n";
-                                            } else {
-                                                echo "booked\n";
-                                            }
-
-
                                             ?>
+
+                                        </td>
+                                        <td>
+                                            @if($status=="free")
+                                            <input type="checkbox" class="check" name="selectdoctor" value={{$v}}></input>
+                                            @else
+                                            <input type="checkbox" class="check" name="selectdoctor" disabled>
+                                            @endif
                                         </td>
                                         @endif
 
