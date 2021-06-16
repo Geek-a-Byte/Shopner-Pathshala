@@ -181,11 +181,7 @@
                                     </div>
 
                                     @isset($data)
-                                    <?php
                                     
-                                    $user = DB::table('doctor_guardian')->where(['appointment_time','=', $app_time],['acct_holder_id', '<>', 'null'],)->first();
-                                    // echo $time;
-                                    ?>
                                     @foreach ($data as $d)
                                     <tr>
                                         @foreach ($d as $k => $v)
