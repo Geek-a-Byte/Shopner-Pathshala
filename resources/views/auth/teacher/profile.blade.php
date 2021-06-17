@@ -24,18 +24,22 @@
     }
   </style>
 
+
 </head>
 
 <body>
+
   <div class="container">
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <?php
         $email = Auth::user()->email;
-        $user = DB::table('nurses')->where('nurse_email_id', $email)->first();
+        $user = DB::table('teachers')->where('teacher_email_id', $email)->first();
         // var_dump(json_encode($user));
 
-        // echo $user->nurse_name;
+        // echo $user->doctor_id;
+        // echo $user->teacher_name;
+
         ?>
         <div class="card">
           @if(session()->has('success'))
@@ -45,12 +49,11 @@
           @endif
 
         </div>
-        
         <div class="row">
 
-        <div class="col-md-10 col-md-offset-1">
+          <div class="col-md-10 col-md-offset-1">
             <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px;">
-            <h2>{{ $user->nurse_name }}'s Profile</h2>
+            <h2>{{ $user->teacher_name }}'s Profile</h2>
           </div>
 
         </div>
@@ -63,49 +66,49 @@
           </div>
 
 
-        <div class="table-responsive">
-          <table class="table">
 
-            <tbody>
-              <tr class="success">
-                <th>Institution ID
-                <td>{{ $user->nurse_id }}</td>
-                </th>
-              </tr>
-              <tr class="info">
-                <th>Name
-                <td>{{ $user->nurse_name }}</td>
-                </th>
-              </tr>
-              <tr class="success">
-                <th>Email
-                <td>{{ $user->nurse_email_id }}</td>
-                </th>
-              </tr>
-              <tr class="info">
-                <th>Gender
-                <td>{{ $user->nurse_gender }}</td>
-                </th>
-              </tr>
-              <tr class="success">
-                <th>Address
-                <td>{{ $user->nurse_address }}</td>
-                </th>
-              </tr>
+          <div class="table-responsive">
+            <table class="table">
 
-              <tr class="info">
-                <th>Account Created
-                <td>{{ $user->created_at }}</td>
-                </th>
-              </tr>
+              <tbody>
+                <tr class="success">
+                  <th>Institution ID
+                  <td>{{ $user->teacher_id }}</td>
+                  </th>
+                </tr>
+                <tr class="info">
+                  <th>Name
+                  <td>{{ $user->teacher_name }}</td>
+                  </th>
+                </tr>
+                <tr class="success">
+                  <th>Email
+                  <td>{{ $user->teacher_email_id }}</td>
+                  </th>
+                </tr>
+                <tr class="info">
+                  <th>Gender
+                  <td>{{ $user->teacher_gender }}</td>
+                  </th>
+                </tr>
+                <tr class="success">
+                  <th>Address
+                  <td>{{ $user->teacher_address }}</td>
+                  </th>
+                </tr>
+                <tr class="info">
+                  <th>Account Created
+                  <td>{{ $user->created_at }}</td>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+            <input type="submit" class="pull-right btn btn-sm btn-primary">
 
-            </tbody>
-          </table>
-          <input type="submit" class="pull-right btn btn-sm btn-primary">
-
-        </div>
+        </form>
       </div>
     </div>
+  </div>
   </div>
 </body>
 @endsection
