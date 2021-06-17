@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Result extends Model
 {
-    use Notifiable;
+    
     use HasFactory;
     protected $guarded = [];
 

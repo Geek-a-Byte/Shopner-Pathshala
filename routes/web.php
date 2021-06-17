@@ -18,6 +18,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\Profile\DoctorProfilePicUpdate;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ResultController;
 
 Route::view('/', 'welcome')->name('welcome');
 Route::view('/makeappointment', 'makeappointment')->name('makeappointment');
@@ -39,3 +40,4 @@ Route::post('profile', [UserController::class, 'update_avatar'])->name('doctor.i
 Route::get('logout', [LoginController::class, 'logout']);
 Route::get('barcharts', [ResultController::class, 'get_all_results']);
 //Route::get('barcharts', 'App\Http\Controllers\ResultController@get_all_results');
+

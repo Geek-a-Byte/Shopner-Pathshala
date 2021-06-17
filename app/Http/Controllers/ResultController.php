@@ -11,7 +11,7 @@ class ResultController extends Controller
     //
     public function get_all_results()
     {
-       $results = \App\Result::all();
+       $results = \App\Models\Result::all();
        return view('result',['results' => $results]);   
     }
 }
