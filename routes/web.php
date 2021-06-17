@@ -26,15 +26,16 @@ use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Auth;
 
 Route::view('/', 'welcome')->name('welcome');
-Route::get('/makeappointment', [AppointmentController::class, 'appointmentcreate'])->name('makeappointment');
-Route::post('/makeappointment', [AppointmentController::class, 'search'])->name('search.date');
 
-Route::post('/bookedappointment', [AppBookController::class, 'store'])->name('app.book.store');
-Route::get('/bookedappointment', [AppBookController::class, 'index'])->name('app.book.index');
 Route::group(['middleware' => 'PreventBackHistory'], function () {
     Auth::routes();
     Route::get('home', 'App\Http\Controllers\HomeController@index');
+    Route::get("/chartjs", "App\Http\Controllers\ChildController@Chartjs");
+    Route::get('/makeappointment', [AppointmentController::class, 'appointmentcreate'])->name('makeappointment');
+    Route::post('/makeappointment', [AppointmentController::class, 'search'])->name('search.date');
 
+    Route::post('/bookedappointment', [AppBookController::class, 'store'])->name('app.book.store');
+    Route::get('/bookedappointment', [AppBookController::class, 'index'])->name('app.book.index');
 
     Route::get('/post', [PostController::class, 'create'])->name('post.create');
     Route::post('/post', [PostController::class, 'store'])->name('post.store');
