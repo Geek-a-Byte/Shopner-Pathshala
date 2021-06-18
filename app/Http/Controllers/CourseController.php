@@ -43,15 +43,36 @@ class CourseController extends Controller
         // $course->save();
 
 
+        //    include public_path('includes/connection.php');
+        //     $user = DB::table('teachers')->where('user_id', Auth::user()->id)->first();
+        //     $sql = 'BEGIN create_course_code(:catagory,:code); insert into courses (course_code,course_level,course_name,course_duration,course_content,pre_requisite,teacher_id) values(:code,:level,:catagory,:duration,:content,:pre_requisite,:teacher_id); END;';
+        //     $stmt = oci_parse($conn, $sql);
+        //     oci_bind_by_name($stmt, ':catagory', $catagory, 255);
+        //     oci_bind_by_name($stmt, ':level', $level, 255);
+        //     oci_bind_by_name($stmt, ':pre_requisite', $pre_requisite, 255);
+        //     oci_bind_by_name($stmt, ':duration', $duration, 30, 0);
+        //     oci_bind_by_name($stmt, ':code', $code, 255);
+        //     oci_bind_by_name($stmt, ':teacher_id', $teacher_id, 300000, 0);
+        //     oci_bind_by_name($stmt, ':content', $content, 255);
+        //     $catagory = $request->course_name;
+        //     $level = $request->course_level;
+        //     $pre_requisite = $request->pre_requisite;
+        //     $duration = $request->course_duration;
+        //     $teacher_id = $user->teacher_id;
+        //     $content = $request->course_content;
+        //     oci_execute($stmt);
+        //     return redirect()->back()->with('message', 'Course Created Successfully');
+
+
         include public_path('includes/connection.php');
         $user = DB::table('teachers')->where('user_id', Auth::user()->id)->first();
-        $sql = 'BEGIN create_course_code(:catagory,:code); insert into courses (course_code,course_level,course_name,course_duration,course_content,pre_requisite,teacher_id) values(:code,:level,:catagory,:duration,:content,:pre_requisite,:teacher_id); END;';
+        $sql = 'BEGIN insert into courses (course_level,course_name,course_duration,course_content,pre_requisite,teacher_id) values(:level,:catagory,:duration,:content,:pre_requisite,:teacher_id); END;';
         $stmt = oci_parse($conn, $sql);
         oci_bind_by_name($stmt, ':catagory', $catagory, 255);
         oci_bind_by_name($stmt, ':level', $level, 255);
         oci_bind_by_name($stmt, ':pre_requisite', $pre_requisite, 255);
         oci_bind_by_name($stmt, ':duration', $duration, 30, 0);
-        oci_bind_by_name($stmt, ':code', $code, 255);
+        // oci_bind_by_name($stmt, ':code', $code, 255);
         oci_bind_by_name($stmt, ':teacher_id', $teacher_id, 300000, 0);
         oci_bind_by_name($stmt, ':content', $content, 255);
         $catagory = $request->course_name;

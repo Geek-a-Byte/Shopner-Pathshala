@@ -21,17 +21,20 @@
         var data = google.visualization.arrayToDataTable([
           ['Result_id', 'Score'],
           @php
+          var_dump(isset($results));
           foreach($results as $result) {
             echo "['".$result -> result_id.
             "', ".$result -> score.
             "],";
           }
+
+
           @endphp
         ]);
 
         var line_pie_options = {
           title: 'Line Graph | Scores',
-          subtitle: 'Score, and Test: @php echo $results[0]->created_at @endphp',
+          subtitle: 'Score, and Test:',
           curveType: 'function',
           legend: {
             position: 'bottom'
@@ -40,7 +43,7 @@
         var bar_options = {
           chart: {
             title: 'Bar Graph | Scores',
-            subtitle: 'Score, and Test: @php echo $results[0]->created_at @endphp',
+            subtitle: 'Score, and Test:',
           },
           bars: 'vertical'
         };
@@ -58,6 +61,13 @@
   </head>
 
   <body>
+    <div>
+      @if(session()->has('message'))
+      <div class="alert alert-warning">
+        {{ session()->get('message') }}
+      </div>
+      @endif
+    </div>
     <div class="container">
       <div id="curve_chart" style="width: 900px; height: 500px"></div>
       <div id="barchart_material" style="width: 900px; height: 500px"></div>

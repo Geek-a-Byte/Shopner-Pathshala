@@ -14,7 +14,7 @@ class CreateChildCourseTable extends Migration
     public function up()
     {
         Schema::create('child_course', function (Blueprint $table) {
-            $table->increments('child_course_id');
+            $table->increments('child_takes_course_id');
             $table->integer('child_id')->unsigned()->nullable();
             $table->foreign('child_id')
                 ->references('child_id')->on('childs')

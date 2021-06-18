@@ -124,6 +124,14 @@
 
             <div class="row">
                 <div class="col-25">
+                    <label for="childID">Give Child ID</label>
+                </div>
+                <div class="col-75">
+                    <input type="number" id="name" name="child_id">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
                     <label for="Category">Select Courses</label>
                 </div>
                 <div class="col-75">
@@ -140,17 +148,19 @@
                     }
                     // }
                     // var_dump($data);
-                    if (count($data) == 0) {
-                        return back()->with('message', 'no doctors found...!');
-                    }
+                    // if (count($data) == 0) {
+                    //     return back()->with('message', 'no doctors found...!');
+                    // }
 
                     ?>
                 </div>
-
             </div>
+
+
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">
                     <tr>
+                        <th>Action</th>
                         <th>Course_Code</th>
                         <th>Course_level</th>
                         <th>Course_Name</th>
@@ -158,16 +168,18 @@
                         <th>Course Link</th>
                         <th>Prerequisites</th>
                         <th>Course Created By</th>
-                        <th>Action</th>
                     </tr>
                     @foreach ($data as $d)
                     <tr>
                         @foreach ($d as $k => $v)
+                        @if($k=="COURSE_CODE")
+                        <td>
+                            <input type="checkbox" name="selectCourse[]" value="{{$v}}">
+                        </td>
+                        @endif
                         <td>{{$v}}</td>
                         @endforeach
-                        <td>
-                            <input type="checkbox" name="selectCourse">
-                        </td>
+
                     </tr>
                     @endforeach
                 </table>
@@ -175,7 +187,7 @@
             <div class="row">
                 <div class="col-25">
                     <button type="submit" class="btn btn-primary">
-                        {{ __('Appoit Course') }}
+                        {{ __('Appoint Course') }}
                     </button>
                 </div>
             </div>
