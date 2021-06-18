@@ -13,8 +13,8 @@ class CreateChildCourseTable extends Migration
      */
     public function up()
     {
-        Schema::create('child_course', function (Blueprint $table) {
-            $table->increments('child_takes_course_id');
+        Schema::create('child_takes_course', function (Blueprint $table) {
+            $table->increments('child_cid_takes');
             $table->integer('child_id')->unsigned()->nullable();
             $table->foreign('child_id')
                 ->references('child_id')->on('childs')
@@ -34,6 +34,6 @@ class CreateChildCourseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('child_course');
+        Schema::dropIfExists('child_takes_course');
     }
 }

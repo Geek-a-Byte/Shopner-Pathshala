@@ -193,10 +193,6 @@
                                     </div>
 
                                     @isset($data)
-<<<<<<< HEAD
-                                    
-=======
->>>>>>> 49a28f12c097dcc4f02045d18a73163bd7985d68
                                     @foreach ($data as $d)
                                     <tr>
 
