@@ -3,23 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Child;
 
-class ViewCoursesController extends Controller
+
+class ViewCourseController extends Controller
 {
     //
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    public function index()
-    {
+    public function index(){
         return view('viewCourse');
     }
-    public function store()
-    {
-        // return view('appointCourse');
-    }
-    public function search(Request $request)
+    
+    public function view_all_course(Request $request)
     {
         $child = $request->child_id;
         // echo $app_time;
@@ -54,6 +48,6 @@ class ViewCoursesController extends Controller
             return back()->with('message', 'no child found...!');
         }
 
-        return view('view', compact('child', 'data'));
+        return view('viewcourse', compact('child', 'data'));
     }
 }
