@@ -26,6 +26,7 @@ use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Auth;
 
 Route::view('/', 'welcome')->name('welcome');
+Route::view('/studentprofile', 'studentprofile')->name('studentprofile');
 Route::get('/makeappointment', [AppointmentController::class, 'appointmentcreate'])->name('makeappointment');
 Route::post('/makeappointment', [AppointmentController::class, 'search'])->name('search.date');
 
