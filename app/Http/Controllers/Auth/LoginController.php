@@ -44,7 +44,7 @@ class LoginController extends Controller
         } else if ($user->role == "Nurse") {
             return view('auth.nurse.profile');
         } else if ($user->role == "Teacher") {
-            return view('auth.nurse.profile');
+            return view('auth.teacher.profile');
         } else if ($user->role == "Guardian") {
             return view('auth.guardian.profile');
         } else {

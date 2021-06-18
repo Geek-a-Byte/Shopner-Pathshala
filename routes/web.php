@@ -19,6 +19,8 @@ use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\Profile\DoctorProfilePicUpdate;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\AppBookController;
 use App\Http\Controllers\ChildController;
 use App\Http\Controllers\CommentController;
@@ -47,13 +49,16 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
 
     Route::get('redirects', 'App\Http\Controllers\HomeController@index');
 
-
+    Route::get('/Course/Create', [CourseController::class, 'index'])->name('teacher.create.course');
+    Route::post('/Course/Create', [CourseController::class, 'store'])->name('teacher.create.course.store');
+    Route::post('/Test/Create', [TestController::class, 'store'])->name('teacher.create.test.store');
+    Route::get('/Test', [TestController::class, 'index'])->name('child.test');
     //*profile photo upload
     Route::get('profile', [UserController::class, 'profile'])->name('doctor.image.show');
     Route::view('/registerChild', 'guardian/childform')->name('childform');
     Route::post('profile', [UserController::class, 'update_avatar'])->name('doctor.image.upload');
     Route::get('logout', [LoginController::class, 'logout']);
-    Route::get('barcharts', [ResultController::class, 'get_all_results']);
+    Route::get('result', [ResultController::class, 'get_all_results']);
     //Route::get('barcharts', 'App\Http\Controllers\ResultController@get_all_results');
 
     //*getting all the doctor profiles
@@ -67,4 +72,3 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::post('profile', [UserController::class, 'update_avatar'])->name('doctor.image.upload');
     Route::get('logout', [LoginController::class, 'logout']);
 });
-
