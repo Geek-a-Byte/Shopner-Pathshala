@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,7 +31,7 @@ class TestController extends Controller
         }
         include public_path('includes/connection.php');
         $user = DB::table('teachers')->where('user_id', Auth::user()->id)->first();
-        $sql = 'BEGIN insert into courses (course_code,test_question,teacher_id) values(:code,:content,:teacher_id); END;';
+        $sql = 'BEGIN insert into tests (course_code,test_question,teacher_id) values(:code,:content,:teacher_id); END;';
         $stmt = oci_parse($conn, $sql);
         oci_bind_by_name($stmt, ':code', $code, 255);
         oci_bind_by_name($stmt, ':teacher_id', $teacher_id, 300000, 0);

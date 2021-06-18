@@ -199,36 +199,33 @@
                 <div class="col-25">
                     <label for="Category">Select Course Code</label>
                 </div>
-                <!-- <div class="col-75">
-                    <select id="category" name="course_category">
-                        <option value="writing">Writing</option>
-                        <option value="emotion">Emotion</option>
-                        <option value="math">Math</option>
-                    </select>
-                </div> -->
-                <?php
+                <div class="col-75">
+                    <?php
+                    $user = DB::table('teachers')->where('user_id', Auth::user()->id)->first();
+                    @include public_path('includes/connection.php');
+                    $curs = oci_new_cursor($conn);
+                    $stid = oci_parse($conn, "begin myproc(:x,:cursbv); end;");
+                    oci_bind_by_name($stid, ":cursbv", $curs, -1, OCI_B_CURSOR);
+                    oci_bind_by_name($stid, ':x', $x, 255);
+                    $x = $user->teacher_id;
+                    oci_execute($stid);
+                    oci_execute($curs);  // Execute the REF CURSOR like a normal statement id
+                    // $data = array();
+                    echo "<select name='course_code' value=''>Select Course Code</option>";
+                    while (($row = oci_fetch_array($curs, OCI_ASSOC + OCI_RETURN_NULLS)) != false) {
+                        foreach ($row as $key => $course_code) {
+                            // echo $course_code;
+                            echo "<option value=$course_code>$course_code</option>";
+                        }
+                    }
+                    echo "</select>";
 
-                @include public_path('includes/connection.php');
+                    oci_free_statement($stid);
+                    oci_free_statement($curs);
+                    oci_close($conn);
+                    ?>
+                </div>
 
-                //$sql="SELECT name,id FROM student"; 
-
-                //$sql = "SELECT name,id FROM student order by name";
-
-                /* You can add order by clause to the sql statement if the names are to be displayed in alphabetical order */
-
-                /*
-                echo "<select name=student value=''>Student Name</option>"; // list box select command
-
-                foreach ($dbo->query($sql) as $row) { //Array or records stored in $row
-
-                    echo "<option value=$row[id]>$row[name]</option>";
-
-                    // Option values are added by looping through the array 
-                }
-
-                echo "</select>"; // Closing of list box
-                */
-                ?>
             </div>
 
             <div class="row">
@@ -236,7 +233,7 @@
                     <label for="Link">Test Link</label>
                 </div>
                 <div class="col-75">
-                    <input type="textarea" id="name" name="test_link" placeholder="Form link">
+                    <input type="textarea" id="name" name="course_content" placeholder="Form link">
                 </div>
             </div>
 

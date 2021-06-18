@@ -20,11 +20,11 @@ use App\Http\Controllers\Profile\DoctorProfilePicUpdate;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseAppointController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\AppBookController;
 use App\Http\Controllers\ChildController;
 use App\Http\Controllers\CommentController;
-
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ResultController;
 
@@ -50,9 +50,13 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::get('redirects', 'App\Http\Controllers\HomeController@index');
 
     Route::get('/Course/Create', [CourseController::class, 'index'])->name('teacher.create.course');
+    Route::get('/Course/Appoint', [CourseAppointController::class, 'index'])->name('teacher.appoint.course');
+    Route::post('/Course/Appoint', [CourseAppointController::class, 'store'])->name('teacher.appoint.course.store');
     Route::post('/Course/Create', [CourseController::class, 'store'])->name('teacher.create.course.store');
     Route::post('/Test/Create', [TestController::class, 'store'])->name('teacher.create.test.store');
     Route::get('/Test', [TestController::class, 'index'])->name('child.test');
+
+
     //*profile photo upload
     Route::get('profile', [UserController::class, 'profile'])->name('doctor.image.show');
     Route::view('/registerChild', 'guardian/childform')->name('childform');
