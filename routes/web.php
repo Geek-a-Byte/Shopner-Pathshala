@@ -17,27 +17,53 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\Profile\DoctorProfilePicUpdate;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AppBookController;
+use App\Http\Controllers\ChildController;
+use App\Http\Controllers\CommentController;
+
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ResultController;
 
 Route::view('/', 'welcome')->name('welcome');
-Route::view('/makeappointment', 'makeappointment')->name('makeappointment');
+Route::get('/makeappointment', [AppointmentController::class, 'appointmentcreate'])->name('makeappointment');
+Route::post('/makeappointment', [AppointmentController::class, 'search'])->name('search.date');
+
+Route::post('/bookedappointment', [AppBookController::class, 'store'])->name('app.book.store');
+Route::get('/bookedappointment', [AppBookController::class, 'index'])->name('app.book.index');
 Route::group(['middleware' => 'PreventBackHistory'], function () {
     Auth::routes();
     Route::get('home', 'App\Http\Controllers\HomeController@index');
+
+
+    Route::get('/post', [PostController::class, 'create'])->name('post.create');
+    Route::post('/post', [PostController::class, 'store'])->name('post.store');
+    Route::get('/posts', [PostController::class, 'index'])->name('posts');
+    Route::get('/article/{post:slug}', [PostController::class, 'show'])->name('post.show');
+    Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.add');
+    Route::post('/reply/store', [CommentController::class, 'replyStore'])->name('reply.add');
+
+    Route::get('redirects', 'App\Http\Controllers\HomeController@index');
+
+
+    //*profile photo upload
+    Route::get('profile', [UserController::class, 'profile'])->name('doctor.image.show');
+    Route::view('/registerChild', 'guardian/childform')->name('childform');
+    Route::post('profile', [UserController::class, 'update_avatar'])->name('doctor.image.upload');
+    Route::get('logout', [LoginController::class, 'logout']);
+    Route::get('barcharts', [ResultController::class, 'get_all_results']);
+    //Route::get('barcharts', 'App\Http\Controllers\ResultController@get_all_results');
+
+    //*getting all the doctor profiles
+    Route::get('/doctorProfiles', [App\Http\Controllers\TotalDoctorProfiles::class, 'index']);
+
+
+    //*profile photo upload
+    Route::get('profile', [UserController::class, 'profile'])->name('doctor.image.show');
+    Route::get('/registerChild', [ChildController::class, 'childcreate'])->name('childform');
+    Route::post('/registerChild', [ChildController::class, 'store'])->name('child.store');
+    Route::post('profile', [UserController::class, 'update_avatar'])->name('doctor.image.upload');
+    Route::get('logout', [LoginController::class, 'logout']);
 });
-
-Route::get('redirects', 'App\Http\Controllers\HomeController@index');
-
-//*getting all the doctor profiles
-Route::get('/doctorProfiles', [App\Http\Controllers\TotalDoctorProfiles::class, 'index']);
-
-
-//*profile photo upload
-Route::get('profile', [UserController::class, 'profile'])->name('doctor.image.show');
-Route::view('/registerChild', 'guardian/childform')->name('childform');
-Route::post('profile', [UserController::class, 'update_avatar'])->name('doctor.image.upload');
-Route::get('logout', [LoginController::class, 'logout']);
-Route::get('barcharts', [ResultController::class, 'get_all_results']);
-//Route::get('barcharts', 'App\Http\Controllers\ResultController@get_all_results');
 

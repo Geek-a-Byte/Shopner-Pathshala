@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -27,7 +28,7 @@ class CreateDoctorsTable extends Migration
             $table->string('doctor_address');
             $table->string('doctor_designation');
             $table->string('working_hour_from')->nullable();
-            $table->string('working_hour_to')->nullable()->che;
+            $table->string('working_hour_to')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

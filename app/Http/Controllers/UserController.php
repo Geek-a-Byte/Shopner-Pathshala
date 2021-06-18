@@ -35,6 +35,7 @@ class UserController extends Controller
         }
 
         $updateDoctorDetails = [
+
             'working_hour_from' => $request->work_hour_from,
             'working_hour_to' => $request->work_hour_to,
             'profile_photo' => $filename
@@ -44,15 +45,14 @@ class UserController extends Controller
             'profile_photo' => $filename
         ];
 
-        if(Auth::user()->role == "Doctor"){
-        DB::table('doctors')
-            ->where('user_id', $user->id)
-            ->update($updateDoctorDetails);
-        }
-        else if(Auth::user()->role == "Guardian"){
-        DB::table('guardians')
-            ->where('user_id', $user->id)
-            ->update($updateGuardianDetails);
+        if (Auth::user()->role == "Doctor") {
+            DB::table('doctors')
+                ->where('user_id', $user->id)
+                ->update($updateDoctorDetails);
+        } else if (Auth::user()->role == "Guardian") {
+            DB::table('guardians')
+                ->where('user_id', $user->id)
+                ->update($updateGuardianDetails);
         }
 
         // if (Auth::user()->role == "Doctor") {
