@@ -15,9 +15,18 @@ class Child extends Model
         'repeatative_behaviour',
     ];
 
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'child_course',  'child_id', 'course_code');
+    }
+
     public function user()
     {
         return $this->belongsTo(Guardian::class, 'acct_holder_id');
+    }
+    public function result()
+    {
+        return $this->belongsTo(Result::class);
     }
 
     protected $hidden = [
