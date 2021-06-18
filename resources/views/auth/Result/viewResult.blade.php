@@ -114,35 +114,53 @@
 
 
         <form >
-            @csrf
+        @csrf
 
-            <div class="row">
-                <div class="col-25">
-                    <label for="Category"> Courses</label>
-                </div>
-                
-
-            </div>
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered">
-                    <tr>
-                        <th>Course_Code</th>
-                        <th>Course_level</th>
-                        <th>Course_Name</th>
-                        <th>Duration</th>
-                        <th>Course Link</th>
-                        <th>Prerequisites</th>
-                        <th>Course Created By</th>
-                        
-                    </tr>
-                   
-                </table>
-            </div>
-            
-
-
-        </form>
+<div class="row">
+    <div class="col-25">
+        <label for="Category">Select Courses</label>
     </div>
+    <div class="col-75">
+        <?php
+        @include public_path('includes/connection.php');
+        $stid = oci_parse($conn, 'SELECT course_code,course_level,course_name,course_duration,course_content,pre_requisite,teacher_id FROM courses');
+        // oci_bind_by_name($stid, ":app_time", $app_time);
+        oci_execute($stid);
+        $data = array();
+        // $i = 0;
+        while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+            $data[] = $row;
+        }
+        // }
+        // var_dump($data);
+        if (count($data) == 0) {
+            return back()->with('message', 'no doctors found...!');
+        }
+
+        ?>
+    </div>
+
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>Course_Code</th>
+            <th>Course_level</th>
+            <th>Course_Name</th>
+            <th>Duration</th>
+            <th>Course Link</th>
+            <th>Prerequisites</th>
+            <th>Course Created By</th>
+            <th>Action</th>
+        </tr>
+        
+    </table>
+</div>
+
+
+
+</form>
+</div>
 
 
 </body>
