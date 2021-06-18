@@ -118,26 +118,10 @@
 
 <div class="row">
     <div class="col-25">
-        <label for="Category">Select Courses</label>
+        <label for="Category">View Courses</label>
     </div>
     <div class="col-75">
-        <?php
-        @include public_path('includes/connection.php');
-        $stid = oci_parse($conn, 'SELECT course_code,course_level,course_name,course_duration,course_content,pre_requisite,teacher_id FROM courses');
-        // oci_bind_by_name($stid, ":app_time", $app_time);
-        oci_execute($stid);
-        $data = array();
-        // $i = 0;
-        while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-            $data[] = $row;
-        }
-        // }
-        // var_dump($data);
-        if (count($data) == 0) {
-            return back()->with('message', 'no doctors found...!');
-        }
-
-        ?>
+       
     </div>
 
 </div>
@@ -151,13 +135,35 @@
             <th>Course Link</th>
             <th>Prerequisites</th>
             <th>Course Created By</th>
-            <th>Action</th>
-        </tr>
         
+        </tr>
+
+
+
+
+
+
+
+
+                 @isset($data)
+                                   
+                                    @foreach ($data as $d)
+                                    <tr>
+                                        @foreach ($d as $k => $v)
+                                        
+
+                                        <td>{{$v}}</td>
+                                        @endforeach
+
+                                    </tr>
+                                    @endforeach
+                                    
+                                    @endisset
+
+
+
     </table>
 </div>
-
-
 
 </form>
 </div>
