@@ -110,6 +110,13 @@
 <body>
 
     <div class="container">
+        <div>
+            @if(session()->has('message'))
+            <div class="alert alert-warning">
+                {{ session()->get('message') }}
+            </div>
+            @endif
+        </div>
         <form method="post" action="{{ route('teacher.create.course.store') }}">
             @csrf
 
@@ -118,7 +125,7 @@
                     <label for="Category">Select Course Category</label>
                 </div>
                 <div class="col-75">
-                    <select id="category" name="course_category">
+                    <select id="category" name="course_name">
                         <option value="Writing">Writing</option>
                         <option value="Recognization">Recognization</option>
                         <option value="Reading">Reading</option>
@@ -139,14 +146,37 @@
                     </select>
                 </div>
             </div>
+
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="duration">Course Duration</label>
+                </div>
+                <div class="col-75">
+                    <input type="number" id="name" name="course_duration">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="prerequ">Course Prerequisites</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="name" name="pre_requisite">
+                </div>
+            </div>
+
+
             <div class="row">
                 <div class="col-25">
                     <label for="Link">Course Content Link</label>
                 </div>
                 <div class="col-75">
-                    <input type="textarea" id="name" name="course_link" placeholder="Sway link">
+                    <input type="textarea" id="name" name="course_content" placeholder="Sway link">
                 </div>
             </div>
+
+
 
             <div class="row">
                 <div class="col-25">
