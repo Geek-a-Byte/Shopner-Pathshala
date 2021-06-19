@@ -31,6 +31,8 @@ use App\Http\Controllers\viewCourseController;
 
 Route::view('/', 'welcome')->name('welcome');
 
+
+
 Route::group(['middleware' => 'PreventBackHistory'], function () {
     Auth::routes();
     Route::get('home', 'App\Http\Controllers\HomeController@index');
@@ -57,6 +59,7 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::post('/Test/Create', [TestController::class, 'store'])->name('teacher.create.test.store');
     Route::get('/Test', [TestController::class, 'index'])->name('child.test');
 
+    Route::view('/studentprofile', 'studentprofile')->name('studentprofile');
 
     //*profile photo upload
     Route::get('profile', [UserController::class, 'profile'])->name('doctor.image.show');
