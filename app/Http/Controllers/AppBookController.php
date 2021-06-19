@@ -11,12 +11,16 @@ use Auth;
 class AppBookController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function store(Request $request)
     {
         echo $request->app_time;
         $doctor = new Doctor;
         $user = DB::table('guardians')->where('user_id', Auth::user()->id)->first();
-        
+
         // var_dump($user);
         $guardian = Guardian::find($user->acct_holder_id);
         var_dump($guardian->acct_holder_id);
