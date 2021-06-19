@@ -22,6 +22,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseAppointController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\MarkController;
 use App\Http\Controllers\AppBookController;
 use App\Http\Controllers\ChildController;
 use App\Http\Controllers\CommentController;
@@ -54,7 +55,10 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::post('/Course/Appoint', [CourseAppointController::class, 'store'])->name('teacher.appoint.course.store');
     Route::post('/Course/Create', [CourseController::class, 'store'])->name('teacher.create.course.store');
     Route::post('/Test/Create', [TestController::class, 'store'])->name('teacher.create.test.store');
+
     Route::get('/Test', [TestController::class, 'index'])->name('child.test');
+
+    Route::get('/Test/Marks', [MarkController::class, 'index'])->name('teacher.give.marks');
 
 
     //*profile photo upload

@@ -41,53 +41,7 @@ class CourseAppointController extends Controller
             oci_bind_by_name($stmt, ':code', $check_id, 255);
             $child_id = $request->child_id;
             oci_execute($stmt);
-            // mysqli_query($conn, "insert into checkbox (category_id,subcategory_id) values ('1','" . $check_id . "')") or die(mysqli_error());
-            // echo "Data added success fully!";
-            // echo $check_id;
         }
         return redirect()->back()->with('message', 'Course Appointed Successfully');
-        // $in_ch = mysqli_query($con, "insert into request_quote(technology) values ('$chk')");
-        // $user = DB::table('teachers')->where('user_id', Auth::user()->id)->first();
-        // $sql = 'insert into child_course (course_code,course_level,course_name,course_duration,course_content,pre_requisite,teacher_id) values(:code,:level,:catagory,:duration,:content,:pre_requisite,:teacher_id); END;';
-        // $stmt = oci_parse($conn, $sql);
-        // oci_bind_by_name($stmt, ':catagory', $catagory, 255);
-        // oci_bind_by_name($stmt, ':level', $level, 255);
-        // oci_bind_by_name($stmt, ':pre_requisite', $pre_requisite, 255);
-        // oci_bind_by_name($stmt, ':duration', $duration, 30, 0);
-        // oci_bind_by_name($stmt, ':code', $code, 255);
-        // oci_bind_by_name($stmt, ':teacher_id', $teacher_id, 300000, 0);
-        // oci_bind_by_name($stmt, ':content', $content, 255);
-        // $catagory = $request->course_name;
-        // $level = $request->course_level;
-        // $pre_requisite = $request->pre_requisite;
-        // $duration = $request->course_duration;
-        // $teacher_id = $user->teacher_id;
-        // $content = $request->course_content;
-        // oci_execute($stmt);
-        // return redirect()->back()->with('message', 'Course Created Successfully');
-        // if ($in_ch == 1) {
-        //     echo '<script>alert("Inserted Successfully")</script>';
-        // } else {
-        //     echo '<script>alert("Failed To Insert")</script>';
-        // }
-
-        // $user = DB::table('teachers')->where('user_id', Auth::user()->id)->first();
-        // $sql = 'BEGIN create_course_code(:catagory,:code); insert into courses (course_code,course_level,course_name,course_duration,course_content,pre_requisite,teacher_id) values(:code,:level,:catagory,:duration,:content,:pre_requisite,:teacher_id); END;';
-        // $stmt = oci_parse($conn, $sql);
-        // oci_bind_by_name($stmt, ':catagory', $catagory, 255);
-        // oci_bind_by_name($stmt, ':level', $level, 255);
-        // oci_bind_by_name($stmt, ':pre_requisite', $pre_requisite, 255);
-        // oci_bind_by_name($stmt, ':duration', $duration, 30, 0);
-        // oci_bind_by_name($stmt, ':code', $code, 255);
-        // oci_bind_by_name($stmt, ':teacher_id', $teacher_id, 300000, 0);
-        // oci_bind_by_name($stmt, ':content', $content, 255);
-        // $catagory = $request->course_name;
-        // $level = $request->course_level;
-        // $pre_requisite = $request->pre_requisite;
-        // $duration = $request->course_duration;
-        // $teacher_id = $user->teacher_id;
-        // $content = $request->course_content;
-        // oci_execute($stmt);
-        // return redirect()->back()->with('message', 'Course Created Successfully');
     }
 }
