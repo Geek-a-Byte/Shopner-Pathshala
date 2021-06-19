@@ -57,6 +57,15 @@
             font-family: 'Poppins', sans-serif;
         }
 
+        input[type="submit"] {
+            padding: 6px;
+            border: 1px solid black;
+            /* border-style: inherit; */
+            border-color: rgba(0, 0, 255, 0.25);
+            border-radius: 2px;
+        }
+
+
         hr {
             border: 1px solid black;
             /* border-style: inherit; */
@@ -163,12 +172,15 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered">
                                     <tr>
-                                        <th>Appointment Status</th>
-                                        <th>Action</th>
-                                        <th>Doctor ID</th>
+
+
                                         <th>Doctor Name</th>
                                         <th>Doctor Email ID</th>
                                         <th>Designation</th>
+                                        <th>Doctor ID</th>
+                                        <th>Appointment Status</th>
+                                        <th>Action</th>
+
 
                                     </tr>
 
@@ -183,9 +195,11 @@
                                     @isset($data)
                                     @foreach ($data as $d)
                                     <tr>
-                                        @foreach ($d as $k => $v)
-                                        @if($k=="DOCTOR_ID")
 
+
+                                        @foreach ($d as $k => $v)
+                                        <td>{{$v}}</td>
+                                        @if($k=="DOCTOR_ID")
                                         <!-- <td><input type="checkbox" class="check" name="selectdoctor" value={{$v}}></td> -->
                                         <td>
                                             <?php
@@ -201,7 +215,7 @@
                                             }
                                             if (count($data) == 0) {
                                                 $status = "free";
-                                                echo " free\n";
+                                                echo " available\n";
                                             } else {
                                                 $status = "booked";
                                                 echo " booked\n";
@@ -231,7 +245,6 @@
                                         </td>
                                         @endif
 
-                                        <td>{{$v}}</td>
                                         @endforeach
 
                                     </tr>

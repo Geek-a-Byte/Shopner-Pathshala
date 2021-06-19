@@ -16,7 +16,10 @@ class Teacher extends Authenticatable
     // {
     //     return $this->belongsTo(User::class);
     // }
-
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'teacher_id');
+    }
     protected $fillable = [
         'user_id',
         'teacher_name',
@@ -29,5 +32,6 @@ class Teacher extends Authenticatable
     protected $hidden = [
         'password', 'remember_token'
     ];
+    protected $table = 'teachers';
     protected $primaryKey = 'teacher_id';
 }

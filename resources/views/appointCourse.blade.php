@@ -110,22 +110,57 @@
 <body>
 
     <div class="container">
-        
+        <div>
+            @if(session()->has('message'))
+            <div class="alert alert-warning">
+                {{ session()->get('message') }}
+            </div>
+            @endif
+        </div>
 
 
-        <form >
+        <form method="post" action="{{ route('teacher.appoint.course.store') }}">
             @csrf
 
             <div class="row">
                 <div class="col-25">
-                    <label for="Category"> Courses</label>
+                    <label for="childID">Give Child ID</label>
                 </div>
-                
-
+                <div class="col-75">
+                    <input type="number" id="name" name="child_id">
+                </div>
             </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="Category">Select Courses</label>
+                </div>
+                <div class="col-75">
+                    <?php
+                    // $user = DB::table('teachers')->where('user_id', Auth::user()->id)->first();
+                    @include public_path('includes/connection.php');
+                    $stid = oci_parse($conn, 'SELECT course_code,course_level,course_name,course_duration,course_content,pre_requisite,teacher_id FROM courses');
+                    // oci_bind_by_name($stid, ":app_time", $app_time);
+                    oci_execute($stid);
+                    $data = array();
+                    // $i = 0;
+                    while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                        $data[] = $row;
+                    }
+                    // }
+                    // var_dump($data);
+                    // if (count($data) == 0) {
+                    //     return back()->with('message', 'no doctors found...!');
+                    // }
+
+                    ?>
+                </div>
+            </div>
+
+
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">
                     <tr>
+                        <th>Action</th>
                         <th>Course_Code</th>
                         <th>Course_level</th>
                         <th>Course_Name</th>
@@ -133,12 +168,29 @@
                         <th>Course Link</th>
                         <th>Prerequisites</th>
                         <th>Course Created By</th>
-                        
                     </tr>
-                   
+                    @foreach ($data as $d)
+                    <tr>
+                        @foreach ($d as $k => $v)
+                        @if($k=="COURSE_CODE")
+                        <td>
+                            <input type="checkbox" name="selectCourse[]" value="{{$v}}">
+                        </td>
+                        @endif
+                        <td>{{$v}}</td>
+                        @endforeach
+
+                    </tr>
+                    @endforeach
                 </table>
             </div>
-            
+            <div class="row">
+                <div class="col-25">
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('Appoint Course') }}
+                    </button>
+                </div>
+            </div>
 
 
         </form>
