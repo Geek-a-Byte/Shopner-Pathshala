@@ -81,6 +81,15 @@
                                 <li> <a class="dropdown-item" href="{{ route('childform') }}">
                                         {{ __('Register Child') }}
                                     </a></li>
+                                    <li> <a class="dropdown-item" href="{{ route('childform') }}">
+                                        {{ __('View Courses') }}
+                                    </a></li>
+                                    <li> <a class="dropdown-item" href="{{ route('childform') }}">
+                                        {{ __('Give test') }}
+                                    </a></li>
+                                    <li> <a class="dropdown-item" href="{{ route('childform') }}">
+                                        {{ __('View Results') }}
+                                    </a></li>
                                 @endif
                                 <li> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
