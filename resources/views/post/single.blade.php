@@ -1,10 +1,10 @@
 @extends('layouts.auth')
 <style>
     .display-comment {
-        background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+        /* background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%); */
         padding: 15px;
         border-radius: 5px;
-        border: 2px solid transparent;
+        border: 2px solid plum;
         height: auto;
         margin-bottom: 5px;
     }
@@ -15,16 +15,19 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                <?php
+                $poster = DB::table('guardians')->where('acct_holder_id', $post->acct_holder_id)->first();
+                ?>
                 <div class="card-body">
-
-                    <p>{{ $post->user_id}}
-                    <p>{{ $post->title }}</p>
-                    <p>{{ $post->body}}
-                    </p>
+                    <h3><b>{{ $post->title }}</b></h3>
+                    <h5><b>By {{ $poster->acct_holder_name }}</b></h5>
+                    <hr>
+                    <h5>{{$post->body }}</h5>
+                    <hr>
                 </div>
 
                 <div class="card-body">
-                    <h5>Display Comments</h5>
+                    <h4><b>Comments</b></h4>
 
                     @include('layouts.replies', ['comments' => $post->comments, 'post_id' => $post->id])
 

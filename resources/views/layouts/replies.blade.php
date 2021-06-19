@@ -1,10 +1,37 @@
+<style>
+    .space {
+        margin-left: 25px;
+    }
+
+    .display-replies {
+        padding-top: 15px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 0px;
+        border-radius: 5px;
+        background-color: paleturquoise;
+        height: auto;
+        margin-bottom: 2px;
+
+    }
+
+    p {
+        display: flex;
+    }
+</style>
 <?php
 $post_id = $post->id;
 $comments = $post->comments;
 ?>
 @foreach($comments as $comment)
 <div class="display-comment">
-    <strong>{{ $comment->user_id }}</strong>
+    <?php
+    $commenter = DB::table('normal_user')->where('id', $comment->user_id)->first();
+
+    ?>
+    <p style="display:flex;"><strong>{{ $commenter->name }}</strong>
+    <h6>{{$commenter->role}}</h6>
+    </p>
     <p>{{ $comment->comment }}</p>
     <a href="" id="reply"></a>
     <form method="post" action="{{ route('reply.add') }}">
@@ -21,10 +48,21 @@ $comments = $post->comments;
     <?php
     $replies = $comment->replies;
     ?>
-    <div class="display-replies">
+    <div class="space">
         @foreach($replies as $reply)
-        <strong>{{ $reply->user_id }}</strong>
-        <p>{{ $reply->comment }}</p>
+        <div class="display-replies">
+
+            <?php
+            $replier = DB::table('normal_user')->where('id', $reply->user_id)->first();
+            ?>
+            <p style="display:flex;"><strong>{{ $replier->name }}</strong>
+            <h6>{{$replier->role}}
+            </h6>
+            </p>
+            <p>{{ $reply->comment }}</p>
+            <hr>
+
+        </div>
         @endforeach
     </div>
 </div>
