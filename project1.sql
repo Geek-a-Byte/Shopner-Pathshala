@@ -61,9 +61,9 @@ constraint results_test_code_fk foreign key (test_code)references tests(test_cod
 
 );
 
-
 insert into results values (00001,'   ','W_001',20);
 
 -- for view tests --
 select course_code,course_level,test_code,test_question
 from courses join tests 
+
