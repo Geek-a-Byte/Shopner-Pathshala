@@ -1,11 +1,7 @@
-@ -1,66 +1,50 @@
 drop table courses;
-drop table tests;
-drop table results;
 
 create table courses
 (
-create table courses(
 course_code varchar2(10),
 course_level varchar2(10)not null,
 course_name varchar2(20)not null,
@@ -38,8 +34,9 @@ test_date date,
 test_highest_score number (6,3),
 test_lowest_score number (6,3),
 constraint tests_test_code_pk primary key(test_code),
-constraint tests_course_code_fk foreign key (course_code)references courses(course_code) on delete set null
+constraint tests_course_code_fk foreign key (course_code)references courses(course_code)
 );
+
 
 insert into tests (test_code,course_code,test_date) values('T_001','W_001','11-JAN-1982');
 insert into tests (test_code,course_code,test_date) values('T_002','W_001','11-JAN-1982');
@@ -51,19 +48,35 @@ drop table results;
 
 create table results
 (
-serial_number number(10,0),
+result_id number(10,0),
 child_id number(10,0),
 test_code varchar2(10),
 score number(6,3),
-constraint serial_number_pk primary key(serial_number),
+--constraint serial_number_pk primary key(serial_number),
 constraint results_child_id_fk foreign key (child_id)references childs(child_id),
-constraint results_test_code_fk foreign key (test_code)references tests(test_code) on delete set null
+constraint results_test_code_fk foreign key (test_code)references tests(test_code),
+primary key(result_id,child_id,test_code)
 
 );
+insert into childs (child_id,child_name) values (000001,'mim');
 
-insert into results values (00001,'   ','W_001',20);
+insert into results values (01,000001,'T_001',20);
+insert into results values (02,000002,'T_001',20);
+insert into results values (03,000001,'T_002',20);
+insert into results values (04,000003,'T_003',20);
+insert into results values (05,000004,'T_004',20);
 
--- for view tests --
-select course_code,course_level,test_code,test_question
-from courses join tests 
+drop table coursecombos;
+
+create table coursecombos
+(
+combo_id number(10,0),
+course_code varchar2(10),
+teacher_id number(10,0),
+constraint combos_course_code_fk foreign key (course_code)references courses(course_code),
+constraint combos_teacher_id_fk foreign key (teacher_id)references  teachers(teacher_id),
+PRIMARY KEY (combo_id,teacher_id)
+);
+
+
 

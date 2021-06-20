@@ -10,6 +10,10 @@ use DB;
 class AppointmentController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function appointmentcreate()
     {
         return view('makeappointment');
@@ -19,7 +23,7 @@ class AppointmentController extends Controller
         $app_time = $request->work_hour_from;
         // echo $app_time;
         include public_path('includes/connection.php');
-        $stid = oci_parse($conn, 'SELECT doctor_id,doctor_name,doctor_email_id,doctor_designation FROM doctors where working_hour_from<=:app_time and working_hour_to>=:app_time');
+        $stid = oci_parse($conn, 'SELECT doctor_name,doctor_email_id,doctor_designation,doctor_id FROM doctors where working_hour_from<=:app_time and working_hour_to>=:app_time');
         oci_bind_by_name($stid, ":app_time", $app_time);
         oci_execute($stid);
         $data = array();
@@ -29,7 +33,7 @@ class AppointmentController extends Controller
         }
         // var_dump($data);
         // echo "<table border='1'>\n";
-        // while ($  row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+        // while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
         //     echo "<tr>\n";
         //     foreach ($row as $item) {
         //         echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";

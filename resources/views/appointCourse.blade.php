@@ -108,45 +108,59 @@
 </head>
 
 <body>
-<?php
-$user = DB::table('childs')->where('acct_holder_id', Auth::user()->id)->first();
-?>
 
     <div class="container">
-        <form>
+        <div>
+            @if(session()->has('message'))
+            <div class="alert alert-warning">
+                {{ session()->get('message') }}
+            </div>
+            @endif
+        </div>
+
+
+        <form method="post" action="{{ route('teacher.appoint.course.store') }}">
             @csrf
+
             <div class="row">
                 <div class="col-25">
-                    <label for="Category">View Courses</label>
+                    <label for="childID">Give Child ID</label>
                 </div>
                 <div class="col-75">
+                    <input type="number" id="name" name="child_id">
                 </div>
             </div>
-            <?php
-            $guardian = DB::table('guardians')->where('user_id', Auth::user()->id)->first();
-            $childs = DB::table('childs')->where('acct_holder_id', $guardian->acct_holder_id)->get();
+            <div class="row">
+                <div class="col-25">
+                    <label for="Category">Select Courses</label>
+                </div>
+                <div class="col-75">
+                    <?php
+                    // $user = DB::table('teachers')->where('user_id', Auth::user()->id)->first();
+                    @include public_path('includes/connection.php');
+                    $stid = oci_parse($conn, 'SELECT course_code,course_level,course_name,course_duration,course_content,pre_requisite,teacher_id FROM courses');
+                    // oci_bind_by_name($stid, ":app_time", $app_time);
+                    oci_execute($stid);
+                    $data = array();
+                    // $i = 0;
+                    while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                        $data[] = $row;
+                    }
+                    // }
+                    // var_dump($data);
+                    // if (count($data) == 0) {
+                    //     return back()->with('message', 'no doctors found...!');
+                    // }
 
-            ?>
-            @foreach ($childs as $child)
-            <?php
-            $data = array();
-            $id = $child->child_id;
+                    ?>
+                </div>
+            </div>
 
-            $info = DB::table('courses')
-                ->join('child_takes_course', 'courses.course_code', '=', 'child_takes_course.course_code')
-                ->join('teachers', 'courses.teacher_id', '=', 'teachers.teacher_id')
-                ->join('childs', 'child_takes_course.child_id', '=', 'childs.child_id')
-                ->select('courses.course_code', 'courses.course_level', 'courses.course_name', 'courses.course_duration', 'courses.course_content', 'courses.pre_requisite', 'teachers.teacher_name')
-                ->where('childs.child_id', '=', $id)
-                ->get()->toArray();
-            $data[] = $info;
-            ?>
-            <h5><?php echo $id ?></h5>
-            <h5><?php echo $child->child_name ?></h5>
 
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">
                     <tr>
+                        <th>Action</th>
                         <th>Course_Code</th>
                         <th>Course_level</th>
                         <th>Course_Name</th>
@@ -155,60 +169,32 @@ $user = DB::table('childs')->where('acct_holder_id', Auth::user()->id)->first();
                         <th>Prerequisites</th>
                         <th>Course Created By</th>
                     </tr>
-                    @isset($data)
-                    @foreach ($data as $row)
-                    @foreach ($row as $k)
+                    @foreach ($data as $d)
                     <tr>
-                        @foreach ($k as $key => $v)
+                        @foreach ($d as $k => $v)
+                        @if($k=="COURSE_CODE")
+                        <td>
+                            <input type="checkbox" name="selectCourse[]" value="{{$v}}">
+                        </td>
+                        @endif
                         <td>{{$v}}</td>
                         @endforeach
+
                     </tr>
                     @endforeach
-                    @endforeach
-                    @endisset
                 </table>
             </div>
-            @endforeach
+            <div class="row">
+                <div class="col-25">
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('Appoint Course') }}
+                    </button>
+                </div>
+            </div>
+
 
         </form>
     </div>
-    <div class="col-75">
-       
-    </div>
-
-</div>
-<div class="table-responsive">
-    <table class="table table-striped table-bordered">
-        <tr>
-            <th>Course_Code</th>
-            <th>Course_level</th>
-            <th>Course_Name</th>
-            <th>Duration</th>
-            <th>Course Link</th>
-            <th>Prerequisites</th>
-            <th>Course Created By</th>
-        
-        </tr>
-
-
-
-
-                 @isset($data)
-                                   
-                  @foreach ($data as $d)
-                        <tr>
-                             @foreach ($d as $k => $v)
-                                 <td>{{$v}}</td>
-                            @endforeach
-
-                         </tr>
-                    @endforeach
-                @endisset
-    </table>
-</div>
-
-</form>
-</div>
 
 
 </body>

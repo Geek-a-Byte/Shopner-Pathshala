@@ -1,18 +1,35 @@
-  @extends('layouts.auth')
+@extends('layouts.auth')
 
-  @section('content')
-  <div class="container">
-      <div class="row justify-content-center">
-          <div class="col-md-8">
-              <div class="card">
-                  <div class="card-header">Dashboard</div>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h3>Online Forum</h3>
+            <table class="table table-striped">
+                <thead>
+                    <th>No</th>
+                    <th>Title</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    <?php
+                    $posts = DB::table('posts')->get();
+                    ?>
 
-                  <div class="card-body">
-                      Hi there, regular user
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+                    @foreach($posts as $post)
+                    <tr>
+                        <td>{{ $post->id }}</td>
+                        <td>{{ $post->title }}</td>
+                        <td>
+                            <a href="{{ route('post.show',$post->slug) }}" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">Read Post</a>
+                        </td>
+                    </tr>
+                    @endforeach
 
-  @endsection
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+@endsection

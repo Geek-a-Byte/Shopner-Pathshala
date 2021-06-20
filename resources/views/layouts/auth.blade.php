@@ -8,13 +8,18 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Shopner Pathshala</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
     <!-- Fonts -->
     <!-- <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"> -->
-    <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
+    <title>{{ config('app.name', 'Shopner Pathshala') }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <style>
         * {
@@ -64,7 +69,7 @@
                 </div>
                 <div class="collapse navbar-collapse navbar-right" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="{{ route('welcome') }}">Home</a></li>
+                        <li class="active"><a href="{{ route('home') }}">Home</a></li>
                         <li class="dropdown">
                             <!-- <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 Hi There <span class="caret"></span>
@@ -74,12 +79,44 @@
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li> <a class="dropdown-item" href="{{ route('doctor.image.show') }}">
+                                <li><a class="dropdown-item" href="{{ route('doctor.image.show') }}">
                                         {{ __('Profile') }}
                                     </a></li>
                                 @if(Auth::user()->role=="Guardian")
-                                <li> <a class="dropdown-item" href="{{ route('childform') }}">
+                                <li><a class="dropdown-item" href="{{ route('childform') }}">
                                         {{ __('Register Child') }}
+                                    </a></li>
+                                <li><a class="dropdown-item" href="{{ route('studentprofile') }}">
+                                        {{ __('View Child Profile') }}
+                                    </a></li>
+                                <li><a class="dropdown-item" href="{{ route('student.view.course') }}">
+                                        {{ __('View Courses') }}
+                                    </a></li>
+                                <li><a class="dropdown-item" href="{{ route('child.test') }}">
+                                        {{ __('Give test') }}
+                                    </a></li>
+                                <li><a class="dropdown-item" href="{{ route('result.graph') }}">
+                                        {{ __('View Results') }}
+                                    </a></li>
+                                <li><a class="dropdown-item" href="{{ route('post.create') }}">
+                                        {{ __('Create Post') }}
+                                    </a></li>
+                                <li><a class="dropdown-item" href="{{ route('makeappointment') }}">
+                                        {{ __('Book An Appointment') }}
+                                    </a></li>
+                                @endif
+                                @if(Auth::user()->role=="Teacher")
+                                <li> <a class="dropdown-item" href="{{ route('teacher.give.marks') }}">
+                                        {{ __('Give Test Marks') }}
+                                    </a></li>
+                                <li> <a class="dropdown-item" href="{{ route('teacher.create.course') }}">
+                                        {{ __('Create Course and Test Content') }}
+                                    </a></li>
+                                <li> <a class="dropdown-item" href="{{ route('teacher.appoint.course') }}">
+                                        {{ __('Appoint Course') }}
+                                    </a></li>
+                                <li> <a class="dropdown-item" href="{{ route('result.graph') }}">
+                                        {{ __('View A Single Child\'s Result') }}
                                     </a></li>
                                 @endif
                                 <li> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

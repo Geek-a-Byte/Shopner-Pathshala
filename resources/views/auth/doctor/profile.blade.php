@@ -1,13 +1,7 @@
-@extends('layouts.auth')
-
-@section('content')
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -21,131 +15,211 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script>
+        $(document).ready(function() {
+            $(function() {
+                $('#datetimepicker').datetimepicker();
+                $('#datetimepicker7').datetimepicker({
+                    useCurrent: false, //Important! See issue #1075
+                    format: 'DD-MMM-YY HH:mm'
+                });
+                $('#datetimepicker6').datetimepicker({
+                    useCurrent: false, //Important! See issue #1075
+                    format: 'DD-MMM-YY HH:mm'
+                });
+                $("#datetimepicker6").on("dp.change", function(e) {
+                    $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+                });
+                $("#datetimepicker7").on("dp.change", function(e) {
+                    $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+                });
+            });
+        });
+    </script>
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: 'Poppins', sans-serif;
         }
 
-        input[type=text],
-        input[type=textarea],
-        input[type=number],
-        input[type=email],
-        input[type=phone],
-        select,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
+        hr {
+            border: 1px solid black;
+            /* border-style: inherit; */
+            border-color: rgba(0, 0, 255, 0.25);
         }
 
-        label {
-            padding: 12px 12px 12px 0;
-            display: inline-block;
+        .avatarrow {
+            padding: auto;
+            margin: 10px;
         }
 
-        input[type=submit] {
-            background-color: #04AA6D;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            float: left;
-
-        }
-
-        input[type=submit]:hover {
-            background-color: #45a049;
-        }
-
-        .container {
-            border-radius: 5px;
-            background-color: #f2f2f2;
-            padding: 50px;
-        }
-
-        .col-25 {
-            float: left;
-            width: 25%;
-            margin-top: 6px;
-        }
-
-        .col-75 {
-            float: left;
-            width: 75%;
-            margin-top: 6px;
-        }
-
-        /* Clear floats after the columns */
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
-        .centerheader {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-        @media screen and (max-width: 600px) {
-
-            .col-25,
-            .col-75,
-            input[type=submit] {
-                width: 100%;
-                margin-top: 0;
-            }
+        .working-hr {
+            padding: 10px;
+            margin: 10px;
         }
     </style>
-
 </head>
 
 <body>
-
-    <div class="container">
-        
-
-
-        <form >
-            @csrf
-
-            <div class="row">
-                <div class="col-25">
-                    <label for="Category"> Courses</label>
+    <div id="app">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- <a class="navbar-brand" href="#">
+            <img src="{{URL::asset('/image/whitelogo.png')}}" width="200" height="100" class="d-inline-block align-top" alt="">
+          </a> -->
                 </div>
-                
+                <div class="collapse navbar-collapse navbar-right" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="{{ route('welcome') }}">Home</a></li>
+                        <li class="dropdown">
+                            <!-- <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Hi There <span class="caret"></span>
+                            </a> -->
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="position:relative; padding-left:50px;">
+                                <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width:32px; height:32px; position:absolute; top:10px; left:10px; border-radius:50%">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li> <a class="dropdown-item" href="{{ route('doctor.image.show') }}">
+                                        {{ __('Profile') }}
+                                    </a></li>
+                                @if(Auth::user()->role=="Guardian")
+                                <li> <a class="dropdown-item" href="{{ route('childform') }}">
+                                        {{ __('Register Child') }}
+                                    </a></li>
+                                @endif
+                                <li> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a></li>
+                            </ul>
 
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                </div>
+                </li>
+                </ul>
+                <!-- <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul> -->
             </div>
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered">
-                    <tr>
-                        <th>Course_Code</th>
-                        <th>Course_level</th>
-                        <th>Course_Name</th>
-                        <th>Duration</th>
-                        <th>Course Link</th>
-                        <th>Prerequisites</th>
-                        <th>Course Created By</th>
-                        
-                    </tr>
-                   
-                </table>
+
+    </div>
+    </nav>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <?php
+                $email = Auth::user()->email;
+                $user = DB::table('doctors')->where('doctor_email_id', $email)->first();
+                ?>
+                <div class="card">
+                    @if(session()->has('success'))
+                    <div class="alert alert-success">
+                        {{ session()->get('success') }}
+                    </div>
+                    @endif
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-10 col-md-offset-1">
+                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px;">
+                        <h2>{{ $user->doctor_name }}'s Profile</h2>
+                    </div>
+
+                    <form enctype="multipart/form-data" action="/profile" method="POST">
+                        <div class="avatarrow">
+                            <label>Update Profile Image</label>
+                            <input type="file" name="avatar">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        </div>
+                        <div class="avatarrow">
+                            <label>Select Working Hour</label>
+
+                            <div class="form-group row">
+                                <div class='col-md-5'>
+                                    <div class="form-group">
+                                        <div class='input-group date' id='datetimepicker6'>
+                                            <input class="form-control" name="work_hour_from" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h5>to</h5>
+                                        </div>
+                                        <div class='input-group date' id='datetimepicker7'>
+                                            <input class="form-control" name="work_hour_to" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="table-responsive">
+                            <table class="table">
+
+                                <tbody>
+                                    <tr class="success">
+                                        <th>Institution ID
+                                        <td>{{ $user->doctor_id }}</td>
+                                        </th>
+                                    </tr>
+                                    <tr class="info">
+                                        <th>Name
+                                        <td>{{ $user->doctor_name }}</td>
+                                        </th>
+                                    </tr>
+                                    <tr class="success">
+                                        <th>Email
+                                        <td>{{ $user->doctor_email_id }}</td>
+                                        </th>
+                                    </tr>
+                                    <tr class="info">
+                                        <th>Gender
+                                        <td>{{ $user->doctor_gender }}</td>
+                                        </th>
+                                    </tr>
+                                    <tr class="success">
+                                        <th>Designation
+                                        <td>{{ $user->doctor_designation }}</td>
+                                        </th>
+                                    </tr>
+                                    <tr class="info">
+                                        <th>Working Hour
+                                        <td>{{ $user->working_hour_from }} - {{ $user->working_hour_to }}</td>
+                                        </th>
+                                    </tr>
+
+                                    <tr class="success">
+                                        <th>Account Created
+                                        <td>{{ $user->created_at }}</td>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <input type="submit" class="pull-right btn btn-sm btn-primary">
+
+                    </form>
+                </div>
             </div>
-            
-
-
-        </form>
+        </div>
     </div>
 
-
 </body>
-
-</html>
-@endsection
