@@ -22,3 +22,10 @@ BEGIN
        EXECUTE IMMEDIATE 'drop table '|| i.table_name ||' CASCADE CONSTRAINTS ';
   END LOOP;
 END;
+
+
+
+/*delete commands*/
+delete from tests;
+delete from results;
+delete from child_takes_course;

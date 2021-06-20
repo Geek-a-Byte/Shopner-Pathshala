@@ -3,20 +3,14 @@
 @section('content')
 
 <head>
-<<<<<<< HEAD
     <script>
         $(document).ready(function() {
             $('.check').click(function() {
                 $('.check').not(this).prop('checked', false);
             });
-            $('.release').click(function() {
-
-
-            });
-
+            $('.release').click(function() {});
+        });
     </script>
-=======
->>>>>>> abe9032e281f207523ac821786ff2aa0d4cc8045
     <style>
         * {
             box-sizing: border-box;
@@ -105,22 +99,22 @@
 
 <div class="container">
 
-                    <form action="/Test" method="POST">
-                        @csrf
+    <form action="/Test" method="POST">
+        @csrf
 
-                        <label>Give Child ID</label>
-                        <div class="form-group row">
-                            <div class='col-md-5'>
-                                <div class="form-group">
-                                        <input class="form-control" type="text" name="child_id">
-                                </div>
-                                <div class="form-group">
-                                        <input type='submit' value='Submit'>
-                                </div>
-                            </div>
-                        </div>
+        <label>Give Child ID</label>
+        <div class="form-group row">
+            <div class='col-md-5'>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="child_id">
+                </div>
+                <div class="form-group">
+                    <input type='submit' value='Submit'>
+                </div>
+            </div>
+        </div>
 
-                    </form>
+    </form>
 
 
     <form method="POST" action={{'/SearchTest'}}>
@@ -134,14 +128,14 @@
                 <select id="category" name="course_category">
                 <option value=""> Select Course </option>
                 <?php
-                    // include public_path('includes/connection.php'); 
-                    // $stid = oci_parse($conn, 'SELECT course_code FROM child_takes_course where child_id=:c_code');
-                    // oci_bind_by_name($stid, ":c_code",$c_code);
-                    // oci_execute($stid);
-                    // while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                    //     $WID=$row ['COURSE_CODE'];
-                    //     echo "<option value='". $WID ."'>" .$WID ."</option>";
-                    // }	
+                // include public_path('includes/connection.php'); 
+                // $stid = oci_parse($conn, 'SELECT course_code FROM child_takes_course where child_id=:c_code');
+                // oci_bind_by_name($stid, ":c_code",$c_code);
+                // oci_execute($stid);
+                // while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                //     $WID=$row ['COURSE_CODE'];
+                //     echo "<option value='". $WID ."'>" .$WID ."</option>";
+                // }	
                 ?>  
                     
                 </select>
@@ -156,114 +150,95 @@
             </div>
         </div> -->
 
-<hr>
-<hr>
+        <hr>
+        <hr>
 
-                        <div class=" card-header">
-                            <h3><b>Select Your Test</b></h3>
+        <div class=" card-header">
+            <h3><b>Select Your Test</b></h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Level</th>
+                        <th>Test Code</th>
+                        <th>Result Status</th>
+                        <th>Action</th>
+                        <th>Test Question</th>
+                    </tr>
+
+                    <div>
+                        @if(session()->has('message'))
+                        <div class="alert alert-warning">
+                            {{ session()->get('message') }}
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered">
-                                    <tr>
-                                        <th>Course Code</th>
-                                        <th>Level</th>
-                                        <th>Appointment Status</th>
-                                        <th>Action</th>
-                                        <th>Test Code</th>
-                                        <th>Test Question</th>
-                                    </tr>
+                        @endif
+                    </div>
 
-                                    <div>
-                                        @if(session()->has('message'))
-                                        <div class="alert alert-warning">
-                                            {{ session()->get('message') }}
-                                        </div>
-                                        @endif
-                                    </div>
+                    @isset($data)
+                    @foreach ($data as $d)
+                    <tr>
+                        @foreach ($d as $k => $v)
+                        <td>{{$v}}</td>
+                        @if($k=="TEST_CODE")
 
-                                    @isset($data)
-                                    @foreach ($data as $d)
-                                    <tr>
-                                        @foreach ($d as $k => $v)
-                                        <td>{{$v}}</td>
-                                        @if($k=="TEST_CODE")
+                        <td>
+                            <?php
+                            include public_path('includes/connection.php');
+                            $stid = oci_parse($conn, 'SELECT * FROM results where child_id=:ajaira and test_code=:v');
+                            oci_bind_by_name($stid, ":ajaira", $ajaira);
+                            oci_bind_by_name($stid, ":v", $v);
+                            oci_execute($stid);
+                            $data1 = array();
+                            $i = 0;
+                            while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                                $data1[] = $row;
+                                //var_dump($data1);
+                            }
+                            // var_dump($data1);
+                            if (count($data1) == 0) {
+                                $status = "Not Appeared";
+                                echo " Not Appeared\n";
+                            } else {
+                                $status = "booked";
+                                $pass_fail = $data1[0]["SCORE"];
+                                if ($pass_fail >= 10)
+                                    echo " Passed\n";
+                                else
+                                    echo " Failed\n";
+                            }
+                            ?>
 
-                                        <td>
-                                            <?php
-                                            include public_path('includes/connection.php');
-                                            $stid = oci_parse($conn, 'SELECT * FROM results where child_id=:ajaira and test_code=:v');
-                                            oci_bind_by_name($stid, ":ajaira", $ajaira);
-                                            oci_bind_by_name($stid, ":v", $v);
-                                            oci_execute($stid);
-                                            $data1 = array();
-                                            $i = 0;
-                                            while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                                                $data1[] = $row;
-                                                //var_dump($data1);
-                                            }
-                                            //var_dump($data1);
-                                            if (count($data1) == 0) {
-                                                $status = "Not Appeared";
-                                                echo " Not Appeared\n";
-                                            } else {
-                                                $status = "booked";
-                                                $pass_fail=$data1[0]["SCORE"];
-                                                if($pass_fail>=10)
-                                                    echo " Passed\n";
-                                                else
-                                                    echo " Failed\n";
-                                            }
-
-                                            // var_dump($data);
-                                            // echo "<table border='1'>\n";
-                                            // while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                                            //     echo "<tr>\n";
-                                            //     foreach ($row as $item) {
-                                            //         echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
-                                            //     }
-                                            //     echo "</tr>\n";
-                                            // }
-                                            // echo "</table>\n";
-
-                                            //                                             // var_dump($data);
-                                            ?>
-
-                                        </td>
-                                        <td>
-                                            @if($status=="Not Appeared")
-                                            <input type="checkbox" class="check" name="selectTest" value={{$v}}></input>
-                                            @else
-                                            <input type="checkbox" class="check" name="selectTest" disabled>
-                                            @endif
-                                        </td>
-                                        @endif
-
-                                        
-                                        @endforeach
-
-                                    </tr>
-                                    @endforeach
-                                     <div>
-                                        <label>Child ID</label>
-                                        <div class="form-group">
-                                            <div class='input-group date' id='datetimepicker'>
-                                                <input class="form-control" type="text" name="ajaira" value={{$ajaira}} readonly />
-
-                                                
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    @endisset
-                                </table>
+                        </td>
+                        <td>
+                            @if($status=="Not Appeared")
+                            <input type="checkbox" class="check" name="selectTest" value={{$v}}></input>
+                            @else
+                            <input type="checkbox" class="check" name="selectTest" disabled>
+                            @endif
+                        </td>
+                        @endif
 
 
+                        @endforeach
+
+                    </tr>
+                    @endforeach
+                    <div>
+                        <label>Child ID</label>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker'>
+                                <input class="form-control" type="text" name="ajaira" value={{$ajaira}} readonly />
                             </div>
-
                         </div>
-                    <input type="submit" value="Go To Test" class="btn btn-primary">
-                    </input>
+                    </div>
+                    @endisset
+                </table>
+            </div>
+        </div>
+        <input type="submit" value="Go To Test" class="btn">
+        </input>
 
 
     </form>
