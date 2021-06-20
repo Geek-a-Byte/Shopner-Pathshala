@@ -33,8 +33,7 @@
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <?php
-        $email = Auth::user()->email;
-        $user = DB::table('teachers')->where('teacher_email_id', $email)->first();
+        $user = DB::table('teachers')->where('user_id', Auth::user()->id)->first();
         // var_dump(json_encode($user));
 
         // echo $user->doctor_id;
