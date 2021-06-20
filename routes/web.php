@@ -22,6 +22,11 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AppBookController;
 use App\Http\Controllers\ChildController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\FindcourseController;
+use App\Http\Controllers\GivetestController;
+
 
 use Illuminate\Support\Facades\Auth;
 
@@ -45,6 +50,14 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::post('/reply/store', [CommentController::class, 'replyStore'])->name('reply.add');
 
     Route::get('redirects', 'App\Http\Controllers\HomeController@index');
+
+
+    Route::post('/Course/Create', [CourseController::class, 'store'])->name('teacher.create.course.store');
+    Route::post('/Test/Create', [TestController::class, 'store'])->name('teacher.create.test.store');
+    Route::get('/Test', [TestController::class, 'index'])->name('child.test');
+    Route::post('/Test', [FindcourseController::class, 'search'])->name('search.course');
+    Route::post('/SearchTest', [GivetestController::class, 'store'])->name('result.store');
+
 
     //*getting all the doctor profiles
     Route::get('/doctorProfiles', [App\Http\Controllers\TotalDoctorProfiles::class, 'index']);

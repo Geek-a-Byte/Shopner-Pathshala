@@ -34,7 +34,7 @@ test_date date,
 test_highest_score number (6,3),
 test_lowest_score number (6,3),
 constraint tests_test_code_pk primary key(test_code),
-constraint tests_course_code_fk foreign key (course_code)references courses(course_code)
+constraint tests_course_code_fk foreign key (course_code)references courses(course_code) on delete set null
 );
 
 insert into tests (test_code,course_code,test_date) values('T_001','W_001','11-JAN-1982');
@@ -53,9 +53,14 @@ test_code varchar2(10),
 score number(6,3),
 constraint serial_number_pk primary key(serial_number),
 constraint results_child_id_fk foreign key (child_id)references childs(child_id),
-constraint results_test_code_fk foreign key (test_code)references tests(test_code)
+constraint results_test_code_fk foreign key (test_code)references tests(test_code) on delete set null
 
 );
 
 
 insert into results values (00001,'   ','W_001',20);
+
+-- for view tests --
+select course_code,course_level,test_code,test_question
+from courses join tests using(course_code) join child_takes_course using(course_code)
+where child_id = 2;
