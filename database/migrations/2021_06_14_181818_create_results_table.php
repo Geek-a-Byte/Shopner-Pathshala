@@ -20,6 +20,7 @@ class CreateResultsTable extends Migration
                 ->references('child_id')->on('Childs')
                 ->onDelete('set null');
             $table->string('test_code');
+            $table->foreign('test_code')
             $table->integer('score');
             $table->timestamps();
         });

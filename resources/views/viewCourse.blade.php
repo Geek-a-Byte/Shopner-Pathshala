@@ -108,6 +108,9 @@
 </head>
 
 <body>
+<?php
+$user = DB::table('childs')->where('acct_holder_id', Auth::user()->id)->first();
+?>
 
     <div class="container">
         
@@ -141,27 +144,17 @@
 
 
 
-
-
-
-
                  @isset($data)
                                    
-                                    @foreach ($data as $d)
-                                    <tr>
-                                        @foreach ($d as $k => $v)
-                                        
+                  @foreach ($data as $d)
+                        <tr>
+                             @foreach ($d as $k => $v)
+                                 <td>{{$v}}</td>
+                            @endforeach
 
-                                        <td>{{$v}}</td>
-                                        @endforeach
-
-                                    </tr>
-                                    @endforeach
-                                    
-                                    @endisset
-
-
-
+                         </tr>
+                    @endforeach
+                @endisset
     </table>
 </div>
 
