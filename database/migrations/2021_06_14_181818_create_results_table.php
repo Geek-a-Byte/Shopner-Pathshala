@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChildCourseTable extends Migration
+class CreateResultsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateChildCourseTable extends Migration
      */
     public function up()
     {
-        Schema::create('child_takes_course', function (Blueprint $table) {
-            $table->increments('child_cid_takes');
+        Schema::create('results', function (Blueprint $table) {
+            $table->increments('result_id');
             $table->integer('child_id')->unsigned()->nullable();
             $table->foreign('child_id')
-                ->references('child_id')->on('childs')
+                ->references('child_id')->on('Childs')
                 ->onDelete('set null');
-            $table->string('course_code')->nullable();
-            $table->foreign('course_code')
-                ->references('course_code')->on('courses')
-                ->onDelete('set null');
+            $table->string('test_code');
+            $table->integer('score');
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ class CreateChildCourseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('child_takes_course');
+        Schema::dropIfExists('results');
     }
 }

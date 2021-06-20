@@ -3,6 +3,7 @@
 @section('content')
 
 <head>
+<<<<<<< HEAD
     <script>
         $(document).ready(function() {
             $('.check').click(function() {
@@ -14,6 +15,8 @@
             });
 
     </script>
+=======
+>>>>>>> abe9032e281f207523ac821786ff2aa0d4cc8045
     <style>
         * {
             box-sizing: border-box;

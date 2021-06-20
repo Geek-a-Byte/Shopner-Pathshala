@@ -19,28 +19,33 @@ use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\Profile\DoctorProfilePicUpdate;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseAppointController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\AppBookController;
 use App\Http\Controllers\ChildController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FindcourseController;
 use App\Http\Controllers\GivetestController;
 
 
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ResultController;
+use App\Http\Controllers\viewCourseController;
 
 Route::view('/', 'welcome')->name('welcome');
-Route::view('/studentprofile', 'studentprofile')->name('studentprofile');
-Route::get('/makeappointment', [AppointmentController::class, 'appointmentcreate'])->name('makeappointment');
-Route::post('/makeappointment', [AppointmentController::class, 'search'])->name('search.date');
 
-Route::post('/bookedappointment', [AppBookController::class, 'store'])->name('app.book.store');
-Route::get('/bookedappointment', [AppBookController::class, 'index'])->name('app.book.index');
+
+
 Route::group(['middleware' => 'PreventBackHistory'], function () {
     Auth::routes();
     Route::get('home', 'App\Http\Controllers\HomeController@index');
+    Route::get("/chartjs", "App\Http\Controllers\ChildController@Chartjs");
+    Route::get('/makeappointment', [AppointmentController::class, 'appointmentcreate'])->name('makeappointment');
+    Route::post('/makeappointment', [AppointmentController::class, 'search'])->name('search.date');
 
+    Route::post('/bookedappointment', [AppBookController::class, 'store'])->name('app.book.store');
+    Route::get('/bookedappointment', [AppBookController::class, 'index'])->name('app.book.index');
 
     Route::get('/post', [PostController::class, 'create'])->name('post.create');
     Route::post('/post', [PostController::class, 'store'])->name('post.store');
@@ -57,6 +62,25 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::get('/Test', [TestController::class, 'index'])->name('child.test');
     Route::post('/Test', [FindcourseController::class, 'search'])->name('search.course');
     Route::post('/SearchTest', [GivetestController::class, 'store'])->name('result.store');
+    Route::get('/Course/Create', [CourseController::class, 'index'])->name('teacher.create.course');
+    Route::get('/Course/Appoint', [CourseAppointController::class, 'index'])->name('teacher.appoint.course');
+    Route::post('/Course/Appoint', [CourseAppointController::class, 'store'])->name('teacher.appoint.course.store');
+    Route::post('/Course/Create', [CourseController::class, 'store'])->name('teacher.create.course.store');
+    Route::post('/Test/Create', [TestController::class, 'store'])->name('teacher.create.test.store');
+    Route::get('/Test', [TestController::class, 'index'])->name('child.test');
+
+    Route::view('/studentprofile', 'studentprofile')->name('studentprofile');
+
+    //*profile photo upload
+    Route::get('profile', [UserController::class, 'profile'])->name('doctor.image.show');
+    Route::view('/registerChild', 'guardian/childform')->name('childform');
+    Route::post('profile', [UserController::class, 'update_avatar'])->name('doctor.image.upload');
+    Route::get('logout', [LoginController::class, 'logout']);
+
+    //Route::get('barcharts', [ResultController::class, 'get_all_results']);
+
+    Route::get('result', [ResultController::class, 'get_all_results']);
+    //Route::get('barcharts', 'App\Http\Controllers\ResultController@get_all_results');
 
 
     //*getting all the doctor profiles
@@ -69,4 +93,8 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::post('/registerChild', [ChildController::class, 'store'])->name('child.store');
     Route::post('profile', [UserController::class, 'update_avatar'])->name('doctor.image.upload');
     Route::get('logout', [LoginController::class, 'logout']);
+    Route::get('viewcourse', [viewCourseController::class, 'index']);
+    Route::post('viewcourse', [viewCourseController::class, 'view_all_course']);
+
+
 });
