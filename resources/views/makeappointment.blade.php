@@ -81,6 +81,10 @@
             padding: 10px;
             margin: 10px;
         }
+
+        .navbar-brand {
+            margin-top: -40px;
+        }
     </style>
 </head>
 
@@ -94,13 +98,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <!-- <a class="navbar-brand" href="#">
-            <img src="{{URL::asset('/image/whitelogo.png')}}" width="200" height="100" class="d-inline-block align-top" alt="">
-          </a> -->
+                    <a class="navbar-brand" href="#">
+                        <img src="{{URL::asset('/image/whitelogo.png')}}" width="200" height="100" class="d-inline-block align-top" alt="">
+                    </a>
                 </div>
                 <div class="collapse navbar-collapse navbar-right" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="{{ route('welcome') }}">Home</a></li>
+                        <li class="active"><a href="{{ route('home') }}">Home</a></li>
                         <li class="dropdown">
                             <!-- <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 Hi There <span class="caret"></span>
@@ -110,12 +114,44 @@
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li> <a class="dropdown-item" href="{{ route('doctor.image.show') }}">
+                                <li><a class="dropdown-item" href="{{ route('doctor.image.show') }}">
                                         {{ __('Profile') }}
                                     </a></li>
                                 @if(Auth::user()->role=="Guardian")
-                                <li> <a class="dropdown-item" href="{{ route('childform') }}">
+                                <li><a class="dropdown-item" href="{{ route('childform') }}">
                                         {{ __('Register Child') }}
+                                    </a></li>
+                                <li><a class="dropdown-item" href="{{ route('studentprofile') }}">
+                                        {{ __('View Child Profile') }}
+                                    </a></li>
+                                <li><a class="dropdown-item" href="{{ route('student.view.course') }}">
+                                        {{ __('View Courses') }}
+                                    </a></li>
+                                <li><a class="dropdown-item" href="{{ route('child.test') }}">
+                                        {{ __('Give test') }}
+                                    </a></li>
+                                <li><a class="dropdown-item" href="{{ route('result.graph') }}">
+                                        {{ __('View Results') }}
+                                    </a></li>
+                                <li><a class="dropdown-item" href="{{ route('post.create') }}">
+                                        {{ __('Create Post') }}
+                                    </a></li>
+                                <li><a class="dropdown-item" href="{{ route('makeappointment') }}">
+                                        {{ __('Book An Appointment') }}
+                                    </a></li>
+                                @endif
+                                @if(Auth::user()->role=="Teacher")
+                                <li> <a class="dropdown-item" href="{{ route('teacher.give.marks') }}">
+                                        {{ __('Give Test Marks') }}
+                                    </a></li>
+                                <li> <a class="dropdown-item" href="{{ route('teacher.create.course') }}">
+                                        {{ __('Create Course and Test Content') }}
+                                    </a></li>
+                                <li> <a class="dropdown-item" href="{{ route('teacher.appoint.course') }}">
+                                        {{ __('Appoint Course') }}
+                                    </a></li>
+                                <li> <a class="dropdown-item" href="{{ route('result.graph') }}">
+                                        {{ __('View A Single Child\'s Result') }}
                                     </a></li>
                                 @endif
                                 <li> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -134,7 +170,6 @@
 
     </div>
     </nav>
-
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -143,14 +178,12 @@
 
                     <form action="/makeappointment" method="POST">
                         @csrf
-
                         <label>Find Available Doctors</label>
                         <div class="form-group row">
                             <div class='col-md-5'>
                                 <div class="form-group">
                                     <div class='input-group date' id='datetimepicker6'>
                                         <input class="form-control" type="text" name="work_hour_from" />
-
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -159,7 +192,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </form>
 
 
@@ -172,16 +204,12 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered">
                                     <tr>
-
-
                                         <th>Doctor Name</th>
                                         <th>Doctor Email ID</th>
                                         <th>Designation</th>
                                         <th>Doctor ID</th>
                                         <th>Appointment Status</th>
                                         <th>Action</th>
-
-
                                     </tr>
 
                                     <div>
@@ -195,8 +223,6 @@
                                     @isset($data)
                                     @foreach ($data as $d)
                                     <tr>
-
-
                                         @foreach ($d as $k => $v)
                                         <td>{{$v}}</td>
                                         @if($k=="DOCTOR_ID")

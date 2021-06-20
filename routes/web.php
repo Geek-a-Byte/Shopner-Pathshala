@@ -22,6 +22,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseAppointController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\MarkController;
 use App\Http\Controllers\AppBookController;
 use App\Http\Controllers\ChildController;
 use App\Http\Controllers\CommentController;
@@ -39,13 +40,11 @@ Route::view('/', 'welcome')->name('welcome');
 
 Route::group(['middleware' => 'PreventBackHistory'], function () {
     Auth::routes();
-    Route::get('home', 'App\Http\Controllers\HomeController@index');
+    Route::get('home', 'App\Http\Controllers\HomeController@index')->name('home');
     Route::get("/chartjs", "App\Http\Controllers\ChildController@Chartjs");
     Route::get('/makeappointment', [AppointmentController::class, 'appointmentcreate'])->name('makeappointment');
     Route::post('/makeappointment', [AppointmentController::class, 'search'])->name('search.date');
-
     Route::post('/bookedappointment', [AppBookController::class, 'store'])->name('app.book.store');
-    Route::get('/bookedappointment', [AppBookController::class, 'index'])->name('app.book.index');
 
     Route::get('/post', [PostController::class, 'create'])->name('post.create');
     Route::post('/post', [PostController::class, 'store'])->name('post.store');
@@ -67,8 +66,12 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::post('/Course/Appoint', [CourseAppointController::class, 'store'])->name('teacher.appoint.course.store');
     Route::post('/Course/Create', [CourseController::class, 'store'])->name('teacher.create.course.store');
     Route::post('/Test/Create', [TestController::class, 'store'])->name('teacher.create.test.store');
-    Route::get('/Test', [TestController::class, 'index'])->name('child.test');
 
+    //*Give Test
+    Route::get('/Test', [TestController::class, 'index'])->name('child.test');
+    Route::get('/Test/Marks', [MarkController::class, 'index'])->name('teacher.give.marks');
+
+    //*student profile
     Route::view('/studentprofile', 'studentprofile')->name('studentprofile');
 
     //*profile photo upload
@@ -77,10 +80,10 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::post('profile', [UserController::class, 'update_avatar'])->name('doctor.image.upload');
     Route::get('logout', [LoginController::class, 'logout']);
 
-    //Route::get('barcharts', [ResultController::class, 'get_all_results']);
 
-    Route::get('result', [ResultController::class, 'get_all_results']);
-    //Route::get('barcharts', 'App\Http\Controllers\ResultController@get_all_results');
+    //*view a single child's result
+    Route::get('result', [ResultController::class, 'get_all_results'])->name('result.graph');
+
 
 
     //*getting all the doctor profiles
@@ -93,8 +96,8 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::post('/registerChild', [ChildController::class, 'store'])->name('child.store');
     Route::post('profile', [UserController::class, 'update_avatar'])->name('doctor.image.upload');
     Route::get('logout', [LoginController::class, 'logout']);
-    Route::get('viewcourse', [viewCourseController::class, 'index']);
-    Route::post('viewcourse', [viewCourseController::class, 'view_all_course']);
 
-
+    //*viewcourse
+    Route::get('viewcourse', [viewCourseController::class, 'index'])->name('student.view.course');
+    // Route::get('viewcourse', [viewCourseController::class, 'view_all_course'])->name('student.view_all_course');
 });
