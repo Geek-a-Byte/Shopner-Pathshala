@@ -20,6 +20,7 @@ class CourseAppointController extends Controller
     }
     public function store(Request $request)
     {
+        // var_dump($request);
 
         $validator = Validator::make($request->all(), []);
         if ($validator->fails()) {
@@ -28,7 +29,7 @@ class CourseAppointController extends Controller
                 ->withInput();
         }
         // var_dump($request->selectCourse);
-        var_dump($request->child_id);
+        echo $request->child_id;
         include public_path('includes/connection.php');
         $checkbox1 = $request->selectCourse;
         // $user = DB::table('teachers')->where('user_id', Auth::user()->id)->first();

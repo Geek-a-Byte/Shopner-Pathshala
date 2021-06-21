@@ -1,25 +1,21 @@
 --first query
 --course_name,course_level,course_code,test_code,score
+--for single catagory - previous student
 select CI.child_id,course_name,course_level,course_code,test_code,pre_requisite,score from courses C
 inner join child_takes_course CI USING(course_code)
 inner join tests T USING(course_code)
 inner join results R USING(test_code)
 where CI.child_id=1 and R.child_id=1 and C.course_name='Writing';
 
-select C.course_code,C.pre_requisite,R.score 
+--for all catagories - previous student
+select R.child_id,C.pre_requisite as standard_course,R.score as standard_course_score,C.course_code  as course_that_can_be_appointed,C.course_name,c.course_content,c.course_duration,c.course_level
 from tests T
-join Results R on R.test_code=T.test_code
-join courses C on C.pre_requisite=T.course_code where R.score>10 and C.course_code not in (select course_code from child_takes_course);
+inner join Results R using(test_code)
+join courses C on C.pre_requisite=T.course_code where R.child_id=1 and R.score>=10 and C.course_code not in (select course_code from child_takes_course);
 
-
-
-
-select T.course_code,C.course_level,C.course_name,C.course_duration,T.test_code,R.score,CI.child_id
-from  results R 
-join tests T on T.test_code=R.test_code
-join courses C on C.course_code=T.course_code
-join child_takes_course CI on  CI.child_id=R.child_id
-where CI.child_id=1;
+--for a new student
+select * from child_takes_course where child_id=1;--if returns null then show next,else previous student and run above queries
+select * from courses where course_level='easy';--check all then submit
 /*
 1	w_01	1
 1	w_02	2

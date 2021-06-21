@@ -13,10 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ImageUploadController;
-use App\Http\Controllers\Profile\DoctorProfilePicUpdate;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CourseController;
@@ -28,8 +25,7 @@ use App\Http\Controllers\ChildController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FindcourseController;
 use App\Http\Controllers\GivetestController;
-
-
+use App\Http\Controllers\searchResult;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\viewCourseController;
@@ -62,8 +58,12 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::post('/Test', [FindcourseController::class, 'search'])->name('search.course');
     Route::post('/SearchTest', [GivetestController::class, 'store'])->name('result.store');
     Route::get('/Course/Create', [CourseController::class, 'index'])->name('teacher.create.course');
+
+    Route::get('/Search/Result', [searchResult::class, 'index'])->name('teacher.get.result');
+    Route::post('/Search/Result', [searchResult::class, 'search'])->name('teacher.search.result');
     Route::get('/Course/Appoint', [CourseAppointController::class, 'index'])->name('teacher.appoint.course');
     Route::post('/Course/Appoint', [CourseAppointController::class, 'store'])->name('teacher.appoint.course.store');
+
     Route::post('/Course/Create', [CourseController::class, 'store'])->name('teacher.create.course.store');
     Route::post('/Test/Create', [TestController::class, 'store'])->name('teacher.create.test.store');
 
