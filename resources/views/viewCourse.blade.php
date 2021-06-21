@@ -108,9 +108,6 @@
 </head>
 
 <body>
-<?php
-$user = DB::table('childs')->where('acct_holder_id', Auth::user()->id)->first();
-?>
 
     <div class="container">
         <form>
@@ -172,43 +169,6 @@ $user = DB::table('childs')->where('acct_holder_id', Auth::user()->id)->first();
 
         </form>
     </div>
-    <div class="col-75">
-       
-    </div>
-
-</div>
-<div class="table-responsive">
-    <table class="table table-striped table-bordered">
-        <tr>
-            <th>Course_Code</th>
-            <th>Course_level</th>
-            <th>Course_Name</th>
-            <th>Duration</th>
-            <th>Course Link</th>
-            <th>Prerequisites</th>
-            <th>Course Created By</th>
-        
-        </tr>
-
-
-
-
-                 @isset($data)
-                                   
-                  @foreach ($data as $d)
-                        <tr>
-                             @foreach ($d as $k => $v)
-                                 <td>{{$v}}</td>
-                            @endforeach
-
-                         </tr>
-                    @endforeach
-                @endisset
-    </table>
-</div>
-
-</form>
-</div>
 
 
 </body>
