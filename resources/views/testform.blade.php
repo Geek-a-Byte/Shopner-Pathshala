@@ -162,10 +162,11 @@
                     <tr>
                         <th>Course Code</th>
                         <th>Level</th>
+                        <!-- <th>Test Question</th> -->
                         <th>Test Code</th>
                         <th>Result Status</th>
                         <th>Action</th>
-                        <th>Test Question</th>
+
                     </tr>
 
                     <div>
@@ -209,7 +210,6 @@
                                     echo " Failed\n";
                             }
                             ?>
-
                         </td>
                         <td>
                             @if($status=="Not Appeared")
@@ -219,10 +219,7 @@
                             @endif
                         </td>
                         @endif
-
-
                         @endforeach
-
                     </tr>
                     @endforeach
                     <div>
@@ -237,12 +234,18 @@
                 </table>
             </div>
         </div>
-        <input type="submit" value="Go To Test" class="btn">
+        <input type="submit" value="Confirm Giving Test & Generate Test Link" class="btn">
         </input>
-
-
     </form>
-
+    @isset($testdata)
+    @foreach ($testdata as $d)
+    <tr>
+        @foreach ($d as $k => $v)
+        <input class="form-control" type="text" value={{$v}} readonly />
+        @endforeach
+    </tr>
+    @endforeach
+    @endisset
 </div>
 
 
