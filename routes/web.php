@@ -82,7 +82,7 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
 
 
     //*view a single child's result
-    Route::get('result', [ResultController::class, 'get_all_results'])->name('result.graph');
+    Route::get('result', [ResultController::class, 'index'])->name('result.graph');
 
 
 

@@ -32,7 +32,7 @@ class FindcourseController extends Controller
         // echo $g_id;
 
         include public_path('includes/connection.php');
-        $stid = oci_parse($conn, 'SELECT course_code,course_level,test_code,test_question
+        $stid = oci_parse($conn, 'SELECT course_code,course_level,test_code
         from courses join tests using(course_code) join child_takes_course using(course_code)
         where child_id = :ajaira order by test_code');
         // $stid = oci_parse($conn, 'SELECT course_code FROM child_takes_course where child_id=:c_code');

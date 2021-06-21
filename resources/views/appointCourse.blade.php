@@ -193,9 +193,7 @@
                             <td>{{$v}}</td>
                             @endif
                             @if($k=="COURSE_THAT_CAN_BE_APPOINTED")
-
                             <td>
-                                {{$k}}
                                 <input type="checkbox" class="check" name="selectCourse[]" value={{$v}}></input>
                             </td>
                             @endif

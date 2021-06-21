@@ -10,16 +10,20 @@ use Illuminate\Http\Request;
 class ResultController extends Controller
 {
     //
+    public function index()
+    {
+        return view('result');
+    }
     public function get_all_results()
     {
         $results = \App\Models\Result::all();
-        $data = array();
+        $data_for_pie = array();
         foreach ($results as $row) {
-            $data[] = $row;
+            $data_for_pie[] = $row;
         }
+        // var_dump($data);
+        return view('result', compact('data_for_pie'));
 
-        return view('result', ['results' => $data]);
-
-        //return view('result')->with('message', 'no results found...!');
+        // return view('result')->with('message', 'no results found...!');
     }
 }
