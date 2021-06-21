@@ -25,6 +25,11 @@ use App\Http\Controllers\ChildController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FindcourseController;
 use App\Http\Controllers\GivetestController;
+use App\Http\Controllers\giveTestScoreController;
+use App\Http\Controllers\AppointScoreController;
+
+
+
 use App\Http\Controllers\searchResult;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ResultController;
@@ -64,6 +69,14 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::post('/Search/Result', [searchResult::class, 'search'])->name('teacher.search.result');
     Route::get('/Course/Appoint', [CourseAppointController::class, 'index'])->name('teacher.appoint.course');
     Route::post('/Course/Appoint', [CourseAppointController::class, 'store'])->name('teacher.appoint.course.store');
+
+
+    //*give Test Score
+    Route::post('/TestCodeSearch', [AppointScoreController::class, 'search'])->name('teacher.test.code.search'); 
+    Route::get('/TestCodeSearch', [AppointScoreController::class, 'index'])->name('teacher.test.code'); 
+    Route::get('/giveTestScore', [giveTestScoreController::class, 'index'])->name('teacher.appoint.score');
+    Route::post('/TestScore/Appoint', [giveTestScoreController::class, 'store'])->name('teacher.appoint.score.store');
+   
 
     Route::post('/Course/Create', [CourseController::class, 'store'])->name('teacher.create.course.store');
     Route::post('/Test/Create', [TestController::class, 'store'])->name('teacher.create.test.store');
