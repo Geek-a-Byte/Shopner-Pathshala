@@ -229,6 +229,8 @@
                                         <!-- <td><input type="checkbox" class="check" name="selectdoctor" value={{$v}}></td> -->
                                         <td>
                                             <?php
+
+                                            // echo $stringDate;
                                             include public_path('includes/connection.php');
                                             $stid = oci_parse($conn, 'SELECT * FROM doctor_guardian where appointment_time=:app_time and doctor_id=:v');
                                             oci_bind_by_name($stid, ":app_time", $app_time);
@@ -276,16 +278,15 @@
                                     </tr>
                                     @endforeach
                                     <div>
-                                        <label>Date of the Appointment</label>
-                                        <div class="form-group">
-                                            <div class='input-group date' id='datetimepicker'>
-                                                <input class="form-control" type="text" name="app_time" value={{$app_time}} readonly />
 
-                                                <!-- <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span> -->
-                                            </div>
+                                        <div class="form-group">
+                                            <?php
+                                            // echo "<input name='fname' type='text' class='textfield' id='fname' value='$val' />";
+                                            echo '<label>Appointment Start Time</label>' . ' : ' . "<input class='form-control' name='app_time' value='$app_time' readonly />" . '</br>';
+                                            echo
+                                            '<label>Appointment End Time</label>' . ' : ' . "<input class='form-control' name='app_end_time' value='$stamp' readonly />" ?>
                                         </div>
+
 
                                     </div>
                                     @endisset

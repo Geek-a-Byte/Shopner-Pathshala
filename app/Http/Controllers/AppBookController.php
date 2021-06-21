@@ -25,7 +25,7 @@ class AppBookController extends Controller
         $guardian = Guardian::find($user->acct_holder_id);
         var_dump($guardian->acct_holder_id);
         $doctor->doctor_id = $request->selectdoctor;
-        $guardian->doctors()->attach($guardian, ['doctor_id' => $request->selectdoctor, 'appointment_time' => $request->app_time]);
+        $guardian->doctors()->attach($guardian, ['doctor_id' => $request->selectdoctor, 'appointment_time' => $request->app_time, 'appointment_end_time' => $request->app_end_time]);
         // $doctor->guardians()->attach($doctor,);
 
         // return 'Success';

@@ -1,3 +1,7 @@
+select D.appointment_end_time,C.child_id 
+from childs C inner join doctor_guardian D using(acct_holder_id)
+where acct_holder_id=1;
+
 --first query
 --course_name,course_level,course_code,test_code,score
 --for single catagory - previous student
