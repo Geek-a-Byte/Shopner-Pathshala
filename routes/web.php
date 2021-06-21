@@ -60,6 +60,7 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::get('/Course/Create', [CourseController::class, 'index'])->name('teacher.create.course');
 
     Route::get('/Search/Result', [searchResult::class, 'index'])->name('teacher.get.result');
+    Route::get('/Search/Result', [searchResult::class, 'index'])->name('teacher.get.result');
     Route::post('/Search/Result', [searchResult::class, 'search'])->name('teacher.search.result');
     Route::get('/Course/Appoint', [CourseAppointController::class, 'index'])->name('teacher.appoint.course');
     Route::post('/Course/Appoint', [CourseAppointController::class, 'store'])->name('teacher.appoint.course.store');
@@ -83,6 +84,7 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
 
     //*view a single child's result
     Route::get('result', [ResultController::class, 'index'])->name('result.graph');
+    Route::post('result', [ResultController::class, 'get_all_results'])->name('show.result.graph');
 
 
 

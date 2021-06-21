@@ -1,5 +1,4 @@
 @extends('layouts.auth')
-
 @section('content')
 <!doctype html>
 <html lang="en">
@@ -12,88 +11,188 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
+  <script>
+    var postJquery = [];
+  </script>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    input[type=text],
+    input[type=textarea],
+    input[type=number],
+    input[type=email],
+    input[type=phone],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    label {
+      padding: 12px 12px 12px 0;
+      display: inline-block;
+    }
+
+    input[type=submit] {
+      background-color: #04AA6D;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: left;
+
+    }
+
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+
+    .container {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 50px;
+    }
+
+    .col-25 {
+      float: left;
+      width: 25%;
+      margin-top: 6px;
+    }
+
+    .col-75 {
+      float: left;
+      width: 75%;
+      margin-top: 6px;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .centerheader {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+
+      .col-25,
+      .col-75,
+      input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+      }
+    }
+
     .space {
-      margin-left: 100px;
-      margin-right: 100px;
-      /* padding-left: 100px; */
+      margin-left: 20px;
+      margin-right: 20px;
+      padding-top: 10px;
+      padding-bottom: 20px;
     }
 
     .flex {
       display: flex;
       flex-wrap: nowrap;
-      background-color: DodgerBlue;
+      /* background-color: DodgerBlue; */
     }
   </style>
 </head>
-<?php
-$guardian = DB::table('guardians')->where('user_id', Auth::user()->id)->first();
-$users = DB::table('childs')->where('acct_holder_id', $guardian->acct_holder_id)->get();
-
-
-function convertDataToChartForm($data)
-{
-  var_dump($data);
-  $newData = array();
-  $firstLine = true;
-
-  foreach ($data as $dataRow) {
-    var_dump($dataRow);
-    if ($firstLine) {
-      $newData[] = array_keys($dataRow);
-      $firstLine = false;
-    }
-
-    $newData[] = array_values($dataRow);
-  }
-
-  return $newData;
-}
-
-?>
 
 <body>
-
-  @foreach ($users as $user)
-  <div class="space">
-    <h3>Child ID : <?= $user->child_id ?> Results</h3>
+  <div>
+    @if(session()->has('message'))
+    <div class="alert alert-warning">
+      {{ session()->get('message') }}
+    </div>
+    @endif
+  </div>
+  <div class="container">
+    <div class="row">
+      <form method="post" action="{{ route('show.result.graph') }}">
+        @csrf
+        <div class="row">
+          <div class="col-25">
+            <label for="childID">Give Child ID</label>
+          </div>
+          <div class="col-75">
+            <input type="number" id="name" name="child_id">
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="form-group">
+            <input type='submit' value='generate result graph'>
+          </div>
+        </div>
+        <hr>
+      </form>
+    </div>
   </div>
 
+  @isset($data)
   <?php
-
-  /*
-  select CI.child_id,course_name,course_level,course_code,test_code,pre_requisite,score from courses C
-inner join child_takes_course CI USING(course_code)
-inner join tests T USING(course_code)
-inner join results R USING(test_code)
-where CI.child_id=1 and R.child_id=1 
-  */
-  $result_of_child = DB::table('courses')
-    ->join('child_takes_course', 'courses.course_code', '=', 'child_takes_course.course_code')
-    ->join('tests', 'tests.course_code', '=', 'child_takes_course.course_code')
-    ->join('results', 'results.test_code', '=', 'tests.test_code')
-    ->select('courses.course_name', 'tests.test_code', 'results.score')
-    ->orderBy('courses.course_name')
-    ->where('child_takes_course.child_id', '=', $user->child_id)
-    ->where('results.child_id', '=', $user->child_id)
-    ->get();
-  $result[] = ['course_name', 'score'];
-  foreach ($result_of_child as $key => $value) {
-    // echo $value->course_name .  $value->score . '</br>';
-    $result[++$key] = [$value->course_name, (int)$value->score];
+  // $result[] = array();
+  include public_path('includes/connection.php');
+  $sql = "SELECT course_name,score from courses C
+          inner join child_takes_course CI USING(course_code)
+          inner join tests T USING(course_code)
+          inner join results R USING(test_code)
+          where CI.child_id=:child_id and R.child_id=:child_id order BY C.course_name";
+  $stid = oci_parse($conn, $sql);
+  oci_bind_by_name($stid, ":child_id", $data);
+  oci_execute($stid);
+  $data = array();
+  $i = 0;
+  while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+    $data[] = $row;
+  }
+  if (count($data) == 0) {
+    echo '<h5 style="padding-left:15px;">' . "no result found" . '</h5>';
+  } else {
+    // var_dump($data);
+    $key = 0;
+    $result[] = ['course_name', 'score'];
+    foreach ($data as $row) {
+      $pair_arr = array();
+      $parr_idx = 0;
+      foreach ($row as $k => $v) {
+        // echo $k . $v;
+        if ($k == "SCORE")
+          array_push($pair_arr, (int)$v);
+        else
+          array_push($pair_arr, $v);
+        // $pair_arr[++$parr_idx] = [$k, $v];
+      }
+      $result[++$key] = $pair_arr;
+    }
+    // var_dump($result);
   }
   ?>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
   <script type="text/javascript">
     google.charts.load("current", {
       packages: ["corechart", "bar"]
     });
     google.charts.setOnLoadCallback(drawChart);
 
-
     function drawChart() {
-      var result = <?php echo json_encode($result); ?>;
+      var result = <?php if (isset($result) != 0) {
+                      echo json_encode($result);
+                    } ?>;
       console.log(result);
       var data = google.visualization.arrayToDataTable(result);
       console.log(data);
@@ -132,23 +231,18 @@ where CI.child_id=1 and R.child_id=1
 
     }
   </script>
-  <!-- <div class="space">
-    <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
-  </div> -->
   <div class="space flex">
     <div id="curve_chart" style="width: 900px; height: 500px"></div>
     <div id="barchart_material" style="width: 900px; height: 500px"></div>
   </div>
   <div class="space">
+    <?php
+    unset($result);
+    $result[] = array();
+    ?>
 
   </div>
-
-
-
-
-  @endforeach
-  </div>
-
+  @endisset
 </body>
 
 </html>

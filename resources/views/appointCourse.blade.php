@@ -92,10 +92,8 @@
             text-align: center;
             margin-bottom: 20px;
         }
-
         /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
         @media screen and (max-width: 600px) {
-
             .col-25,
             .col-75,
             input[type=submit] {
@@ -104,11 +102,8 @@
             }
         }
     </style>
-
 </head>
-
 <body>
-
     <div class="container">
         <div>
             @if(session()->has('message'))
@@ -120,21 +115,6 @@
 
         <form method="post" action="{{ route('teacher.search.result') }}">
             @csrf
-
-            <!-- <div class="row">
-                <div class="col-25">
-                    <label for="Category">Select Course Category</label>
-                </div>
-                <div class="col-75">
-                    <select id="category" name="course_name">
-                        <option value="Writing">Writing</option>
-                        <option value="Recognization">Recognization</option>
-                        <option value="Reading">Reading</option>
-                        <option value="Memory">Memory</option>
-                        <option value="Math">Math</option>
-                    </select>
-                </div>
-            </div> -->
             <div class="row">
                 <div class="col-25">
                     <label for="childID">Give Child ID</label>
