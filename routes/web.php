@@ -25,6 +25,7 @@ use App\Http\Controllers\ChildController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FindcourseController;
 use App\Http\Controllers\GivetestController;
+use App\Http\Controllers\viewAppointmentController;
 use App\Http\Controllers\giveTestScoreController;
 use App\Http\Controllers\AppointScoreController;
 
@@ -81,6 +82,9 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::post('/Course/Create', [CourseController::class, 'store'])->name('teacher.create.course.store');
     Route::post('/Test/Create', [TestController::class, 'store'])->name('teacher.create.test.store');
 
+    // viewAppointments
+    Route::get('viewAppointment', [viewAppointmentController::class, 'index'])->name('doctor.view.appointment');
+    Route::post('/viewAppointment', [viewAppointmentController::class, 'store'])->name('autism.type');
     //*Give Test
     Route::get('/Test', [TestController::class, 'index'])->name('child.test');
     Route::get('/Test/Marks', [MarkController::class, 'index'])->name('teacher.give.marks');
