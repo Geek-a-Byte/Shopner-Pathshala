@@ -158,11 +158,35 @@
             </div>
 
             <div class="row">
+
                 <div class="col-25">
-                    <label for="prerequ">Course Prerequisites</label>
+                    <label for="Category">Course Prerequisites</label>
                 </div>
                 <div class="col-75">
-                    <input type="text" id="name" name="pre_requisite">
+                    <?php
+                    $user = DB::table('teachers')->where('user_id', Auth::user()->id)->first();
+                    @include public_path('includes/connection.php');
+                    $curs = oci_new_cursor($conn);
+                    $stid = oci_parse($conn, "begin myproc(:x,:cursbv); end;");
+                    oci_bind_by_name($stid, ":cursbv", $curs, -1, OCI_B_CURSOR);
+                    oci_bind_by_name($stid, ':x', $x, 255);
+                    $x = $user->teacher_id;
+                    oci_execute($stid);
+                    oci_execute($curs);  // Execute the REF CURSOR like a normal statement id
+                    // $data = array();
+                    echo "<select name='pre_requisite' value=''><option value=''>Select Course Code</option>";
+                    while (($row = oci_fetch_array($curs, OCI_ASSOC + OCI_RETURN_NULLS)) != false) {
+                        foreach ($row as $key => $course_code) {
+                            // echo $course_code;
+                            echo "<option value=$course_code>$course_code</option>";
+                        }
+                    }
+                    echo "</select>";
+
+                    oci_free_statement($stid);
+                    oci_free_statement($curs);
+                    oci_close($conn);
+                    ?>
                 </div>
             </div>
 
