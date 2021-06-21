@@ -23,7 +23,7 @@ class CreateResultsTable extends Migration
             $table->foreign('test_code')
                 ->references('test_code')->on('tests')
                 ->onDelete('set null');
-            $table->integer('score');
+            $table->integer('score')->nullable();
             $table->timestamps();
         });
     }

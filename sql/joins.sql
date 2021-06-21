@@ -41,11 +41,11 @@ INSERT INTO CHILD_TAKES_COURSE ( CHILD_CID_TAKES,CHILD_ID, COURSE_CODE) VALUES (
 5	1	4	15
 6	1	5	20
 */
-INSERT INTO Results(result_id,CHILD_ID, test_CODE,score) VALUES ('1', '1','1','9');
-INSERT INTO Results(result_id,CHILD_ID, test_CODE,score) VALUES ('2', '2','2','5');
-INSERT INTO Results(result_id,CHILD_ID, test_CODE,score) VALUES ('4', '1','3','5');
-INSERT INTO Results(result_id,CHILD_ID, test_CODE,score) VALUES ('5', '1','4','15');
-INSERT INTO Results(result_id,CHILD_ID, test_CODE,score) VALUES ('6', '1','5','20');
+INSERT INTO Results(result_id,CHILD_ID, test_CODE,score) VALUES ('1', '1','8','9');
+INSERT INTO Results(result_id,CHILD_ID, test_CODE,score) VALUES ('2', '2','9','5');
+INSERT INTO Results(result_id,CHILD_ID, test_CODE,score) VALUES ('4', '1','10','5');
+INSERT INTO Results(result_id,CHILD_ID, test_CODE,score) VALUES ('5', '1','11','15');
+INSERT INTO Results(result_id,CHILD_ID, test_CODE,score) VALUES ('6', '1','12','20');
 
 INSERT INTO tests(test_code,course_code,teacher_id) VALUES ('1', 'w_1','1');
 INSERT INTO tests(test_code,course_code,teacher_id) VALUES ('2', 'w_2','1');
@@ -67,3 +67,8 @@ SELECT course_code,course_level,test_code,test_question
          order by test_code
          
 select course_code,test_code from tests inner join courses using (course_code);
+
+
+drop table results;
+
+BEGIN UPDATE childs set autism_type='hello' where child_id=1; END;

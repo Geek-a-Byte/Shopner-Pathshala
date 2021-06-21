@@ -5,7 +5,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Latest compiled and minified CSS -->
@@ -28,7 +27,6 @@
             padding: 0;
             font-family: 'Poppins', sans-serif;
         }
-
         input[type=text],
         input[type=textarea],
         input[type=number],

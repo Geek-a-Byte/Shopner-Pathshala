@@ -25,3 +25,16 @@ constraint tests_course_code_fk foreign key (course_code)references courses(cour
 constraint tests_teacher_id_fk foreign key (teacher_id)references  teachers(teacher_id)
 );
 
+
+create table results
+(
+result_id number(10,0),
+child_id number(10,0),
+test_code varchar2(10),
+score number(6,3),
+--constraint serial_number_pk primary key(serial_number),
+constraint results_child_id_fk foreign key (child_id)references childs(child_id) on delete set null,
+constraint results_test_code_fk foreign key (test_code)references tests(test_code) on delete set null,
+primary key(result_id,child_id,test_code)
+);
+

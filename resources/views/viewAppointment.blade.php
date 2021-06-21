@@ -36,11 +36,12 @@
         input[type=phone],
         select,
         textarea {
-            width: 100%;
+            width: 50%;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 4px;
             resize: vertical;
+            float: left;
         }
 
         label {
@@ -55,7 +56,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            float: left;
+            float: right;
 
         }
 
@@ -108,83 +109,79 @@
 </head>
 
 <body>
-
     <div class="container">
-        <form method="POST" action={{'/viewAppointment'}}>
-            @csrf
-            <div class="row">
-                <div class="col-25">
-                    <label for="Category">View Appointments</label>
-                </div>
-                <div class="col-75">
-                </div>
+        <div>
+            @if(session()->has('message'))
+            <div class="alert alert-warning">
+                {{ session()->get('message') }}
             </div>
-            <?php
-            $doctor = DB::table('doctors')->where('user_id', Auth::user()->id)->first();
-            $appoint_info = DB::table('doctor_guardian')
-                        ->join('childs','childs.acct_holder_id','=','doctor_guardian.acct_holder_id')
-                        ->select('doctor_guardian.appointment_id', 'doctor_guardian.acct_holder_id','childs.child_id','doctor_guardian.start_time','doctor_guardian.end_time')
-                        ->where('doctor_id',$doctor->doctor_id)->get();
-            
-            ?>
-            
-        
-    
+            @endif
+        </div>
 
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered">
-                    <tr>
-                        <th>Appointment ID</th>
-                        <th>Guardian ID</th>
-                        <th>Child ID</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Autism Type</th>
-                        
-                        
-                    </tr>
-                    
-                    @foreach ($appoint_info as $row)
-                    
-                    <tr>
-                    @foreach ($row as $k=>$v)
-                    <?php 
-                    // echo $k;
-                    $faltu=$k;
-                    // echo $faltu;
-                    ?>
-                    
+        <div class="row">
+            <div class="col-25">
+                <label for="Category">View Appointments</label>
+            </div>
+            <div class="col-75">
+            </div>
+        </div>
+        <?php
+        $doctor = DB::table('doctors')->where('user_id', Auth::user()->id)->first();
+        $appoint_info = DB::table('doctor_guardian')
+            ->join('childs', 'childs.acct_holder_id', '=', 'doctor_guardian.acct_holder_id')
+            ->select('doctor_guardian.appointment_id', 'doctor_guardian.acct_holder_id', 'childs.child_id', 'doctor_guardian.appointment_time', 'doctor_guardian.appointment_end_time')
+            ->where('doctor_id', $doctor->doctor_id)->get();
 
-                        <td>{{$v}}</td>
-                        <?php 
-                        if($faltu=='CHILD_ID')
-                            echo $faltu;
-                        ?>
-                        @if($faltu=="CHILDS.CHILD_ID")
+        ?>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>Appointment ID</th>
+                    <th>Guardian ID</th>
+                    <th>Child ID</th>
+                    <th>Autism Type</th>
+                    <th>Action</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+
+                </tr>
+                @foreach ($appoint_info as $row)
+                <tr>
+                    <form method="POST" action="{{route('autism.type')}}">
+                        @csrf
+                        @foreach ($row as $k=>$v)
+                        @if($k=='child_id')
+                        <?php $child_id = $v; ?>
+
+
+                        <div class="form-group flex">
+                            <td><input class='form-control' name='child_id' value={{$child_id}} readonly></td>
+                        </div>
+                        <td><input class="form-control" type="text" name='autism_type'></td>
+                        <td><input type='submit' value='Submit'></td>
+
+                        @else
                         <td>{{$v}}</td>
                         @endif
-                    @endforeach
-                        <td>
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="child_id">
-                        </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                   
-                </table>
-            </div>
-            
+                        @endforeach
+                    </form>
+                </tr>
+                @endforeach
 
-        </form>
+            </table>
+        </div>
+
+
+
     </div>
 
     <div>
-        
+
     </div>
 
 
 </body>
+
 
 </html>
 @endsection

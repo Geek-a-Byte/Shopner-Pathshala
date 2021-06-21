@@ -73,17 +73,17 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
 
 
     //*give Test Score
-    Route::post('/TestCodeSearch', [AppointScoreController::class, 'search'])->name('teacher.test.code.search'); 
-    Route::get('/TestCodeSearch', [AppointScoreController::class, 'index'])->name('teacher.test.code'); 
+    Route::post('/TestCodeSearch', [AppointScoreController::class, 'search'])->name('teacher.test.code.search');
+    Route::get('/TestCodeSearch', [AppointScoreController::class, 'index'])->name('teacher.test.code');
     Route::get('/giveTestScore', [giveTestScoreController::class, 'index'])->name('teacher.appoint.score');
     Route::post('/TestScore/Appoint', [giveTestScoreController::class, 'store'])->name('teacher.appoint.score.store');
-   
+
 
     Route::post('/Course/Create', [CourseController::class, 'store'])->name('teacher.create.course.store');
     Route::post('/Test/Create', [TestController::class, 'store'])->name('teacher.create.test.store');
 
     // viewAppointments
-    Route::get('viewAppointment', [viewAppointmentController::class, 'index'])->name('doctor.view.appointment');
+    Route::get('/viewAppointment', [viewAppointmentController::class, 'index'])->name('doctor.view.appointment');
     Route::post('/viewAppointment', [viewAppointmentController::class, 'store'])->name('autism.type');
     //*Give Test
     Route::get('/Test', [TestController::class, 'index'])->name('child.test');

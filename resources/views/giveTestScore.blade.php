@@ -119,7 +119,7 @@
         </div>
 
 
-        <form method="post" action="{{ route('teacher.test.code.search') }}">//*m
+        <form method="post" action="{{ route('teacher.test.code.search') }}">
             @csrf
 
             <div class="row">
@@ -127,81 +127,67 @@
                     <label for="test_code">Give Test ID</label>
                 </div>
                 <div class="col-75">
-                    <input type="String" id="name" name="test_code">
+                    <input type="text" id="name" name="test_code">
                 </div>
                 <div class="form-group">
                     <input type='submit' value='Submit'>
                 </div>
             </div>
-            </form>
-            <form method="post" action="{{ route('teacher.appoint.score.store') }}">//*m
+        </form>
+        <form method="post" action="{{ route('teacher.appoint.score.store') }}">
             @csrf
+            @isset($test_code)
+            <div class="row">
+                <div class="col-25">
+                    <label for="Category">Test Code</label>
+                </div>
+                <div class="col-75">
+                    <input class='form-control' name='test_code' value={{$test_code}} readonly />
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-25">
                     <label for="Category">Give Score</label>
                 </div>
                 <div class="col-75">
-                   
+
                 </div>
             </div>
-
-    
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">
                     <tr>
-                     
-                        <th>Test_Code</th>
-                        <th>Child_id</th>
-                        <th>Course_code</th>
-                        <th>Course_Name</th> 
+                        <th>Test Code</th>
+                        <th>Child ID</th>
+                        <th>Course Code</th>
+                        <th>Course Name</th>
                         <th>Score</th>
-                        
+                        <th>Action</th>
                     </tr>
-               
-
-
                     @isset($data)
-                                    @foreach ($data as $d)
-                                    <tr>
-                                        @foreach ($d as $k => $v)
-                                        <td>{{$v}}</td>
-                                       
-                                        @endforeach
 
-                                    </tr>
-                                    @endforeach
-                                   
-                                    @endisset
-
-
-
-             @isset($data)
-                    @foreach ($data as $d)
+                    @foreach ($data as $row)
                     <tr>
-                        @foreach ($d as $k => $v)
-                        @if($k=="score")
-                        <td>
-                            <input type="number" name="selectScore[]" >
-                        </td>
+                        @foreach ($row as $k=>$v)
+                        @if($k=='CHILD_ID')
+                        <?php $child_id = $v; ?>
+                        <div class="form-group flex">
+                            <td><input class='form-control' name='child_id' value={{$child_id}} readonly /></td>
+                        </div>
+                        @else
+                        <td>{{$v}}</td>
                         @endif
-                        
                         @endforeach
+                        <td><input class="form-control" type="number" name='score'></td>
 
+                        <td><input type='submit' value='Submit'></td>
                     </tr>
                     @endforeach
                     @endisset
                 </table>
             </div>
-            <div class="row">
-                <div class="col-25">
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('Confirm Score') }}
-                    </button>
-                </div>
-            </div>
-
-
-
+            @endisset
+        </form>
     </div>
 
 </body>

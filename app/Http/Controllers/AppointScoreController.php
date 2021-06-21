@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use DB;
 use Auth;
 
@@ -15,11 +16,12 @@ class AppointScoreController extends Controller
     }
     public function index()
     {
-        return view('giveTestScore');///blade er anm
+        return view('giveTestScore'); ///blade er anm
     }
-    public function search(Request $request){
-        
-        $test_code=$request->test_code;
+    public function search(Request $request)
+    {
+
+        $test_code = $request->test_code;
         // $user = DB::table('teachers')->where('user_id', Auth::user()->id)->first();
         include public_path('includes/connection.php');
         $sql = "SELECT test_code,child_id,course_code,course_name
@@ -35,23 +37,12 @@ class AppointScoreController extends Controller
         while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
             $data[] = $row;
         }
-        
-        var_dump($data);
+
         if (count($data) == 0) {
-         return back()->with('message', 'no test found...!');
-         
-        }
-        else{
-            return view('giveTestScore', compact('data'));///blader nam return kortese
-            
-        }
+            return back()->with('message', 'no test found...!');
+        } else {
+            return view('giveTestScore', compact('test_code', 'data')); ///blader nam return kortese
 
-        
+        }
     }
-
-
-
-
-
-
 }
