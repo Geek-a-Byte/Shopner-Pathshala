@@ -1,4 +1,3 @@
-select * from user_errors where type = 'TRIGGER' and name = 'NORMAL_USER_ID';
 CREATE OR REPLACE TRIGGER tests_test_code 
             before insert on tests
             for each row
@@ -6,6 +5,20 @@ CREATE OR REPLACE TRIGGER tests_test_code
             if :new.test_code is null then
                 select test_code_seq.nextval 
                 into :new.test_code 
+                from dual;
+            end if;
+            end;
+
+ALTER TRIGGER tests_test_code ENABLE;
+
+
+CREATE OR REPLACE TRIGGER results_result_ID 
+            before insert on results
+            for each row
+                begin
+            if :new.result_id is null then
+                select result_id_seq.nextval 
+                into :new.result_id 
                 from dual;
             end if;
             end;

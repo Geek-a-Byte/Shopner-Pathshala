@@ -130,7 +130,9 @@
         $appoint_info = DB::table('doctor_guardian')
             ->join('childs', 'childs.acct_holder_id', '=', 'doctor_guardian.acct_holder_id')
             ->select('doctor_guardian.appointment_id', 'doctor_guardian.acct_holder_id', 'childs.child_id', 'doctor_guardian.appointment_time', 'doctor_guardian.appointment_end_time')
-            ->where('doctor_id', $doctor->doctor_id)->get();
+            ->where('doctor_id', $doctor->doctor_id)
+            ->whereNull('autism_type')
+            ->get();
 
         ?>
         <div class="table-responsive">

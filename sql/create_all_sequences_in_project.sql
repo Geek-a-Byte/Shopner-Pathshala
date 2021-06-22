@@ -34,6 +34,13 @@ start with 1
 maxvalue 100
 nocycle;
 
+create sequence result_id_seq
+increment by 1
+start with 1
+maxvalue 100
+nocycle;
+
+
 set serveroutput on;
 
 select writing_code_seq.currval from dual;

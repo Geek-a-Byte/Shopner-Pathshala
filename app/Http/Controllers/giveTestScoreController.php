@@ -39,6 +39,6 @@ class giveTestScoreController extends Controller
         oci_bind_by_name($stmt, ':score', $score, 300, 0);
         oci_execute($stmt);
 
-        return redirect()->back()->with('message', 'Score Appointed Successfully');
+        return redirect()->back()->with('message', 'Score Updated Successfully');
     }
 }

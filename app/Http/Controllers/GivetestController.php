@@ -37,12 +37,10 @@ class GivetestController extends Controller
 
 
         $check_id = $checkbox1;
-        $score = 0;
-        $sql = 'BEGIN insert into results (child_id,test_code,score) values(:ajaira,:test_code,:score); END;';
+        $sql = 'BEGIN insert into results (child_id,test_code) values(:ajaira,:test_code); END;';
         $stmt = oci_parse($conn, $sql);
         oci_bind_by_name($stmt, ':ajaira', $ajaira);
         oci_bind_by_name($stmt, ':test_code', $check_id);
-        oci_bind_by_name($stmt, ':score', $score);
         oci_execute($stmt);
 
         $sql = 'SELECT test_question from tests where test_code=:test_code';

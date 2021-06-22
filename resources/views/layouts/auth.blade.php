@@ -82,6 +82,11 @@
                                 <li><a class="dropdown-item" href="{{ route('doctor.image.show') }}">
                                         {{ __('Profile') }}
                                     </a></li>
+                                @if(Auth::user()->role=="Doctor")
+                                <li><a class="dropdown-item" href="{{ route('doctor.view.appointment') }}">
+                                        {{ __('Autism Type Define') }}
+                                    </a></li>
+                                @endif
                                 @if(Auth::user()->role=="Guardian")
                                 <li><a class="dropdown-item" href="{{ route('childform') }}">
                                         {{ __('Register Child') }}
@@ -106,17 +111,14 @@
                                     </a></li>
                                 @endif
                                 @if(Auth::user()->role=="Teacher")
-                                <li> <a class="dropdown-item" href="{{ route('teacher.give.marks') }}">
-                                        {{ __('Give Test Marks') }}
+                                <li> <a class="dropdown-item" href="{{ route('teacher.test.code') }}">
+                                        {{ __('Update Test Marks') }}
                                     </a></li>
                                 <li> <a class="dropdown-item" href="{{ route('teacher.create.course') }}">
                                         {{ __('Create Course and Test Content') }}
                                     </a></li>
                                 <li> <a class="dropdown-item" href="{{ route('teacher.appoint.course') }}">
                                         {{ __('Appoint Course') }}
-                                    </a></li>
-                                <li> <a class="dropdown-item" href="{{ route('result.graph') }}">
-                                        {{ __('View A Single Child\'s Result') }}
                                     </a></li>
                                 @endif
                                 <li> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

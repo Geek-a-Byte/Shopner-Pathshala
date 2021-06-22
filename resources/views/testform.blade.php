@@ -206,6 +206,8 @@
                                 $pass_fail = $data1[0]["SCORE"];
                                 if ($pass_fail >= 10)
                                     echo " Passed\n";
+                                if ($pass_fail == "")
+                                    echo " Appeared But Marks Not Updated\n";
                                 else
                                     echo " Failed\n";
                             }
