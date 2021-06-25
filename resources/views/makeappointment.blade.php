@@ -57,7 +57,8 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        input[type="submit"] {
+        input[type="submit"],
+        input[type="number"] {
             padding: 6px;
             border: 1px solid black;
             /* border-style: inherit; */
@@ -248,19 +249,6 @@
                                                 $status = "booked";
                                                 echo " booked\n";
                                             }
-
-                                            // var_dump($data);
-                                            // echo "<table border='1'>\n";
-                                            // while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                                            //     echo "<tr>\n";
-                                            //     foreach ($row as $item) {
-                                            //         echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
-                                            //     }
-                                            //     echo "</tr>\n";
-                                            // }
-                                            // echo "</table>\n";
-
-                                            //                                             // var_dump($data);
                                             ?>
 
                                         </td>
@@ -277,9 +265,20 @@
 
                                     </tr>
                                     @endforeach
+                                    <div class="row">
+
+                                    </div>
                                     <div>
 
+
                                         <div class="form-group">
+                                            <div class="col-25">
+                                                <label for="childID">Give Child ID</label>
+                                            </div>
+                                            <div class="col-75">
+                                                <input type="number" id="name" name="child_id">
+                                            </div>
+                                            <hr>
                                             <?php
                                             // echo "<input name='fname' type='text' class='textfield' id='fname' value='$val' />";
                                             echo '<label>Appointment Start Time</label>' . ' : ' . "<input class='form-control' name='app_time' value='$app_time' readonly />" . '</br>';

@@ -23,7 +23,7 @@ CREATE OR REPLACE TRIGGER results_result_ID
             end if;
             end;
 
-ALTER TRIGGER tests_test_code ENABLE;
+ALTER TRIGGER results_result_ID ENABLE;
 
 CREATE OR REPLACE TRIGGER courses_course_code 
             before insert on courses
@@ -33,48 +33,47 @@ CREATE OR REPLACE TRIGGER courses_course_code
             code varchar2(255);
             duration number(3,0);
             c_pre varchar2(255);
+            c_pre_level varchar2(255);
+            content varchar2(255);
             level varchar2(255);
             duration_low exception;
-            pre_requ_cannot_be_null exception;
+            wrong_pre_requ exception;
             easy_pre_requ_should_be_null exception;
+            no_course_content exception;
             begin
             name:= :new.course_name;
             duration:=:new.course_duration;
             c_pre:=:new.pre_requisite;
             level:=:new.course_level;
+            content:=:new.course_content;
             begin
-            if duration<13 then
-               raise duration_low;
+            if level!='easy' then
+            pre_course_level(c_pre,c_pre_level);
             end if;
-            if  level='medium' and c_pre is NULL then
-               raise pre_requ_cannot_be_null;
+            if duration<13  or duration is null then
+                RAISE_APPLICATION_ERROR(-20001,'course duration low');
             end if;
-            if  level='hard' and c_pre is NULL then
-               raise pre_requ_cannot_be_null;
+            if content is null then
+                RAISE_APPLICATION_ERROR(-20001,'no course content given');
+            end if;
+            if  level='medium' and c_pre_level!='easy' then
+               RAISE_APPLICATION_ERROR(-20001,'wrong prerequisite');
+            end if;
+            if  level='hard' and c_pre_level!='medium' then
+               RAISE_APPLICATION_ERROR(-20001,'wrong prerequisite');
             end if;
             if  level='easy' and c_pre is NOT NULL then
-               raise easy_pre_requ_should_be_null;
+              RAISE_APPLICATION_ERROR(-20001,'easy prerequisite should be null');
             end if;
             create_course_code(name,code);         
-            DBMS_OUTPUT.PUT_LINE(name);
             if :new.course_code is null then
                 select code 
                 into :new.course_code 
                 from dual;
             end if;
-            exception 
-                when duration_low then
-                           -- goto exitline;
-                     DBMS_OUTPUT.PUT_LINE('duration low');
-                when pre_requ_cannot_be_null then
-                               -- goto exitline;
-                         DBMS_OUTPUT.PUT_LINE('pre_requ_cannot_be_null');
-               when easy_pre_requ_should_be_null then
-                        DBMS_OUTPUT.PUT_LINE('easy_pre_requ_should_be_null');
-            end;
+           end;
 end;
 ALTER TRIGGER courses_course_code ENABLE;
-
 
 
 
@@ -107,7 +106,17 @@ end;
 
 
 
-
+ CREATE OR REPLACE TRIGGER "ABC"."POSTS_ID_TRG" 
+            before insert on POSTS
+            for each row
+                begin
+            if :new.ID is null then
+                select posts_id_seq.nextval into :new.ID from dual;
+            end if;
+             if :new.SLUG is null then
+                select :new.ID into :new.SLUG from dual;
+            end if;
+            end;
 
 
 

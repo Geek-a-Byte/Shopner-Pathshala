@@ -83,6 +83,11 @@
             margin-bottom: 20px;
         }
 
+        .quesLink {
+            margin: 10px;
+            padding-left: 10px;
+        }
+
         /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
         @media screen and (max-width: 600px) {
 
@@ -206,9 +211,9 @@
                                 $pass_fail = $data1[0]["SCORE"];
                                 if ($pass_fail >= 10)
                                     echo " Passed\n";
-                                if ($pass_fail == "")
+                                elseif ($pass_fail == "")
                                     echo " Appeared But Marks Not Updated\n";
-                                else
+                                elseif ($pass_fail < 10)
                                     echo " Failed\n";
                             }
                             ?>
@@ -243,7 +248,9 @@
     @foreach ($testdata as $d)
     <tr>
         @foreach ($d as $k => $v)
-        <input class="form-control" type="text" value={{$v}} readonly />
+        <div class="quesLink">
+            <a href="{{$v}}" target="_blank" />Question Paper Link</a>
+        </div>
         @endforeach
     </tr>
     @endforeach

@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CreateCourseTest;
+
+use App\Http\Controllers\Controller;
 
 use DB;
 use Auth;
@@ -43,7 +45,7 @@ class TestController extends Controller
         return redirect()->back()->with('message', 'Test Created Successfully');
     }
 
-    
+
     // public function search()
     // {
     //     $courses = DB::table('courses')->where()->pluck("course_code");
@@ -79,4 +81,3 @@ class TestController extends Controller
     //     return view('testform', compact('data'));
     // }
 }
-

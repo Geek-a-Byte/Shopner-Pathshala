@@ -51,12 +51,12 @@
         input[type=submit] {
             background-color: #04AA6D;
             color: white;
-            padding: 12px 20px;
+            padding: 12px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             float: left;
-
+            margin-left: 2px;
         }
 
         input[type=submit]:hover {
@@ -93,6 +93,10 @@
             margin-bottom: 20px;
         }
 
+        .flex {
+            display: flex;
+        }
+
         /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
         @media screen and (max-width: 600px) {
 
@@ -122,38 +126,31 @@
         <form method="post" action="{{ route('teacher.test.code.search') }}">
             @csrf
 
-            <div class="row">
+            <div class="row flex">
                 <div class="col-25">
                     <label for="test_code">Give Test ID</label>
                 </div>
                 <div class="col-75">
                     <input type="text" id="name" name="test_code">
                 </div>
-                <div class="form-group">
-                    <input type='submit' value='Submit'>
+
+                <div class="col-25">
+                    <input type='submit' value='Search'>
                 </div>
             </div>
         </form>
+
+        @isset($test_code)
+
+        <div class="row">
+            <div class="col-25">
+                <label for="Category">Give Score</label>
+            </div>
+            <div class="col-75">
+
+            </div>
+        </div>
         <form method="post" action="{{ route('teacher.appoint.score.store') }}">
-            @csrf
-            @isset($test_code)
-            <div class="row">
-                <div class="col-25">
-                    <label for="Category">Test Code</label>
-                </div>
-                <div class="col-75">
-                    <input class='form-control' name='test_code' value={{$test_code}} readonly />
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-25">
-                    <label for="Category">Give Score</label>
-                </div>
-                <div class="col-75">
-
-                </div>
-            </div>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">
                     <tr>
@@ -162,32 +159,44 @@
                         <th>Course Code</th>
                         <th>Course Name</th>
                         <th>Score</th>
-                        <th>Action</th>
+                        <th>Update Score</th>
+
                     </tr>
                     @isset($data)
-
                     @foreach ($data as $row)
                     <tr>
+                        @csrf
                         @foreach ($row as $k=>$v)
-                        @if($k=='CHILD_ID')
+                        @if($k=='TEST_CODE')
+                        <td>
+                            <input class='form-control' name='test_code[]' value={{$test_code}} readonly />
+                        </td>
+                        @elseif($k=='SCORE')
+                        @if($v=='')
+                        <td>not updated</td>
+                        @else
+                        <td>{{$v}}</td>
+                        @endif
+                        @elseif($k=='CHILD_ID')
                         <?php $child_id = $v; ?>
                         <div class="form-group flex">
-                            <td><input class='form-control' name='child_id' value={{$child_id}} readonly /></td>
+                            <td><input class='form-control' name='child_id[]' value={{$child_id}} readonly /></td>
                         </div>
                         @else
                         <td>{{$v}}</td>
                         @endif
                         @endforeach
-                        <td><input class="form-control" type="number" name='score'></td>
-
-                        <td><input type='submit' value='Submit'></td>
+                        <td><input class="form-control" type="number" name='score[]'></td>
                     </tr>
                     @endforeach
                     @endisset
                 </table>
+                <input type='submit' value='Update'>
+
             </div>
-            @endisset
         </form>
+        @endisset
+
     </div>
 
 </body>

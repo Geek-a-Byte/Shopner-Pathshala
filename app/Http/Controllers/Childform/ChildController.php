@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Childform;
+
+use App\Http\Controllers\Controller;
 
 
 
@@ -66,6 +68,6 @@ class ChildController extends Controller
         $child->save();
 
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'child profile created successfully.');
     }
 }

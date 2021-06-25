@@ -32,16 +32,16 @@
         }
 
         body {
-            background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+            background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
         }
 
         .image-body {
-            background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+
             width: 100%;
-            /* border-radius: 15px; */
+            /* border-radius: 15px;
             /* border: 2px solid transparent; */
-            justify-content: center;
-            align-items: center;
+
+            display: flex;
         }
 
         .register-options {
@@ -105,20 +105,57 @@
                 flex-direction: column;
             }
         }
+
+        #myCarousel {
+            height: 550px;
+
+        }
+
+        .carousel-inner img {
+            width: 50%;
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 
 </head>
 
 
 <body class="antialiased">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
 
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
 
-    <div class="image-body">
-        <center>
-            <img src="{{URL::asset('/image/logo.png')}}" alt="logo" height="200" width="400">
-        </center>
+            <div class="item active">
+                <img src="{{URL::asset('/image/logo.png')}}" alt="Los Angeles" style="width:auto; height:550px;   justify-content: center; align-items: center;">
+            </div>
+
+            <div class="item">
+                <img src="{{URL::asset('/image/autism.jpeg')}}" alt="Chicago" style="width:auto;height:550px;   justify-content: center; align-items: center;">
+            </div>
+
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-    <div class="center">
+
+    <!-- <div class="center">
         <div class="register-options">
             <div class="doctor">
                 <center style="padding:5px;">Meet Our Doctors</center>
@@ -137,7 +174,7 @@
                     <center>
                         <div class="user-image">
                             <img src="{{URL::asset('/image/teacher.png')}}" alt="logo" height="130" width="130">
-                            <!-- <center style="padding:5px;">Teacher Register</center> -->
+
                         </div>
                     </center>
                 </div>
@@ -149,7 +186,7 @@
                     <center>
                         <div class="user-image">
                             <img src="{{URL::asset('/image/mother-and-kid.png')}}" alt="logo" height="130" width="130">
-                            <!-- <center style="padding:5px;">Teacher Register</center> -->
+
                         </div>
                     </center>
                 </div>
@@ -161,14 +198,14 @@
                     <center>
                         <div class="user-image">
                             <img src="{{URL::asset('/image/nurse.png')}}" alt="logo" height="130" width="130">
-                            <!-- <center style="padding:5px;">Teacher Register</center> -->
+
                         </div>
                     </center>
                 </div>
 
             </div>
         </div>
-    </div>
+    </div> -->
 
 </body>
 

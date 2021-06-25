@@ -33,7 +33,7 @@
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <?php
-        
+
         $user = DB::table('guardians')->where('user_id', Auth::user()->id)->first();
         // var_dump(json_encode($user));
         // echo $user->doctor_id;
@@ -95,7 +95,7 @@
                   <td>{{ $user->acct_holder_address }}</td>
                   </th>
                 </tr>
-               
+
               </tbody>
             </table>
             <input type="submit" class="pull-right btn btn-sm btn-primary">

@@ -119,7 +119,7 @@
                                 <div class="col-md-6">
                                     <div class="select-area">
                                         <select id="role" name="role" x-model="role" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-                                            <option value="nul">--select--</option>
+                                            <option value=''>--select--</option>
                                             <option value="Nurse">Nurse</option>
                                             <option value="Doctor">Doctor</option>
                                             <option value="Guardian">Guardian</option>

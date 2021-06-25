@@ -111,9 +111,9 @@
 <body>
     <div class="container">
         <div>
-            @if(session()->has('message'))
-            <div class="alert alert-warning">
-                {{ session()->get('message') }}
+            @if(session()->has('success'))
+            <div class="alert alert-success">
+                {{ session()->get('success') }}
             </div>
             @endif
         </div>
@@ -128,10 +128,11 @@
         <?php
         $doctor = DB::table('doctors')->where('user_id', Auth::user()->id)->first();
         $appoint_info = DB::table('doctor_guardian')
-            ->join('childs', 'childs.acct_holder_id', '=', 'doctor_guardian.acct_holder_id')
-            ->select('doctor_guardian.appointment_id', 'doctor_guardian.acct_holder_id', 'childs.child_id', 'doctor_guardian.appointment_time', 'doctor_guardian.appointment_end_time')
+            ->join('childs', 'childs.child_id', '=', 'doctor_guardian.child_id')
+            ->select('doctor_guardian.appointment_id', 'doctor_guardian.acct_holder_id', 'doctor_guardian.child_id', 'doctor_guardian.appointment_time', 'doctor_guardian.appointment_end_time', 'childs.autism_type', 'doctor_guardian.prescription')
             ->where('doctor_id', $doctor->doctor_id)
-            ->whereNull('autism_type')
+            // ->whereNULL('prescription')
+            // ->orWhereNULL('autism_type')
             ->get();
 
         ?>
@@ -141,27 +142,57 @@
                     <th>Appointment ID</th>
                     <th>Guardian ID</th>
                     <th>Child ID</th>
-                    <th>Autism Type</th>
-                    <th>Action</th>
                     <th>Start Time</th>
                     <th>End Time</th>
-
+                    <th>Autism Type</th>
+                    <th>Prescription</th>
+                    <th>Action</th>
                 </tr>
                 @foreach ($appoint_info as $row)
                 <tr>
                     <form method="POST" action="{{route('autism.type')}}">
                         @csrf
                         @foreach ($row as $k=>$v)
-                        @if($k=='child_id')
+                        @if($k=='appointment_id')
+                        <?php $app_id = $v; ?>
+                        <td style="width:5%;"><input class='form-control' name='appointment_id' value={{$v}} readonly></td>
+                        @elseif($k=='child_id')
                         <?php $child_id = $v; ?>
+                        <td style="width:5%;"><input class='form-control' name='child_id' value={{$child_id}} readonly></td>
+                        @elseif($k=='autism_type')
+                        <?php
+                        $autism_type_define_or_not
+                            = DB::table('childs')
+                            ->select('autism_type')
+                            ->where('child_id', $child_id)
+                            ->first();
 
-
+                        ?>
                         <div class="form-group flex">
-                            <td><input class='form-control' name='child_id' value={{$child_id}} readonly></td>
+                            @if($autism_type_define_or_not->autism_type!='')
+                            <td style="width:25%;">Already Defined as {{$autism_type_define_or_not->autism_type}}</td>
+                            @elseif($autism_type_define_or_not->autism_type=='')
+                            <td style="width:25%;"><input class=" form-control" type="text" name='autism_type'></input></td>
+                            @endif
                         </div>
-                        <td><input class="form-control" type="text" name='autism_type'></td>
-                        <td><input type='submit' value='Submit'></td>
+                        @elseif($k=='prescription')
+                        <?php
+                        $pres
+                            = DB::table('doctor_guardian')
+                            ->select('prescription')
+                            ->where('child_id', $child_id)
+                            ->where('appointment_id', $app_id)
+                            ->first();
 
+                        ?>
+                        <div class="form-group flex">
+                            @if($pres->prescription!='')
+                            <td style="width:25%;"><a href="{{$pres->prescription}}" target="_blank">prescription already given</a></td>
+                            @elseif($pres->prescription=='')
+                            <td style="width:25%;"><input class=" form-control" type="text" name='prescription'></input></td>
+                            @endif
+                        </div>
+                        <td><input type='submit' value='Submit'></td>
                         @else
                         <td>{{$v}}</td>
                         @endif
@@ -169,19 +200,11 @@
                     </form>
                 </tr>
                 @endforeach
-
             </table>
         </div>
-
-
-
     </div>
-
     <div>
-
     </div>
-
-
 </body>
 
 

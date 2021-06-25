@@ -12,13 +12,9 @@
                 </thead>
                 <tbody>
                     <?php
-
-
-
                     $posts = DB::table('posts')->get();
                     // var_dump($posts);
                     ?>
-
                     @foreach($posts as $post)
                     <tr>
                         <td>{{ $post->id }}</td>

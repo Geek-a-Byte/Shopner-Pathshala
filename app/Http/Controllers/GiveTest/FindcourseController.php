@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\GiveTest;
+
+use App\Http\Controllers\Controller;
 
 use DB;
 use Auth;

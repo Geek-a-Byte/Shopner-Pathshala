@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Image;
 use DB;
+use DateTime;
 
 class UserController extends Controller
 {
@@ -25,7 +26,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $filename = "default.jpg";
-        var_dump($request->work_hour_from);
+
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
@@ -33,42 +34,35 @@ class UserController extends Controller
             $user->avatar = $filename;
             $user->save();
         }
+        $work_time_from = $request->work_hour_from;
+        $work_time_to = $request->work_hour_to;
 
-        $updateDoctorDetails = [
+        if ($work_time_from != '' and $work_time_to != '') {
+            $now = new DateTime();
+            $now = $now->format('d-M-y H:i');
 
-            'working_hour_from' => $request->work_hour_from,
-            'working_hour_to' => $request->work_hour_to,
-            'profile_photo' => $filename
-        ];
-
-        $updateGuardianDetails = [
-            'profile_photo' => $filename
-        ];
-
-        if (Auth::user()->role == "Doctor") {
-            DB::table('doctors')
-                ->where('user_id', $user->id)
-                ->update($updateDoctorDetails);
-        } else if (Auth::user()->role == "Guardian") {
-            DB::table('guardians')
-                ->where('user_id', $user->id)
-                ->update($updateGuardianDetails);
+            if (strtotime($work_time_from) < strtotime($now)) {
+                return redirect()->back()->with('success', 'Working Hour From DateTime is in the past');
+            }
+            if (strtotime($work_time_to) < strtotime($now)) {
+                return redirect()->back()->with('success', 'Working Hour To DateTime is in the past');
+            }
+            if (strtotime($work_time_to) < strtotime($work_time_from)) {
+                return redirect()->back()->with('success', 'Working Hour To DateTime is smaller than Working Hour From');
+            }
+            $updateDoctorDetails = [
+                'working_hour_from' => $request->work_hour_from,
+                'working_hour_to' => $request->work_hour_to,
+                'profile_photo' => $filename
+            ];
+            if (Auth::user()->role == "Doctor") {
+                DB::table('doctors')
+                    ->where('user_id', $user->id)
+                    ->update($updateDoctorDetails);
+            }
+            return back()->with('success', 'Profile updated.');
+        } else {
+            return redirect()->back()->with('success', 'INFO missing of working hour time interval');
         }
-
-        // if (Auth::user()->role == "Doctor") {
-
-        //     DB::table('doctors')->where('doctor_email_id', $email)->updateMany([, 'working_hour_from' => $request->work_hour_from, 'working_hour_to' => $request->work_hour_to]);
-        // } else if (Auth::user()->role == "Nurse") {
-
-        //     DB::table('nurses')->where('nurse_email_id', $email)->update(['profile_photo' => $filename]);
-        // } else if (Auth::user()->role == "Teacher") {
-
-        //     DB::table('teachers')->where('teacher_email_id', $email)->update(['profile_photo' => $filename]);
-        // } else if (Auth::user()->role == "Guardian") {
-
-        //     DB::table('guardians')->where('acct_holder_email', $email)->update(['profile_photo' => $filename]);
-        // }
-
-        return back()->with('success', 'Profile updated.');
     }
 }

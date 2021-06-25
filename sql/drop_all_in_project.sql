@@ -1,5 +1,4 @@
 drop table courses;
-drop table child_course;
 drop table tests;
 drop table results;
 drop trigger courses_course_code;

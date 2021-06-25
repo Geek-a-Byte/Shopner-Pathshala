@@ -64,7 +64,8 @@
                 </div>
                 <div class="collapse navbar-collapse navbar-right" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="{{ route('home') }}">Home</a></li>
+                        <li class="active"><a href="{{ route('welcome') }}">Home</a></li>
+                        <li><a href="{{ route('home') }}">Online Forum</a></li>
                         <li><a href="{{ route('register') }}">Register</a></li>
                         <li><a href="{{ route('login') }}">Login</a></li>
                     </ul>

@@ -58,6 +58,10 @@
             padding: 10px;
             margin: 10px;
         }
+
+        .navbar-brand {
+            margin-top: -40px;
+        }
     </style>
 </head>
 
@@ -71,13 +75,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <!-- <a class="navbar-brand" href="#">
-            <img src="{{URL::asset('/image/whitelogo.png')}}" width="200" height="100" class="d-inline-block align-top" alt="">
-          </a> -->
+                    <a class="navbar-brand" href="#">
+                        <img src="{{URL::asset('/image/whitelogo.png')}}" width="200" height="100" class="d-inline-block align-top" alt="">
+                    </a>
                 </div>
                 <div class="collapse navbar-collapse navbar-right" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="{{ route('welcome') }}">Home</a></li>
+                        <li class="active"><a href="{{ route('home') }}">Home</a></li>
                         <li class="dropdown">
                             <!-- <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 Hi There <span class="caret"></span>
@@ -87,12 +91,12 @@
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li> <a class="dropdown-item" href="{{ route('doctor.image.show') }}">
+                                <li><a class="dropdown-item" href="{{ route('doctor.image.show') }}">
                                         {{ __('Profile') }}
                                     </a></li>
-                                @if(Auth::user()->role=="Guardian")
-                                <li> <a class="dropdown-item" href="{{ route('childform') }}">
-                                        {{ __('Register Child') }}
+                                @if(Auth::user()->role=="Doctor")
+                                <li><a class="dropdown-item" href="{{ route('doctor.view.appointment') }}">
+                                        {{ __('Autism Type Define') }}
                                     </a></li>
                                 @endif
                                 <li> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -107,10 +111,6 @@
                 </div>
                 </li>
                 </ul>
-                <!-- <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                </ul> -->
             </div>
 
     </div>

@@ -92,8 +92,10 @@
             text-align: center;
             margin-bottom: 20px;
         }
+
         /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
         @media screen and (max-width: 600px) {
+
             .col-25,
             .col-75,
             input[type=submit] {
@@ -103,14 +105,16 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <div>
+        <div class="card">
             @if(session()->has('message'))
             <div class="alert alert-warning">
                 {{ session()->get('message') }}
             </div>
             @endif
+
         </div>
 
         <form method="post" action="{{ route('teacher.search.result') }}">
@@ -150,6 +154,14 @@
 
                         </div>
                         @if($new_student=="no")
+                        <div class="card">
+
+                            <div class="alert alert-success">
+                                previous student so all appropriate courses should be appointed
+                            </div>
+
+
+                        </div>
                         <tr>
                             <th>Child ID</th>
                             <th>Standard Course Code</th>
@@ -182,6 +194,11 @@
                         </tr>
                         @endforeach
                         @else
+                        <div class="card">
+                            <div class="alert alert-success">
+                                new student so all easy courses should be appointed
+                            </div>
+                        </div>
                         <tr>
                             <th>Action</th>
                             <th>Course Code</th>

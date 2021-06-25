@@ -20,8 +20,9 @@ begin
 end;
 
 
-
-create or replace procedure  get_prereq_level(c_pre in varchar2,c_pre_lev out varchar2) as
-begin
- 
-end;
+set serveroutput on;
+CREATE OR Replace PROCEDURE pre_course_level(code IN varchar2, c_level OUT varchar2) 
+AS
+BEGIN 
+select course_level into c_level from courses where course_code=code;
+END;

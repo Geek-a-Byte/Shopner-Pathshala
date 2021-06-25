@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,29 +14,39 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\AppointmentController;
-use App\Http\Controllers\CourseController;
-use App\Http\Controllers\CourseAppointController;
-use App\Http\Controllers\TestController;
+
+use App\Http\Controllers\PostComment\PostController;
+use App\Http\Controllers\PostComment\CommentController;
+
+use App\Http\Controllers\Appointment\AppointmentController;
+use App\Http\Controllers\Appointment\AppBookController;
+
+
+use App\Http\Controllers\CreateCourseTest\CourseController;
+use App\Http\Controllers\CreateCourseTest\TestController;
+
+use App\Http\Controllers\CourseAppoint\CourseAppointController;
+use App\Http\Controllers\CourseAppoint\searchResult;
+
+use App\Http\Controllers\Childform\ChildController;
+
+
 use App\Http\Controllers\MarkController;
-use App\Http\Controllers\AppBookController;
-use App\Http\Controllers\ChildController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\FindcourseController;
-use App\Http\Controllers\GivetestController;
-use App\Http\Controllers\viewAppointmentController;
-use App\Http\Controllers\giveTestScoreController;
-use App\Http\Controllers\AppointScoreController;
 
 
+use App\Http\Controllers\GiveTest\FindcourseController;
+use App\Http\Controllers\GiveTest\GivetestController;
 
-use App\Http\Controllers\searchResult;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\ResultController;
-use App\Http\Controllers\viewCourseController;
+
+use App\Http\Controllers\AutismTypeDefine\viewAppointmentController;
+
+
+use App\Http\Controllers\ScoreUpdate\giveTestScoreController;
+use App\Http\Controllers\ScoreUpdate\AppointScoreController;
+
+use App\Http\Controllers\ResultGraph\ResultController;
+
+use App\Http\Controllers\ViewCourses\viewCourseController;
 
 Route::view('/', 'welcome')->name('welcome');
 

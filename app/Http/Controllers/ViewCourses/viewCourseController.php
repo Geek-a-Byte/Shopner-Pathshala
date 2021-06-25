@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
 
-use DB;
-use Auth;
-use Illuminate\Http\Request;
-use App\Models\Child;
+namespace App\Http\Controllers\ViewCourses;
+
+use App\Http\Controllers\Controller;
 
 
 class ViewCourseController extends Controller

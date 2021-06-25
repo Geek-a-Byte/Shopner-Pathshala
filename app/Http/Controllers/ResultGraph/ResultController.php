@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ResultGraph;
+
+use App\Http\Controllers\Controller;
 
 use Auth;
 use DB;

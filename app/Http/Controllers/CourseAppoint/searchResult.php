@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CourseAppoint;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 
@@ -75,7 +76,7 @@ class searchResult extends Controller
                 // echo "yes";
                 return view('appointCourse', compact('new_student', 'c_code', 'data'));
             } else {
-                return back()->with('message', 'No Appropriate Courses Found');
+                return back()->with('success', 'No Appropriate Courses Found');
             }
 
             // var_dump($data);

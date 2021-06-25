@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CourseAppoint;
 
+use App\Http\Controllers\Controller;
 use Auth;
 use DB;
 use Illuminate\Support\Facades\Validator;
@@ -32,17 +33,20 @@ class CourseAppointController extends Controller
         echo $request->child_id;
         include public_path('includes/connection.php');
         $checkbox1 = $request->selectCourse;
+        $child_id = $request->child_id;
         // $user = DB::table('teachers')->where('user_id', Auth::user()->id)->first();
-
-        for ($i = 0; $i < count($checkbox1); $i++) {
-            $check_id = $checkbox1[$i];
-            $sql = 'BEGIN insert into child_takes_course (child_id,course_code) values(:child_id,:code); END;';
-            $stmt = oci_parse($conn, $sql);
-            oci_bind_by_name($stmt, ':child_id', $child_id, 255);
-            oci_bind_by_name($stmt, ':code', $check_id, 255);
-            $child_id = $request->child_id;
-            oci_execute($stmt);
+        if ($checkbox1 != '' and $child_id != '') {
+            for ($i = 0; $i < count($checkbox1); $i++) {
+                $check_id = $checkbox1[$i];
+                $sql = 'BEGIN insert into child_takes_course (child_id,course_code) values(:child_id,:code); END;';
+                $stmt = oci_parse($conn, $sql);
+                oci_bind_by_name($stmt, ':child_id', $child_id, 255);
+                oci_bind_by_name($stmt, ':code', $check_id, 255);
+                oci_execute($stmt);
+            }
+            return redirect()->back()->with('message', 'Course Appointed Successfully');
+        } else {
+            return redirect()->back()->with('message', 'No Course Selected');
         }
-        return redirect()->back()->with('message', 'Course Appointed Successfully');
     }
 }

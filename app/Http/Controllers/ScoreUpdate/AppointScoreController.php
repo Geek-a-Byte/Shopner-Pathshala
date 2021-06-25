@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ScoreUpdate;
 
-use DB;
-use Auth;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class AppointScoreController extends Controller
@@ -22,13 +20,13 @@ class AppointScoreController extends Controller
     {
 
         $test_code = $request->test_code;
-        // $user = DB::table('teachers')->where('user_id', Auth::user()->id)->first();
+
         include public_path('includes/connection.php');
-        $sql = "SELECT test_code,child_id,course_code,course_name
+        $sql = "SELECT test_code,child_id,course_code,course_name,score
         from results
         inner join tests using (test_code)
         inner join courses using (course_code)
-         where test_code=:test_code and score is null ";
+         where test_code=:test_code";
         $stid = oci_parse($conn, $sql);
         oci_bind_by_name($stid, ':test_code', $test_code);
         oci_execute($stid);
@@ -41,8 +39,7 @@ class AppointScoreController extends Controller
         if (count($data) == 0) {
             return back()->with('message', 'no test found...!');
         } else {
-            return view('giveTestScore', compact('test_code', 'data')); ///blader nam return kortese
-
+            return view('giveTestScore', compact('test_code', 'data'));
         }
     }
 }

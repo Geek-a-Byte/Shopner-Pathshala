@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\PostComment;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Validator;
 use App\Models\Post;
@@ -47,14 +49,14 @@ class PostController extends Controller
         $post = new Post;
         $post->user()->associate($request->user());
         $post->title = $request->title;
-        $post->slug = \Str::slug($request->title);
+        // $post->slug = \Str::slug(strval($request->post_id));
         $post->body = $request->body;
         $user = DB::table('guardians')->where('user_id', Auth::user()->id)->first();
         $post_guardian = Guardian::find($user->acct_holder_id);
         $post_guardian->posts()->save($post);
         $post->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'post created successfully!');
     }
 
     public function show(Post $post)

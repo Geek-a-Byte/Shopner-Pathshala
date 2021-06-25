@@ -145,43 +145,54 @@
 
   @isset($data)
   <?php
-  // $result[] = array();
-  include public_path('includes/connection.php');
-  $sql = "SELECT course_name,score from courses C
+  $c_id = $data;
+  function sql_execute($inputcat, $c_id)
+  {
+
+    include public_path('includes/connection.php');
+    $sql = "SELECT * FROM(SELECT course_name,score from courses C
           inner join child_takes_course CI USING(course_code)
           inner join tests T USING(course_code)
           inner join results R USING(test_code)
-          where CI.child_id=:child_id and R.child_id=:child_id order BY C.course_name";
-  $stid = oci_parse($conn, $sql);
-  oci_bind_by_name($stid, ":child_id", $data);
-  oci_execute($stid);
-  $data = array();
-  $i = 0;
-  while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-    $data[] = $row;
-  }
-  if (count($data) == 0) {
-    echo '<h5 style="padding-left:15px;">' . "no result found" . '</h5>';
-  } else {
-    // var_dump($data);
-    $key = 0;
-    $result[] = ['course_name', 'score'];
-    foreach ($data as $row) {
-      $pair_arr = array();
-      $parr_idx = 0;
-      foreach ($row as $k => $v) {
-        // echo $k . $v;
-        if ($k == "SCORE")
-          array_push($pair_arr, (int)$v);
-        else
-          array_push($pair_arr, $v);
-        // $pair_arr[++$parr_idx] = [$k, $v];
-      }
-      $result[++$key] = $pair_arr;
+          where CI.child_id=:child_id and R.child_id=:child_id and course_name=:category order BY R.result_id desc)   WHERE ROWNUM<=3";
+
+    $stid = oci_parse($conn, $sql);
+    oci_bind_by_name($stid, ":child_id", $c_id);
+    oci_bind_by_name($stid, ":category", $inputcat);
+    oci_execute($stid);
+    $data = array();
+    while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+      $data[] = $row;
     }
-    // var_dump($result);
+
+    $key = 0;
+    $pair_arr = array();
+    foreach ($data as $row) {
+      foreach ($row as $k => $v) {
+        if ($k == "SCORE")
+          $pair_arr[++$key] = (int)$v;
+      }
+    }
+    return $pair_arr;
   }
+
+
+  $write_pair_arr = sql_execute('Writing', $c_id);
+  $read_pair_arr = sql_execute('Reading', $c_id);
+  $rec_pair_arr = sql_execute('Recognization', $c_id);
+  $math_pair_arr = sql_execute('Math', $c_id);
+  $mem_pair_arr = sql_execute('Memory', $c_id);
+
+  function takes_array($input, $idx)
+  {
+    if (count($input) > 0 and isset($input[$idx]) ? $input[$idx] : null) {
+      echo json_encode($input[$idx]);
+    } else echo "0";
+  }
+
+
   ?>
+
 
   <script type="text/javascript">
     google.charts.load("current", {
@@ -189,15 +200,37 @@
     });
     google.charts.setOnLoadCallback(drawChart);
 
+
+
     function drawChart() {
-      var result = <?php if (isset($result) != 0) {
-                      echo json_encode($result);
-                    } ?>;
-      console.log(result);
-      var data = google.visualization.arrayToDataTable(result);
-      console.log(data);
+      var w_s_1 = <?php takes_array($write_pair_arr, 1) ?>;
+      var w_s_2 = <?php takes_array($write_pair_arr, 2) ?>;
+      var w_s_3 = <?php takes_array($write_pair_arr, 3) ?>;
+      var r_s_1 = <?php takes_array($read_pair_arr, 1) ?>;
+      var r_s_2 = <?php takes_array($read_pair_arr, 2) ?>;
+      var r_s_3 = <?php takes_array($read_pair_arr, 3) ?>;
+      var re_s_1 = <?php takes_array($rec_pair_arr, 1) ?>;
+      var re_s_2 = <?php takes_array($rec_pair_arr, 2) ?>;
+      var re_s_3 = <?php takes_array($rec_pair_arr, 3) ?>;
+      var ma_s_1 = <?php takes_array($math_pair_arr, 1) ?>;
+      var ma_s_2 = <?php takes_array($math_pair_arr, 2) ?>;
+      var ma_s_3 = <?php takes_array($math_pair_arr, 3) ?>;
+      var me_s_1 = <?php takes_array($mem_pair_arr, 1) ?>;
+      var me_s_2 = <?php takes_array($mem_pair_arr, 2) ?>;
+      var me_s_3 = <?php takes_array($mem_pair_arr, 3) ?>;
+      var data = google.visualization.arrayToDataTable([
+        ['Course_Name', 'Last', 'SecondLast', 'ThirdLast'],
+        ['Writing', w_s_1, w_s_2, w_s_3],
+        ['Reading', r_s_1, r_s_2, r_s_3],
+        ['Recognization', re_s_1, re_s_2, re_s_3],
+        ['Memory', me_s_1, me_s_2, me_s_3],
+        ['Math', ma_s_1, ma_s_2, ma_s_3]
+      ]);
+      // console.log(result);
+      // var data = google.visualization.arrayToDataTable(data);
+      // console.log(data);
       var line_options = {
-        title: 'Line Graph | Scores',
+        title: 'Line Graph | Last 3 Test Scores',
         subtitle: 'Score, and Test:',
         curveType: 'function',
         legend: {
@@ -216,7 +249,7 @@
       };
       var bar_options = {
         chart: {
-          title: 'Bar Graph | Scores',
+          title: 'Bar Graph | Last 3 Test Scores',
           subtitle: 'Score, and Test:',
         },
         bars: 'vertical'
@@ -234,6 +267,7 @@
   <div class="space flex">
     <div id="curve_chart" style="width: 900px; height: 500px"></div>
     <div id="barchart_material" style="width: 900px; height: 500px"></div>
+    <!-- <div id="piechart_3d" style="width: 900px; height: 500px"></div> -->
   </div>
   <div class="space">
     <?php

@@ -33,7 +33,7 @@
         input[type=text],
         input[type=number],
         input[type=email],
-        input[type=phone],
+        input[type=tel],
         select,
         textarea {
             width: 100%;
@@ -107,6 +107,14 @@
 
 <body>
     <div class="container">
+        <div class="card">
+            @if(session()->has('success'))
+            <div class="alert alert-success">
+                {{ session()->get('success') }}
+            </div>
+            @endif
+
+        </div>
         <div class="centerheader">
             <h2>Child Form</h2>
 
@@ -135,7 +143,7 @@
                     <label for="name">Father's Phone Number</label>
                 </div>
                 <div class="col-75">
-                    <input type="number" id="lname" name="father_phone" placeholder="">
+                    <input type="tel" id="lname" name="father_phone" placeholder="">
                 </div>
             </div>
             <div class="row">
@@ -159,7 +167,7 @@
                     <label for="phone">Mother's Phone Number</label>
                 </div>
                 <div class="col-75">
-                    <input type="number" id="lname" name="mother_phone" placeholder="">
+                    <input type="tel" id="lname" name="mother_phone" placeholder="">
                 </div>
             </div>
             <div class="row">
