@@ -1,12 +1,7 @@
 <img src="./logo.jpg" width="300px" height="150px">
 
-#### ER:
-<object data="./ER_MODEL.pdf" type="application/pdf" width="700px" height="700px">
-    <embed src="./ER_MODEL.pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="./ER_MODEL.pdf">Download PDF</a>.</p>
-    </embed>
-</object>
-
+#### [ER MODEL](https://github.com/Geek-a-Byte/DBMS-PROJECT---ONLINE-LEARNING-PLATFORM-FOR-SPECIAL-CHILDREN/blob/master/ER_model.pdf)
+#### [SCHEMA](https://github.com/Geek-a-Byte/DBMS-PROJECT---ONLINE-LEARNING-PLATFORM-FOR-SPECIAL-CHILDREN/blob/master/schema.pdf)
 #### Roles
 - [x] Doctor/therapist : for determining autism type and other counselling
 - [x] Teacher : for creating courses and test, assigning courses based on prerequisite test score of autistic child
