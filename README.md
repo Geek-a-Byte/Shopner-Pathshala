@@ -15,6 +15,7 @@
 - [x] trigger
 - [x] sequence
 - [x] cursor
+- [x] exception handling 
 
 #### Automated System
 - [x] Appointment system
