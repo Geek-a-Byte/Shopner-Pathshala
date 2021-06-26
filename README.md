@@ -2,6 +2,8 @@
 
 #### [ER MODEL](https://github.com/Geek-a-Byte/DBMS-PROJECT---ONLINE-LEARNING-PLATFORM-FOR-SPECIAL-CHILDREN/blob/master/ER_model.pdf)
 #### [SCHEMA](https://github.com/Geek-a-Byte/DBMS-PROJECT---ONLINE-LEARNING-PLATFORM-FOR-SPECIAL-CHILDREN/blob/master/schema.pdf)
+#### [VIDEO DEMO](https://www.youtube.com/watch?v=PF3RLvKE8sQ)
+
 #### Roles
 - [x] Doctor/therapist : for determining autism type and other counselling
 - [x] Teacher : for creating courses and test, assigning courses based on prerequisite test score of autistic child
