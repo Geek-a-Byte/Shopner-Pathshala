@@ -1,5 +1,11 @@
 <img src="./logo.jpg" width="300px" height="150px">
 
+#### ER:
+<object data="./ER_MODEL.pdf" type="application/pdf" width="700px" height="700px">
+    <embed src="./ER_MODEL.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="./ER_MODEL.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
 
 #### Roles
 - [x] Doctor/therapist : for determining autism type and other counselling
