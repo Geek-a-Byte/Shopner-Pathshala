@@ -33,6 +33,7 @@
 - [x] view appointments list and update autism and provide prescription
 - [x] set his working hours
 
+
 #### a guardian can
 - [x] register child
 - [x] view assigned courses to his child
@@ -40,4 +41,76 @@
 - [x] create post
 - [x] book an appointment in his preferrable time
  
+
+#### NECESSARY PART OF APP DIRECTORY
+```
++---app
+|   +---Console
+|   +---Exceptions
+|   +---Http
+|   |   +---Controllers
+|   |   |   +---Appointment
+|   |   |   +---Auth
+|   |   |   +---AutismTypeDefine
+|   |   |   +---Childform
+|   |   |   +---CourseAppoint
+|   |   |   +---CreateCourseTest
+|   |   |   +---GiveTest
+|   |   |   +---PostComment
+|   |   |   +---ResultGraph
+|   |   |   +---ScoreUpdate
+|   |   |   \---ViewCourses
+|   |   \---Middleware
+|   +---Models
+|   \---Providers
++---bootstrap
+|   \---cache
++---config
++---database
+|   +---factories
+|   +---migrations
+|   \---seeders
++---er and schema
++---helpful pdfs
++---node_modules
+.
+.
+.
+.
++---public
+|   +---css
+|   +---image
+|   +---images
+|   +---includes
+|   +---js
+|   +---uploads
+|   |   \---avatars
+|   \---vendor
++---resources
+|   +---css
+|   +---js
+|   +---lang
+|   |   +---bn
+|   |   \---en
+|   +---sass
+|   \---views
+|       +---auth
+|       |   +---doctor
+|       |   +---guardian
+|       |   +---nurse
+|       |   +---passwords
+|       |   \---teacher
+|       +---layouts
+|       \---post
++---routes
++---sql
+|   \---sazia sql
++---storage
+|   +---app
+|   |   +---images
+|   |   \---public
+
+
+```
+
 
