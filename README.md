@@ -17,6 +17,12 @@
 - [x] cursor
 - [x] exception handling 
 
+#### CONSTRAINTS
+- [x] primary key
+- [x] foreign key
+- [x] check
+- [x] unique
+
 #### Automated System
 - [x] Appointment system
 
