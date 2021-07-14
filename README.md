@@ -1,8 +1,18 @@
-<img src="./logo.jpg" width="300px" height="150px">
+## Project Objective
 
-#### [ER MODEL](https://github.com/Geek-a-Byte/DBMS-PROJECT---ONLINE-LEARNING-PLATFORM-FOR-SPECIAL-CHILDREN/blob/master/ER_model.pdf)
+In this pandemic, where the students of all levels are trying to adapt to the new normal of online classes and exams, there is no such facilities available for the children with special abilities, hence we thought of making an online platform that would be helpful for these children to continue their education online with the help of their parents as regular users of our website.It was our academic DBMS project of level-3,term-1 and I had [Sazia Tabasum Mim](https://github.com/Sazia-Mim) and [Fairooz Nawar Nawme](https://github.com/anonymous-033) as my project partners.
+
+**Click the image below to see our project video**
+
+[![Watch the video](./logo.jpg)](https://www.youtube.com/watch?v=PF3RLvKE8sQ)
+
+Our project contains overall 10 database tables, Here is the ER diagram of the project
+
+![Project ER](er.JPG)
+
+
 #### [SCHEMA](https://github.com/Geek-a-Byte/DBMS-PROJECT---ONLINE-LEARNING-PLATFORM-FOR-SPECIAL-CHILDREN/blob/master/schema.pdf)
-#### [VIDEO DEMO](https://www.youtube.com/watch?v=PF3RLvKE8sQ)
+
 
 #### Roles
 - [x] Doctor/therapist : for determining autism type and other counselling
