@@ -1,4 +1,6 @@
-## Project Objective
+## E-Learning-Platform-for-Special-Children
+
+### Project Objective
 
 In this pandemic, where the students of all levels are trying to adapt to the new normal of online classes and exams, there is no such facilities available for the children with special abilities, hence we thought of making an online platform that would be helpful for these children to continue their education online with the help of their parents as regular users of our website.It was our academic DBMS project of level-3,term-1 and I had [Sazia Tabasum Mim](https://github.com/Sazia-Mim) and [Fairooz Nawar Nawme](https://github.com/anonymous-033) as my project partners.
 
